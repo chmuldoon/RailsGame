@@ -37,13 +37,13 @@ export const login = user => dispatch =>
 export const logout = () => dispatch =>
   APIUtil.logout().then(() => dispatch(logoutCurrentUser()));
 
-  export const update = (user, highscore) => dispatch =>
-    APIUtil.updateHighScore(user, highscore).then(
-      () => dispatch(receiveCurrentUser(user)),
-      // err => dispatch(receiveErrors(err.response.data))
-    );
+  // export const update = (user, highscore) => dispatch =>
+  //   APIUtil.updateHighScore(user, highscore).then(
+  //     () => dispatch(receiveCurrentUser(user)),
+  //     // err => dispatch(receiveErrors(err.response.data))
+  //   );
 
-  export const fetchHighscores = () => dispatch =>
-    APIUtil.fetchHighscores().then(scores =>
-      dispatch(receiveAllScores(scores))
-    );
+  // export const fetchHighscores = () => dispatch =>
+  //   APIUtil.fetchHighscores().then(scores =>
+  //     dispatch(receiveAllScores(scores))
+  //   );

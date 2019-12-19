@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :session_token, null: false
       t.integer :wins, null: false, default: 0
       t.integer :losses, null: false, default: 0
-      t.integer :high_score, null: false, default: 0
+      # t.array :scores, null: false, default: []
 
       t.timestamps
     end
