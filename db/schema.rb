@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_16_232144) do
+ActiveRecord::Schema.define(version: 2019_12_19_010935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "scores", force: :cascade do |t|
+    t.integer "score", null: false
+    t.integer "player_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
@@ -21,7 +28,6 @@ ActiveRecord::Schema.define(version: 2019_12_16_232144) do
     t.string "session_token", null: false
     t.integer "wins", default: 0, null: false
     t.integer "losses", default: 0, null: false
-    t.integer "high_score", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
