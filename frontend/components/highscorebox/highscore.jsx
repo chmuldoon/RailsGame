@@ -9,7 +9,7 @@ export class HighScore extends Component {
     this.renderScores = this.renderScores.bind(this)
   }
   componentDidMount(){
-    this.fetchAllScores();
+    // this.fetchAllScores();
   }
   renderScores(){
     this.props.scores.map(score => {
