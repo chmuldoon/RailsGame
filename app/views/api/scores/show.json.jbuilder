@@ -1,1 +1,1 @@
-json.partial! "api/scores/score", sore: score
+json.partial! "api/scores/score", score: score

@@ -10,7 +10,7 @@ class Api::ScoresController < ApplicationController
   end 
 
   def index
-    @Scores = Score.all
+    @scores = Score.all.order("score DESC")
     render :index 
   end 
     def show
