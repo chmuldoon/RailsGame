@@ -5,9 +5,21 @@ import { fetchAllScores } from "../../actions/score_actions";
 
 const mapStateToProps = (state) => {
   // debugger
+  // let highscores = {}
+  let scores = Object.values(state.entities.scores).sort((a, b) =>
+      a.score > b.score ? -1 : b.score > a.score ? 1 : 0
+  );
+  // debugger
+  let currentId = state.session.id
+  // let playersBest = scores.filter(score => score.player_id === currentId)[0]
+  debugger
   return {
-    scores: Object.values(state.entities.scores)
-  }
+    scoresBest: scores.slice(0, 10),
+    scoresAll: scores,
+    currentId,
+
+    // userBest: scores.filter(score => score.player_id === currentId)[0].score
+  };
 
 
 }

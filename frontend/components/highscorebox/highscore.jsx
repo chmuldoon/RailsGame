@@ -5,23 +5,27 @@ import React, { Component } from 'react'
 export class HighScore extends Component {
   constructor(props){
     super(props)
-    debugger
+    // debugger
     this.renderScores = this.renderScores.bind(this)
   }
   componentDidMount(){
-    // this.fetchAllScores();
+    this.props.fetchAllScores()
   }
   renderScores(){
-    this.props.scores.map(score => {
+    let {scoresBest} = this.props
+    debugger
+    let count = 0
+    let scoresbox = scoresBest.map(score => {
       return(
       <div>
-        <p>{score.username}{score.score}</p>
+        <p>{count += 1}{score.username}{score.score}</p>
       </div>
       )
     })
+    return scoresbox
   }
   render() {
-    debugger
+    // debugger
     if (this.props.scores == []){
       return null
     }

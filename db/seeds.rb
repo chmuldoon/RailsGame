@@ -20,6 +20,9 @@ Score.create({player_id: [jackie.id, butch.id, never.id][rand(0..2)], score: ran
 Score.create({player_id: [jackie.id, butch.id, never.id][rand(0..2)], score: rand(100..5000)})
 Score.create({player_id: [jackie.id, butch.id, never.id][rand(0..2)], score: rand(100..5000)})
 Score.create({player_id: [jackie.id, butch.id, never.id][rand(0..2)], score: rand(100..5000)})
+Score.create({player_id: [jackie.id, butch.id, never.id][rand(0..2)], score: rand(100..5000)})
+Score.create({player_id: [jackie.id, butch.id, never.id][rand(0..2)], score: rand(100..5000)})
+Score.create({player_id: [jackie.id, butch.id, never.id][rand(0..2)], score: rand(100..5000)})
 
 
 

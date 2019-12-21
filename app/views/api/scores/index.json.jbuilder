@@ -1,3 +1,5 @@
-@scores.order("score desc").each do |score|
-  json.partial! "api/scores/score", sore: score
+@scores.each do |score|
+  json.set! score.id do
+    json.partial! "api/scores/score", score: score
+  end
 end
