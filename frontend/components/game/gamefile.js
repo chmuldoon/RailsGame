@@ -10,8 +10,8 @@ class GameFile {
     this.players = [];
     this.addAlienChasers();
     this.gameOver=false;
-    this.background = new Image();
-    this.background.src = "https://ze-robot.com/dl/mi/minimalist-cities-by-romain-trystram-zip-in-comments-14-2560%C3%971080.jpg";
+    // this.background = new Image();
+    // this.background.src = "https://ze-robot.com/dl/mi/minimalist-cities-by-romain-trystram-zip-in-comments-14-2560%C3%971080.jpg";
   
   }
 
@@ -162,7 +162,7 @@ class GameFile {
 
 }
 GameFile.BG_COLOR = "lightgray";
-GameFile.DIM_X = 1000;
+GameFile.DIM_X = 1200;
 GameFile.DIM_Y = 600;
 GameFile.FPS = 32;
 GameFile.NUM_ALIENCHASERS = 3;

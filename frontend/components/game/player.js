@@ -39,8 +39,8 @@ class Player extends MovingObject {
     this.jumpcount=0;
     this.score = 0;
     this.mirror = false;
-    this.player = new Image();
-    this.player.src = "sprite_base_addon_2012_12_14.png";
+    // this.player = new Image();
+    // this.player.src = "sprite_base_addon_2012_12_14.png";
  
   }
 
@@ -84,10 +84,10 @@ class Player extends MovingObject {
 
   draw(ctx) { 
     if(this.mirror){
-      this.player.src = "sprite_base_addon_2012_12_14.png";
+      // this.player.src = "sprite_base_addon_2012_12_14.png";
       ctx.drawImage(this.player, 150, 150, 50, 50, this.x, this.y - 40, 130, 130);
     }else{
-        this.player.src = "cat_reversed.png";
+        // this.player.src = "cat_reversed.png";
       ctx.drawImage(this.player, 950, 10, 50, 50, this.x-100, this.y-75, 130, 130);
     }
    

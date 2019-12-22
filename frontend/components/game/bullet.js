@@ -16,8 +16,8 @@ class Bullet extends MovingObject {
     this.yVel = 0;
     this.game = options.game;
     this.mirror = options.mirror;
-    this.Bullet = new Image();
-    this.Bullet.src = "energy_effect_base.png";
+    // this.Bullet = new Image();
+    // this.Bullet.src = "energy_effect_base.png";
     
     
   }
@@ -36,10 +36,10 @@ class Bullet extends MovingObject {
     // ctx.fill();
     // let player = new Image();
     if (this.mirror) {
-      this.Bullet.src = "energy_effect_base.png";
+      // this.Bullet.src = "energy_effect_base.png";
       ctx.drawImage(this.Bullet, 0, 100, 30, 25, this.x, this.y - 40, 50, 50);
     } else {
-      this.Bullet.src = "reverse_bullet.png";
+      // this.Bullet.src = "reverse_bullet.png";
       ctx.drawImage(this.Bullet, 450, 100, 30, 25, this.x, this.y - 30, 50, 50);
     }
   

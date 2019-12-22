@@ -13,15 +13,15 @@ class Game extends React.Component {
 
     componentDidMount(){
         
-        const canvasEl = document.getElementById("game-canvas");
-
+        let canvasEl = document.getElementById("game-canvas");
+        debugger
         canvasEl.width = GameFile.DIM_X;
         canvasEl.height = GameFile.DIM_Y;
 
         const ctx = canvasEl.getContext("2d");
         const game = new GameFile();
         window.game = game;
-    const gameView=new GameView(game, ctx, this.props.logout, this.props.update, this.props.user)
+    const gameView=new GameView(game, ctx, this.props.logout, this.props.createScore, this.props.user, this.props.sessionId)
     gameView.start();
     }
 
@@ -43,9 +43,9 @@ class Game extends React.Component {
             game =
             <div>
                 <div className="game-div">
-                    <div className="instruction-container">
+                    {/* <div className="instruction-container">
                         <div className='instruction-wrapper'>
-                            <h1 class="instructions">Instructions</h1>
+                            <h1 className="instructions">Instructions</h1>
                             <br />
                             <div>
                                 <img className="img-border" src="./wad.png" />
@@ -55,8 +55,8 @@ class Game extends React.Component {
                                 <img className="img-border" src="./space_bar.png" />
                             </div>
                         </div>
-                    </div>
-                    <canvas id="game-canvas" style={{ height: "110vh", width: 1600, backgroundColor: 'gray' }}></canvas>
+                    </div> */}
+                    <canvas id="game-canvas" style={{ height: 600, width: 1200, backgroundColor: 'gray' }}></canvas>
                     <div className="button-wrapper">
                         
                         <button onClick={this.handleOnClick} className="session-button">Logout</button>
@@ -67,7 +67,7 @@ class Game extends React.Component {
             
             </div>;
         }
-       
+        
         return (
         <div>
             {game}

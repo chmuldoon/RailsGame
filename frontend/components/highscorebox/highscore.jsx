@@ -1,6 +1,7 @@
 
 
 import React, { Component } from 'react'
+import { Link } from "react-router-dom";
 
 export class HighScore extends Component {
   constructor(props){
@@ -31,6 +32,7 @@ export class HighScore extends Component {
     }
     return (
       <div>
+        <Link to="/">back</Link>
         {this.renderScores()}
       </div>
     )
