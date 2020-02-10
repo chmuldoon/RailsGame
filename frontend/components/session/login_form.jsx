@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 class LoginForm extends React.Component {
   constructor(props) {
@@ -28,59 +28,27 @@ class LoginForm extends React.Component {
   }
   render() {
     return (
-      <div>
-        <title>Game</title>
-
-        <div>
-          <div>
-            <div>
-              {/* <div className="demo-div">
-                <button
-                  type="button"
-                  onClick={this.handleDemo.bind(this)}
-                  className="demo-button"
-                >
-                  Try our Demo User
-                </button>
-              </div> */}
-
-
-              <div>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                  <div>
-                    <div>
-                      <input
-                        type="text"
-                        value={this.state.username}
-                        onChange={this.update("username")}
-  
-                        placeholder="username"
-                      />
-                    </div>
-
-                    <div>
-                      <input
-                        type="password"
-                        value={this.state.password}
-                        onChange={this.update("password")}
-                        placeholder="password"
-                      />
-                    </div>
-                    <div className="session-submit">
-                      <input type="submit" value="Login" />
-                    </div>
-
-                    <br />
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div>
-            {this.props.navLink}
-          </div>
-        </div>
-      </div>
+      <Fragment>
+        <form class="form-signin" onSubmit={this.handleSubmit.bind(this)}>
+          <h2 class="form-signin-heading">Please login</h2>
+          <input
+            type="text"
+            value={this.state.username}
+            onChange={this.update("username")}
+            placeholder="username"
+          />
+          <input
+            type="password"
+            value={this.state.password}
+            onChange={this.update("password")}
+            placeholder="password"
+          />
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+              Login
+            </button>
+          </form>
+          {this.props.navLink}
+        </Fragment>
     );
   }
 }
