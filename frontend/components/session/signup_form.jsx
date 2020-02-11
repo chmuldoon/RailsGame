@@ -1,6 +1,5 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-
 class SignupForm extends React.Component {
   constructor(props) {
     super(props);
@@ -31,53 +30,28 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <title>Game</title>
-        <div>
-          <div>
-            <div>
-              {/* <div>
-                <button type="button" onClick={this.handleDemo.bind(this)}>
-                  Try our Demo User
-                </button>
-              </div> */}
-
-              <div>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                  <div>
-                    <div>
-                      <input
-                        type="text"
-                        value={this.state.username}
-                        onChange={this.update("username")}
-                        // className="login-input"
-                        placeholder="username"
-                      />
-                    </div>
-
-                    <div className="session-inputs">
-                      <input
-                        type="password"
-                        value={this.state.password}
-                        onChange={this.update("password")}
-                        // className="login-input"
-                        placeholder="password"
-                      />
-                    </div>
-                    <div>
-                      <input type="submit" value="Sign Up" />
-                    </div>
-                    <br />
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div className="session-type-switcher-container">
-            {this.props.navLink}
-          </div>
-        </div>
-      </div>
+      <Fragment>
+        <div className="imageLocation"></div>
+        <form className="form-signin" onSubmit={this.handleSubmit.bind(this)}>
+          <h2 className="form-signin-heading">Please Sign up</h2>
+          <input
+            type="text"
+            value={this.state.username}
+            onChange={this.update("username")}
+            placeholder="username"
+          />
+          <input
+            type="password"
+            value={this.state.password}
+            onChange={this.update("password")}
+            placeholder="password"
+          />
+          <button className="btn btn-lg btn-primary btn-block" type="submit">
+            Sign up
+          </button>
+          {this.props.navLink}
+        </form>
+      </Fragment>
     );
   }
 }

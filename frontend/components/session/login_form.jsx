@@ -29,8 +29,9 @@ class LoginForm extends React.Component {
   render() {
     return (
       <Fragment>
-        <form class="form-signin" onSubmit={this.handleSubmit.bind(this)}>
-          <h2 class="form-signin-heading">Please login</h2>
+        <div className="imageLocation"></div>
+        <form className="form-signin" onSubmit={this.handleSubmit.bind(this)}>
+          <h2 className="form-signin-heading">Please login</h2>
           <input
             type="text"
             value={this.state.username}
@@ -43,12 +44,12 @@ class LoginForm extends React.Component {
             onChange={this.update("password")}
             placeholder="password"
           />
-            <button class="btn btn-lg btn-primary btn-block" type="submit">
-              Login
-            </button>
-          </form>
+          <button className="btn btn-lg btn-primary btn-block" type="submit">
+            Login
+          </button>
           {this.props.navLink}
-        </Fragment>
+        </form>
+      </Fragment>
     );
   }
 }
