@@ -2,3 +2,150 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/* .navbar{
+  height: 75px;
+  width: 100%;
+  background-color: red;
+} */
+.unused{
+}
+.navbar{
+  height: 52px;
+  background-color: white;
+  border: 1px solid #e6e6e6;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 5;
+}
+.Icon{
+  margin-top: 5px;
+  max-width: 30px;
+}
+.navbar-util{
+  height: inherit;
+  display: flex;
+  justify-content: space-between; 
+  border-bottom: none;
+  border-top: none;
+  max-width: 1210px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+
+.navbar-left{
+  display: block;
+  
+  align-items: center;
+  height: inherit;
+  /* float: left;
+  justify-content: left; */
+  display: flex;
+  /* margin-left: 10px; */
+}
+.daLink{
+  color: #262626;
+  cursor: pointer;
+  text-decoration: none;
+}
+.daLink2{
+  color: #262626;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 27px;
+  margin-top: 12px;
+  margin-right: 7PX;
+}
+
+.nav-search{
+  /* float: center;
+  justify-content: center;
+  justify-content: space-between; */
+  display: flex;
+  margin: auto;
+  /* display: block;
+  margin: 0px;
+  align-items: center;
+  height: inherit;
+  float: none;
+  width: 240px;
+  display: flex;
+  justify-content: center; */
+
+
+}
+.nav-search input {
+  background: #fafafa;
+  border: solid 1px #dbdbdb;
+  border-radius: 3px;
+  color: #999;
+  cursor: text;
+  font-size: 14px;
+  font-weight: 300;
+  left: 0;
+  padding: 7px;
+  text-align: center;
+  /* display: inline; */
+  z-index: 2;
+  width: 230px;
+  outline: none;
+}
+.navbar-right{
+  /* display: block;
+  
+  align-items: center;
+  height: inherit;
+  float: right; */
+  /* justify-content: right; */
+  display: flex;
+  margin-right: 10px;
+}
+
+
+.navbar-left p{
+  font-family: 'Cookie', cursive;
+  font-size: 28px;
+  text-align: center;
+  margin-top: 10px;
+  padding-left: 15px;
+  border-left: 1px solid black;
+  justify-content: center
+  
+
+}
+.navbar-left img{
+  padding-right: 8px;
+}
+.daLink i::before {
+  margin-top: 20px;
+  margin-right: 15px;
+  font-size: 30px;
+}
+.navbar-right-link{
+  font-size: 40px;
+  color: #262626;
+  text-decoration: none;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.navbar-right-link i {
+  font-size: 25px;
+}
+.modal-background {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
+
+.modal-child {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

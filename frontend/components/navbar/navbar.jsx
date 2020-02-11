@@ -22,10 +22,36 @@ export class NavBar extends Component {
       display = (
         <nav className="navbar">
           <div className="navbar-util">
-            <h1> HELLO {currentUser.username}</h1>
-            <div className="logoutBoxDiv" onClick={this.handleLogout}>
-              <div>Log Out</div>
+            <div className="navbar-left">
+              <Link className="daLink" to={`/`}>
+                <i className="fab fa-instagram"></i>
+              </Link>
+              <Link className="daLink" to={`/`}>
+                <p>Clonestagram</p>
+              </Link>
+
             </div>
+            {/* <SearchContainer /> */}
+            <div className="navbar-right">
+              <div
+                className="daLink2"
+                // onClick={() => this.props.openModal("upload")}
+              >
+                <i className="far fa-plus-square"></i>
+              </div>
+              <Link className="navbar-right-link" to={`/explore`}>
+                <i className="far fa-compass"></i>
+              </Link>
+
+              {/* <Link
+                className="navbar-right-link"
+                // to={`/users/${currentUser.id}`}
+              >
+                <i className="far fa-user"></i>
+
+              </Link> */}
+            </div>
+
           </div>
         </nav>
       );
