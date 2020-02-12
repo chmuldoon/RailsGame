@@ -8,6 +8,9 @@ class User < ApplicationRecord
   has_many :scores,
   foreign_key: :player_id,
   class_name: :Score
+  has_many :posts,
+    foreign_key: :author_id,
+    class_name: :Post
 
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)

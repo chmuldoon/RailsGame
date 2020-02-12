@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 //import post idex when its made
 import React, { Component } from 'react'
-
+import PostIndex from "./PostIndex";
 export class splash extends Component{
   constructor(props){
     super(props)
@@ -19,7 +19,7 @@ export class splash extends Component{
       return (
         <div className="splash-omni">
           <h1>logged in </h1>
-    
+          <PostIndex/>
         </div>
       );
     } else {
