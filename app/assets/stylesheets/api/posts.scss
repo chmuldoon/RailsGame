@@ -1,3 +1,11 @@
 // Place all the styles related to the api::posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.previewBox {
+  max-height: 200px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.previewBox > img{ min-height: 200px; width: 200px;}
+

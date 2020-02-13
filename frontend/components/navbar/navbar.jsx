@@ -29,7 +29,6 @@ export class NavBar extends Component {
               <Link className="daLink" to={`/`}>
                 <p>Clonestagram</p>
               </Link>
-
             </div>
             {/* <SearchContainer /> */}
             <div className="navbar-right">
@@ -37,7 +36,9 @@ export class NavBar extends Component {
                 className="daLink2"
                 // onClick={() => this.props.openModal("upload")}
               >
-                <i className="far fa-plus-square"></i>
+                <Link to={`/newpost`}>
+                  <i className="far fa-plus-square"></i>
+                </Link>
               </div>
               <Link className="navbar-right-link" to={`/explore`}>
                 <i className="far fa-compass"></i>
@@ -51,7 +52,6 @@ export class NavBar extends Component {
 
               </Link> */}
             </div>
-
           </div>
         </nav>
       );
