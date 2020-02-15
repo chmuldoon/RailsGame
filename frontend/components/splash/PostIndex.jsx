@@ -3,9 +3,15 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PostIndexItem from "./PostIndexItem";
-const PostIndex = ({}) => {
-  let posts = [0,1,2,3,4,5].map(post =>
-      <PostIndexItem number={post}/>
+import { connect } from "react-redux";
+import { fetchAllPosts } from "../../actions/post_actions";
+const PostIndex = ({index, fetchAllPosts}) => {
+  useEffect(() => {
+    fetchAllPosts()
+  },[fetchAllPosts])
+  let posts = Object.keys(index).map(key =>
+
+      <PostIndexItem key={key} post={index[key]}/>
     )
   return(
     <Fragment>
@@ -13,6 +19,11 @@ const PostIndex = ({}) => {
     </Fragment>
   )
 }
-PostIndex.propTypes = {};
-
-export default PostIndex;
+PostIndex.propTypes = {
+  fetchAllPosts: PropTypes.func.isRequired,
+  index: PropTypes.object.isRequired,
+};
+const mapStateToProps = state => ({
+  index: state.entities.posts.posts
+});
+export default connect( mapStateToProps, {fetchAllPosts} )(PostIndex);
