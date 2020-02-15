@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from "react-router-dom";
 import styled from 'styled-components';
 import { createPost } from '../../actions/post_actions';
-
 export class NewPost extends Component {
   constructor(props){
     super(props)
@@ -16,6 +15,7 @@ export class NewPost extends Component {
     this.handleFile = this.handleFile.bind(this);
     this.update = this.update.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this); 
+    this.uploading = false 
   }
 
   handleFile(e) {
@@ -43,36 +43,42 @@ export class NewPost extends Component {
     const formData = new FormData();
     formData.append("post[caption]", this.state.caption);
     formData.append("post[photo]", this.state.photoFile);
-    debugger
     this.props.createPost(formData)
-      // .then(() => { this.props.closeModal() })      
       .then(() => { this.props.history.push("/") })
   }
   render(){
+    const [displayChat, toggleChat] = useState(false);
+
     return (
       <NewPostModule>
-        <NewPostH1>Create Post</NewPostH1>
-        <NewPostForm onSubmit={this.handleSubmit}>
-          <div className="previewBox">
-            <img src={this.state.photoUrl} alt="" />
-          </div>
-          <UploadLabel style={{ cursor: "pointer" }} htmlFor="files">
-            {" "}
-            {this.state.status}{" "}
-          </UploadLabel>
-          <Upload
-            type="file"
-            id="files"
-            placeholder="Upload"
-            onChange={this.handleFile.bind(this)}
-          />
-          <input
-            type="text"
-            placeholder="Write a caption..."
-            onChange={this.update("caption")}
-          />
-          <input type="submit" value="Share" />
-        </NewPostForm>
+        {this.uploading ? (
+          <Uploading />
+         ) : ( 
+          <Fragment>
+            <NewPostH1>Create Post</NewPostH1>
+            <NewPostForm onSubmit={this.handleSubmit}>
+              <div className="previewBox">
+                <img src={this.state.photoUrl} alt="" />
+              </div>
+              <UploadLabel style={{ cursor: "pointer" }} htmlFor="files">
+                {" "}
+                {this.state.status}{" "}
+              </UploadLabel>
+              <Upload
+                type="file"
+                id="files"
+                placeholder="Upload"
+                onChange={this.handleFile.bind(this)}
+              />
+              <input
+                type="text"
+                placeholder="Write a caption..."
+                onChange={this.update("caption")}
+              />
+              <input type="submit" value="Share" />
+            </NewPostForm>
+          </Fragment>
+        )}
       </NewPostModule>
     );
   }
@@ -84,6 +90,15 @@ const NewPostModule = styled.div`
   border: solid 1px #efefef;
   border-radius: 2%;
   align-content: center;
+`;
+const Uploading = styled.div`
+  z-index: 3;
+  height: 100%;
+  width: 100%;
+  border-radius: 2%;
+  background-color: red;
+  position: relative;
+
 `;
 const NewPostH1 = styled.h1`
   text-align: center;
