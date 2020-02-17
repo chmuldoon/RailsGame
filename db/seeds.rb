@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 User.destroy_all
 Score.destroy_all
+Post.destroy_all
 
 
 

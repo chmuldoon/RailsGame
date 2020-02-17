@@ -3,24 +3,40 @@ import { RECEIVE_CURRENT_USER } from "../actions/session_actions";
 import {
   RECEIVE_USER,
   RECEIVE_ALL_USERS,
+  RECEIVE_CURRENT_USER_DATA,
 } from "../actions/user_actions";
+const initialState = {
+  currentUser: null,
+  profile: null,
+  users: [],
+  loading: true,
+  error: {}
+};
+export default function(state = initialState, action) {
+  const { type, payload } = action;
 
-const usersReducer = (state = {}, action) => {
-  Object.freeze(state);
-  let newState = Object.assign({}, state);
-
-  switch (action.type) {
-    case RECEIVE_CURRENT_USER:
-      return Object.assign({}, state, {
-        [action.currentUser.id]: action.currentUser
-      });
+  switch (type) {
+    case RECEIVE_CURRENT_USER_DATA:
+      return {
+        ...state,
+        currentUser: payload,
+        loading: false
+      }
     case RECEIVE_ALL_USERS:
-      return merge({}, state, action.users);
+      // debugger
+      return {
+        ...state,
+        users: payload,
+        loading: false
+      }
     case RECEIVE_USER:
-      return merge({}, state, { [action.user.id]: action.user });
+      return {
+        ...state,
+        profile: payload,
+        loading: false
+      };
 
     default:
       return state;
   }
 };
-export default usersReducer;

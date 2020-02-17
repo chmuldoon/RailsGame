@@ -3,6 +3,8 @@ class Api::UsersController < ApplicationController
     # debugger
     @user = User.new(user_params)
     if @user.save
+      @user.photo.attach(io: File.open("#{Rails.root}/app/assets/images/icon.jpg"), filename: 'icon.jpg')
+
       login(@user)
       render "api/users/show"
     else

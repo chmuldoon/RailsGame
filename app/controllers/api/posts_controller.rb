@@ -10,6 +10,9 @@ class Api::PostsController < ApplicationController
     end
     
   end
+  def following
+
+  end
 
   def index
     #Later we can add following dependency here

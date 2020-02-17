@@ -1,25 +1,23 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import React, { Component, Fragment, useEffect } from "react";
+import { connect } from "react-redux";
+import { logout } from "../../actions/session_actions";
+import { fetchCurrentUser } from "../../actions/user_actions";
 
-import React, { Component } from "react";
-
-export class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.handleLogout = this.handleLogout.bind(this); 
-
-  }
-  handleLogout(e) {
+const NavBar = ({currentUserId, logout, fetchCurrentUser, history}) => {
+  useEffect(() => {
+    fetchCurrentUser(currentUserId);
+  }, [fetchCurrentUser]);
+  const handleLogout = e => {
     e.preventDefault();
     // debugger
-    this.props.logout()
-      .then(() => this.props.history.push('/'));
+    logout()
+      .then(() => history.push('/'));
   };
-  render() {
-    let display;
-    let { currentUser } = this.props;
-    // console.log(currentUser)
-    if (currentUser) {
-      display = (
+  return (
+    <Fragment>
+      {currentUserId ? (
         <nav className="navbar">
           <div className="navbar-util">
             <div className="navbar-left">
@@ -34,7 +32,7 @@ export class NavBar extends Component {
             <div className="navbar-right">
               <div
                 className="daLink2"
-                // onClick={() => this.props.openModal("upload")}
+                // onClick={() => openModal("upload")}
               >
                 <Link to={`/newpost`}>
                   <i className="far fa-plus-square"></i>
@@ -44,28 +42,34 @@ export class NavBar extends Component {
                 <i className="far fa-compass"></i>
               </Link>
 
-              {/* <Link
+              <Link
                 className="navbar-right-link"
-                // to={`/users/${currentUser.id}`}
+                to={`/users/${currentUserId}`}
               >
                 <i className="far fa-user"></i>
-
-              </Link> */}
+              </Link>
             </div>
           </div>
         </nav>
-      );
-    } else {
-      display = (
+      ) : (
         <nav className="unused">
           <br />
           <br />
           <br />
         </nav>
-      );
-    }
-    return <div>{display}</div>;
-  }
+      )}
+    </Fragment>
+  );
 }
 
-export default NavBar;
+NavBar.propTypes = {
+  logout: PropTypes.func.isRequired,
+  currentUserId: PropTypes.number.isRequired,
+  fetchCurrentUser: PropTypes.func.isRequired,
+};
+const mapStateToProps = ({ session }) => {
+  return {
+    currentUserId: session.id
+  }
+}
+export default connect(mapStateToProps, {logout, fetchCurrentUser})(NavBar);
