@@ -10,7 +10,8 @@ export class NewPost extends Component {
     this.state = { caption: "",
       photoFile: null, 
       photoUrl: "",
-      status: "Upload"
+      status: "Upload",
+      uploading: false
     };
     this.handleFile = this.handleFile.bind(this);
     this.update = this.update.bind(this);
@@ -43,15 +44,14 @@ export class NewPost extends Component {
     const formData = new FormData();
     formData.append("post[caption]", this.state.caption);
     formData.append("post[photo]", this.state.photoFile);
+    this.state.uploading = true
     this.props.createPost(formData)
       .then(() => { this.props.history.push("/") })
   }
   render(){
-    const [displayChat, toggleChat] = useState(false);
-
     return (
       <NewPostModule>
-        {this.uploading ? (
+        {this.state.uploading ? (
           <Uploading />
          ) : ( 
           <Fragment>

@@ -11,6 +11,7 @@ export default function(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case RECEIVE_ALL_POSTS:
+      // debugger
       return {
         ...state,
         posts: payload,
