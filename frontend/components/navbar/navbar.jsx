@@ -34,7 +34,7 @@ const NavBar = ({currentUserId, logout, fetchCurrentUser, history}) => {
                 className="daLink2"
                 // onClick={() => openModal("upload")}
               >
-                <Link to={`/newpost`}>
+                <Link to={`/newpost`} style={{ color: "#262626" }}>
                   <i className="far fa-plus-square"></i>
                 </Link>
               </div>

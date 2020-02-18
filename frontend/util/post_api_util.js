@@ -26,3 +26,14 @@ export const deletePost = id =>
     url: `api/posts/${id}`,
     method: "DELETE"
   });
+
+export const likePost = id =>
+  $.ajax({
+    url: `api/posts/${id}/likes`,
+    method: "POST"
+  });
+export const unlikePost = id =>
+  $.ajax({
+    url: `api/posts/${id}/likes`,
+    method: "DELETE"
+  });
