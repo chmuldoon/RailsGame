@@ -18,7 +18,6 @@ export class splash extends Component{
     if (this.props.currentUser) {
       return (
         <div className="splash-omni">
-          <h1>logged in </h1>
           <PostIndex/>
         </div>
       );

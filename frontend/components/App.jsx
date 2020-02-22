@@ -9,6 +9,7 @@ import SplashContainer from "./splash/splash_container";
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
 import NewPostContainer from "./posts/NewPostContainer";
 import UserProfile from "./user/UserProfile";
+import Explore from "./posts/explore";
 const App = () => (
   <div>
     <header>
@@ -21,6 +22,7 @@ const App = () => (
         <AuthRoute exact path="/signup" component={SignupFormContainer} />
         <ProtectedRoute exact path="/newpost" component={NewPostContainer} />
         <ProtectedRoute exact path="/users/:id" component={UserProfile} />
+        <ProtectedRoute exact path="/explore" component={Explore} />
       </Switch>
     </section>
   </div>
