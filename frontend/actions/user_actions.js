@@ -16,6 +16,11 @@ export const fetchCurrentUser = id => dispatch =>
 export const fetchUsers = () => dispatch =>
   UserApiUtil.fetchUsers().then(users => dispatch(receiveAllUsers(users)));
 
+export const followUser = id => dispatch =>
+  UserApiUtil.followUser(id).then(user => dispatch(receiveUser(user)));
+
+export const unfollowUser = id => dispatch =>
+  UserApiUtil.unfollowUser(id).then(user => dispatch(receiveUser(user)));
 // export const updateUser = user => dispatch => {
 //   return UserApiUtil.updateUser(user).then(user => dispatch(receiveUser(user)));
 // };

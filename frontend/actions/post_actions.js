@@ -1,5 +1,6 @@
 import * as PostApiUtil from "../util/post_api_util"
 export const RECEIVE_ALL_POSTS = "RECEIVE_ALL_POSTS";
+export const RECEIVE_USER_POSTS = "RECEIVE_USER_POSTS";
 export const RECEIVE_POST = "RECEIVE_POST";
 export const CREATE_POST = "CREATE_POST";
 export const DELETE_POST = "DELETE_POST";
@@ -13,20 +14,23 @@ export const fetchPost = id => dispatch =>
   
 export const fetchAllPosts = () => dispatch =>
   PostApiUtil.fetchPosts().then(posts => dispatch(receiveAllPosts(posts)));
+export const fetchUserPosts = (id) => dispatch =>
+    PostApiUtil.fetchUserPosts(id).then(posts => dispatch(receiveUserPosts(posts)));
+
 
 export const createPost = post => dispatch =>
   PostApiUtil.createPost(post).then(post => dispatch(receivePost(post)));
 
 export const likePost = id => dispatch =>
-  PostApiUtil.likePost(id).then(post => dispatch(likePost(post)))
+  PostApiUtil.likePost(id).then(posts => dispatch(receiveAllPosts(posts)))
 
 export const unlikePost = id => dispatch =>
-  PostApiUtil.unlikePost(id).then(post => dispatch(unlikePost(post)))
+  PostApiUtil.unlikePost(id).then(posts => dispatch(receiveAllPosts(posts)))
 
-
-
-
-
+const receiveUserPosts = posts => ({
+  type: RECEIVE_USER_POSTS,
+  payload: posts
+})
 const receiveAllPosts = posts => ({
   type: RECEIVE_ALL_POSTS,
   payload: posts

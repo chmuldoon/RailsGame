@@ -1,4 +1,4 @@
-import { CREATE_POST, DELETE_POST, RECEIVE_ALL_POSTS, RECEIVE_POST } from "../actions/post_actions";
+import { CREATE_POST, DELETE_POST, RECEIVE_ALL_POSTS, RECEIVE_POST, RECEIVE_USER_POSTS } from "../actions/post_actions";
 
 const initialState = {
   post: null,
@@ -10,6 +10,7 @@ const initialState = {
 export default function(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case RECEIVE_USER_POSTS:
     case RECEIVE_ALL_POSTS:
       // debugger
       return {
