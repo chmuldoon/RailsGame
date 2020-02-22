@@ -1,10 +1,19 @@
 // Place all the styles related to the api::users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.UserProfile {
+
+.user-page {
     max-width: 70rem;
+
     margin: 0 auto;
     padding: 0 2rem;
+}
+.UserProfile {
+    // max-width: 70rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+    // display: inline-block;
 }
 
 .btn {
@@ -103,7 +112,9 @@
 .profile-stats li:last-of-type {
     margin-right: 0;
 }
-
+.posts-section {
+  width: 100%
+}
 .profile-bio {
     font-size: 1.6rem;
     font-weight: 400;

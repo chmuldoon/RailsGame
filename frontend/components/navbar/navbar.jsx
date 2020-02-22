@@ -9,12 +9,7 @@ const NavBar = ({currentUserId, logout, fetchCurrentUser, history}) => {
   useEffect(() => {
     fetchCurrentUser(currentUserId);
   }, [fetchCurrentUser]);
-  const handleLogout = e => {
-    e.preventDefault();
-    // debugger
-    logout()
-      .then(() => history.push('/'));
-  };
+
   return (
     <Fragment>
       {currentUserId ? (
@@ -48,6 +43,7 @@ const NavBar = ({currentUserId, logout, fetchCurrentUser, history}) => {
               >
                 <i className="far fa-user"></i>
               </Link>
+              <button onClick={e => logout()}></button>
             </div>
           </div>
         </nav>

@@ -11,3 +11,14 @@ export const fetchUser = id => {
     url: `/api/users/${id}`
   });
 };
+export const followUser = id =>
+  $.ajax({
+    url: `api/follows`,
+    method: "POST",
+    data: {id: id} 
+  });
+export const unfollowUser = id =>
+  $.ajax({
+    url: `api/follows/${id}`,
+    method: "DELETE"
+  });

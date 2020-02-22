@@ -4,6 +4,12 @@ export const fetchPosts = () => {
     url: "/api/posts/"
   });
 };
+export const fetchUserPosts = id => {
+  return $.ajax({
+    method: "GET",
+    url: `/api/userposts/${id}`
+  })
+}
 
 export const fetchPost = id => {
   return $.ajax({
@@ -29,11 +35,12 @@ export const deletePost = id =>
 
 export const likePost = id =>
   $.ajax({
-    url: `api/posts/${id}/likes`,
-    method: "POST"
+    url: `api/likes`,
+    method: "POST",
+    data: { post_id: id }
   });
 export const unlikePost = id =>
   $.ajax({
-    url: `api/posts/${id}/likes`,
+    url: `api/likes/${id}`,
     method: "DELETE"
   });

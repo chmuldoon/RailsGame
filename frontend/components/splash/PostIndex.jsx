@@ -9,7 +9,7 @@ const PostIndex = ({index, fetchAllPosts}) => {
   useEffect(() => {
     fetchAllPosts()
   },[fetchAllPosts])
-  let posts = Object.keys(index).map(key =>
+  let posts = Object.keys(index).reverse().map(key =>
 
       <PostIndexItem key={key} post={index[key]}/>
     )
