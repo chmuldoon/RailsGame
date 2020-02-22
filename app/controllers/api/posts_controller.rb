@@ -15,7 +15,6 @@ class Api::PostsController < ApplicationController
   end
 
   def index
-    #Later we can add following dependency here
     @posts = Post.all
     render :index
   end

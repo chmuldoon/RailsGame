@@ -4,6 +4,18 @@ export const fetchPosts = () => {
     url: "/api/posts/"
   });
 };
+export const fetchFeed = () => {
+  return $.ajax({
+    method: "GET",
+    url: "/api/feed"
+  });
+};
+export const fetchExplore = (id) => {
+  return $.ajax({
+    method: "GET",
+    url: `/api/feed/${id}`
+  });
+};
 export const fetchUserPosts = id => {
   return $.ajax({
     method: "GET",

@@ -4,11 +4,12 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PostIndexItem from "./PostIndexItem";
 import { connect } from "react-redux";
-import { fetchAllPosts } from "../../actions/post_actions";
-const PostIndex = ({index, fetchAllPosts}) => {
+import { fetchAllPosts, fetchFeed } from "../../actions/post_actions";
+const PostIndex = ({index, fetchFeed, fetchAllPosts}) => {
   useEffect(() => {
-    fetchAllPosts()
-  },[fetchAllPosts])
+    fetchFeed()
+  },[fetchFeed])
+  debugger
   let posts = Object.keys(index).reverse().map(key =>
 
       <PostIndexItem key={key} post={index[key]}/>
@@ -21,9 +22,10 @@ const PostIndex = ({index, fetchAllPosts}) => {
 }
 PostIndex.propTypes = {
   fetchAllPosts: PropTypes.func.isRequired,
+  fetchFeed: PropTypes.func.isRequired,
   index: PropTypes.object.isRequired,
 };
 const mapStateToProps = state => ({
   index: state.entities.posts.posts
 });
-export default connect( mapStateToProps, {fetchAllPosts} )(PostIndex);
+export default connect( mapStateToProps, {fetchAllPosts, fetchFeed} )(PostIndex);

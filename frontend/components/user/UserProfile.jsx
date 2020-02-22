@@ -4,33 +4,49 @@ import { fetchUser, followUser, unfollowUser } from '../../actions/user_actions'
 import { connect } from 'react-redux'
 import Loader from '../Loader'
 import { fetchUserPosts } from '../../actions/post_actions'
+import UserProfilePic from './UserProfilePic'
 const UserProfile = ({fetchUser, followUser, unfollowUser, fetchUserPosts, users: {currentUser, profile, loading}, match, posts:{posts} }) => {
   //
   useEffect(() => {
     fetchUserPosts(parseInt(match.params.id))
     fetchUser(parseInt(match.params.id))
   }, [fetchUser, fetchUserPosts])
-  let displayGallery = Object.values(posts).reverse().map(post =>
-        <div className="gallery-item" tabindex="0"> 
+  let displayGallery = Object.values(posts)
+    .reverse()
+    .map(post => (
+      // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length}/>
+      <div className="gallery-item" tabindex="0">
+        <img src={post.photoUrl} className="gallery-image" alt="" />
 
-          <img src={post.photoUrl} className="gallery-image" alt=""/>
-
-          <div className="gallery-item-info">
-
-            <ul>
-              <li className="gallery-item-likes"><span className="visually-hidden">Likes:</span><i className="fas fa-heart" aria-hidden="true"></i> {post.likes.length}</li>
-              <li className="gallery-item-comments"><span className="visually-hidden">Comments:</span><i className="fas fa-comment" aria-hidden="true"></i> 2</li>
-            </ul>
-
-          </div>
+        <div className="gallery-item-info">
+          <ul>
+            <li className="gallery-item-likes">
+              <span className="visually-hidden">Likes:</span>
+              <i className="fas fa-heart" aria-hidden="true"></i>{" "}
+              {post.likes.length}
+            </li>
+            <li className="gallery-item-comments">
+              <span className="visually-hidden">Comments:</span>
+              <i className="fas fa-comment" aria-hidden="true"></i> 2
+            </li>
+          </ul>
         </div>
-
+      </div>
+    ));
+    let postCount = Object.keys(posts).length
+    let space = [];
+    if(postCount < 3) {
+      space = new Array(3 - postCount).fill(0)
+    }
+    let extras = space.map(spot => 
+      <div className="gallery-item" tabindex="0">
+      </div>
     )
-  let postCount = Object.keys(posts).length
+
   
   return (
     <Fragment>
-      {posts && profile && !loading ? (
+      {currentUser && posts && profile && !loading ? (
         <Fragment>
           <div className="user-page">
             <div className="UserProfile">
@@ -100,7 +116,10 @@ const UserProfile = ({fetchUser, followUser, unfollowUser, fetchUserPosts, users
               </div>
             </div>
             <div className="posts-section">
-              <div className="gallery">{displayGallery}</div>
+              <div className="gallery">
+                {displayGallery}
+                {extras}
+                </div>
             </div>
           </div>
         </Fragment>
