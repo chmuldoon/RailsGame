@@ -8,12 +8,15 @@ class User < ApplicationRecord
   has_many :scores,
   foreign_key: :player_id,
   class_name: :Score
-  has_many :posts,
+  has_many :posts,  
     foreign_key: :author_id,
     class_name: :Post
   has_many :likes,
     foreign_key: :user_id,
     class_name: :Like
+  has_many :comments,
+    foreign_key: :author_id,
+    class_name: :Comment
   has_many :active_follows,  
     class_name: :Follow,
     foreign_key: :follower_id

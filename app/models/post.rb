@@ -10,6 +10,9 @@ class Post < ApplicationRecord
   has_many :likes,
     foreign_key: :post_id,
     class_name: :Like
+  has_many :comments,
+    foreign_key: :post_id,
+    class_name: :Comment
 
   # has_many :likers,
   #   through: :likes,
