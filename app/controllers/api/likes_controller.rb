@@ -3,7 +3,7 @@ class Api::LikesController < ApplicationController
     @like = Like.new(post_id: params[:post_id].to_i)
     @like.user_id = current_user.id
     if @like.save
-      @posts = Post.all
+      @posts = feed
       render "api/posts/index"
     else
       render json: @like.errors.full_messages, status: 422
@@ -18,7 +18,7 @@ class Api::LikesController < ApplicationController
     # @like = Like.where(user_id: current_user.id).where(post_id: params[:id])[0]
     # debugger
     if @like.destroy
-      @posts = Post.all
+      @posts = feed
       render "api/posts/index"
     else
       render :json, @like.errors.full_messages, status: 404

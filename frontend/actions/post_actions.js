@@ -30,11 +30,15 @@ export const fetchExplore = () => dispatch =>
 export const createPost = post => dispatch =>
   PostApiUtil.createPost(post).then(post => dispatch(receivePost(post)));
 
+export const createComment = comment => dispatch =>
+    PostApiUtil.createComment(comment).then(posts => dispatch(receiveAllPosts(posts)));
+
 export const likePost = id => dispatch =>
-  PostApiUtil.likePost(id).then(posts => dispatch(receiveAllPosts(posts)))
+  PostApiUtil.likePost(id).then(posts => dispatch(receiveFeed(posts)))
+
 
 export const unlikePost = id => dispatch =>
-  PostApiUtil.unlikePost(id).then(posts => dispatch(receiveAllPosts(posts)))
+  PostApiUtil.unlikePost(id).then(posts => dispatch(receiveFeed(posts)));
 
 const receiveUserPosts = posts => ({
   type: RECEIVE_USER_POSTS,

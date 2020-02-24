@@ -9,7 +9,6 @@ const PostIndex = ({index, fetchFeed, fetchAllPosts}) => {
   useEffect(() => {
     fetchFeed()
   },[fetchFeed])
-  debugger
   let posts = Object.keys(index).reverse().map(key =>
 
       <PostIndexItem key={key} post={index[key]}/>

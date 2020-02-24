@@ -8,4 +8,39 @@
   margin-right: auto;
 }
 .previewBox > img{ min-height: 200px; width: 200px;}
+.commentAdd {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: 1px solid #efefef;
+    margin-top: 4px;
+    height: 18px;
+    font-size: 14px;
+    padding-left: 16px;
+    padding-right: 16px;
+    min-height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.commentAdd input {
 
+    background: 0 0;
+    border: 0;
+    color: #262626;
+    font-size: inherit;
+    height: 18px;
+    max-height: 80px;
+    outline: 0;
+    padding: 0;
+    resize: none;
+    
+}
+.commentAdd button {
+  border: 0;
+  color: #3897f0;
+  display: inline; 
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+}

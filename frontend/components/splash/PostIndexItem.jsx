@@ -1,52 +1,74 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { likePost, unlikePost } from '../../actions/post_actions'
 import { Link } from 'react-router-dom'
+import Comment from '../comment/Comment'
 const PostIndexItem = ({
-  post: { id, photoUrl, caption, author_id, username, profilePic, likes, hasLiked },
+  post: { id, photoUrl, caption, author_id, username, profilePic, comments, hasLiked },
   unlikePost,
   likePost,
   sessionId
 }) => {
-  // debugger
+  const commentSection = function() {
+    if(comments){
+    
+    return (
+    <div>
+      {Object.values(comments).map(comment => {
+        <Fragment>
+          <p>{comment.username}</p>
+          <p>{comment.content}</p>
+        </Fragment>;
+      })}
+    </div>)
+}} 
+  debugger
   return (
-    <IndexItem>
-      <NameBar>
-        <ProfilePhoto
-          style={{ width: "32px", height: "32px" }}
-          src={profilePic}
-        />
-        <Link to={`users/${author_id}`}>
-          <p
-            style={{
-              marginTop: "auto",
-              marginBottom: "auto",
-              display: "inline"
-            }}
-          >
-            {username}
-          </p>
-        </Link>
-      </NameBar>
-      <PostImage src={photoUrl} />
-      <LowerSection>
-        {hasLiked ? (
-          <i
-            style={{ color: "red", fontSize: "30px" }}
-            className="fas fa-heart"
-            onClick={e => unlikePost(id)}
-          ></i>
-        ) : (
-          <i
-            style={{ color: "black", fontSize: "30px" }}
-            className="far fa-heart"
-            onClick={e => likePost(id)}
-          ></i>
-        )}
-      </LowerSection>
-    </IndexItem>
+    <Fragment>
+      {id ? (
+        <IndexItem>
+          <NameBar>
+            <ProfilePhoto
+              style={{ width: "32px", height: "32px" }}
+              src={profilePic}
+            />
+            <Link to={`users/${author_id}`}>
+              <p
+                style={{
+                  marginTop: "auto",
+                  marginBottom: "auto",
+                  display: "inline"
+                }}
+              >
+                {username}
+              </p>
+            </Link>
+          </NameBar>
+          <PostImage src={photoUrl} />
+          <LowerSection>
+            {hasLiked ? (
+              <i
+                style={{ color: "red", fontSize: "30px" }}
+                className="fas fa-heart"
+                onClick={e => unlikePost(id)}
+              ></i>
+            ) : (
+              <i
+                style={{ color: "black", fontSize: "30px" }}
+                className="far fa-heart"
+                onClick={e => likePost(id)}
+              ></i>
+            )}
+            {commentSection()}
+            <Comment postId={id} />
+          </LowerSection>
+        </IndexItem>
+      ) : (
+        <Fragment></Fragment>
+      )}
+    </Fragment>
   );
 };
 export const LowerSection = styled.div`
