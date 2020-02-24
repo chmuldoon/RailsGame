@@ -1,4 +1,5 @@
 class Api::CommentsController < ApplicationController
+  
   def create
     @comment = Comment.new(comment_params)
     @comment.author_id = current_user.id
@@ -9,6 +10,7 @@ class Api::CommentsController < ApplicationController
       render json: @comment.errors.full_messages, status: 422
     end
   end
+  
 
   def destroy
     @comment = Comment.find_by(author_id: current_user, post_id: params[:id])

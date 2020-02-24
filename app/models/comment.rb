@@ -8,8 +8,5 @@ class Comment < ApplicationRecord
   belongs_to :post,
     foreign_key: :post_id,
     class_name: :Post
-  def username
-    return self.author.username
-  end 
-
+  
 end
