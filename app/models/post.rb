@@ -14,6 +14,9 @@ class Post < ApplicationRecord
     foreign_key: :post_id,
     class_name: :Comment
 
+  has_many :post_hashtags
+  has_many :hashtags, through: :post_hashtags
+
   # has_many :likers,
   #   through: :likes,
   #   source: :user

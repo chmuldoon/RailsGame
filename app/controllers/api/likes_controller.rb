@@ -18,7 +18,9 @@ class Api::LikesController < ApplicationController
     # @like = Like.where(user_id: current_user.id).where(post_id: params[:id])[0]
     # debugger
     if @like.destroy
-      @posts = feed
+      following = current_user.active_follows.map {|follow| follow.target_id }
+      feed = following + [current_user.id]
+      @posts = Post.where(author_id: feed)
       render "api/posts/index"
     else
       render :json, @like.errors.full_messages, status: 404

@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import Loader from '../Loader'
 import { fetchUserPosts } from '../../actions/post_actions'
 import UserProfilePic from './UserProfilePic'
-const UserProfile = ({fetchUser, followUser, unfollowUser, fetchUserPosts, users: {currentUser, profile, loading}, match, posts:{posts} }) => {
+import { openShowModal } from '../../actions/modal_actions'
+const UserProfile = ({fetchUser, openShowModal, followUser, unfollowUser, fetchUserPosts, users: {currentUser, profile, loading}, match, posts:{posts} }) => {
   //
   useEffect(() => {
     fetchUserPosts(parseInt(match.params.id))
@@ -15,7 +16,7 @@ const UserProfile = ({fetchUser, followUser, unfollowUser, fetchUserPosts, users
     .reverse()
     .map(post => (
       // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length}/>
-      <div className="gallery-item" tabindex="0">
+      <div className="gallery-item" tabindex="0" onClick={e => openShowModal("postShow", post)}>
         <img src={post.photoUrl} className="gallery-image" alt="" />
 
         <div className="gallery-item-info">
@@ -27,7 +28,7 @@ const UserProfile = ({fetchUser, followUser, unfollowUser, fetchUserPosts, users
             </li>
             <li className="gallery-item-comments">
               <span className="visually-hidden">Comments:</span>
-              <i className="fas fa-comment" aria-hidden="true"></i> 2
+              <i className="fas fa-comment" aria-hidden="true"></i> {post.comments.length}
             </li>
           </ul>
         </div>
@@ -134,7 +135,8 @@ UserProfile.propTypes = {
   fetchUserPosts: PropTypes.func.isRequired,
   followUser: PropTypes.func.isRequired,
   unfollowUser: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  openShowModal: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => {
@@ -144,4 +146,4 @@ const mapStateToProps = state => {
   };
 }
 
-export default connect(mapStateToProps, {fetchUser, unfollowUser, followUser, fetchUserPosts})(UserProfile)
+export default connect(mapStateToProps, {fetchUser, unfollowUser, openShowModal, followUser, fetchUserPosts})(UserProfile)

@@ -1,4 +1,4 @@
-import { CREATE_POST, DELETE_POST, RECEIVE_ALL_POSTS, RECEIVE_POST, RECEIVE_USER_POSTS, RECEIVE_FEED, RECEIVE_EXPLORE } from "../actions/post_actions";
+import { CREATE_POST, DELETE_POST, RECEIVE_POSTS_BY_HASHTAG, RECEIVE_ALL_POSTS, RECEIVE_POST, RECEIVE_USER_POSTS, RECEIVE_FEED, RECEIVE_EXPLORE } from "../actions/post_actions";
 
 const initialState = {
   post: null,
@@ -14,6 +14,7 @@ export default function(state = initialState, action) {
     case RECEIVE_ALL_POSTS:
     case RECEIVE_EXPLORE:
     case RECEIVE_FEED:
+    case RECEIVE_POSTS_BY_HASHTAG:
       return {
         ...state,
         posts: payload,

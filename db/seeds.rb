@@ -8,7 +8,7 @@
 User.destroy_all
 Score.destroy_all
 Post.destroy_all
-
+Hashtag.destroy_all
 
 
 

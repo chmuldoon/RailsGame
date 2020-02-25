@@ -2,8 +2,10 @@ class Api::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.author_id = current_user.id
+    hashtags = @post.caption.scan(/#\w+/).flatten
     if @post.save
-      @posts = Post.all
+      generate_hashtags(@post.id, hashtags)
+      @posts = feed
       render :index
     else
       render json: @post.errors.full_messages, status: 422

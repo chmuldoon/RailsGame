@@ -1,12 +1,8 @@
 import React from "react";
 import { closeModal } from "../../actions/modal_actions";
 import { connect } from "react-redux";
+import PostShow from "../posts/PostShow";
 // import PostShowContainer from "../post/post_show_container";
-import PostShowContainer from "../posts/post_show_container";
-import NewPostContainer from "../posts/new_post_container";
-import UserPatchContainer from "../profile/user_patch_container";
-import LogoutContainer from "../profile/logout_container";
-import UserList from "../profile/user_list";
 // import ProfilePicContainer from "../profile/profile_pic_container";
 
 function Modal({ modal, closeModal }) {
@@ -16,7 +12,7 @@ function Modal({ modal, closeModal }) {
   let component;
   switch (modal.modal) {
     case "postShow":
-      component = <PostShowContainer post={modal.post} />;
+      component = <PostShow post={modal.post} />;
       break;
     // case "upload":
     //   component = <NewPostContainer />;

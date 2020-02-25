@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :feed, only: [:index, :show]
       resources :follows, only: [:create, :destroy]
       resources :comments, only: [:create, :destroy]
-
+      resources :hashtags, only: [:show]
       resources :scores, only: [:create, :index, :show]
       resources :likes, only: [:create, :destroy]
       resources :posts, only: [:create, :index, :show, :following]
