@@ -16,6 +16,19 @@ export const fetchExplore = (id) => {
     url: `/api/feed/${id}`
   });
 };
+// export const fetchExplore = id => {
+//   return $.ajax({
+//     method: "GET",
+//     url: `/api/feed/${id}`
+//   });
+// };
+export const fetchPostsByHashtag = id => {
+  debugger
+  return $.ajax({
+    method: "GET",
+    url: `/api/hashtags/${id}`
+  });
+};
 export const fetchUserPosts = id => {
   return $.ajax({
     method: "GET",

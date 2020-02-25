@@ -10,6 +10,7 @@ import { AuthRoute, ProtectedRoute } from "../util/route_util";
 import NewPostContainer from "./posts/NewPostContainer";
 import UserProfile from "./user/UserProfile";
 import Explore from "./posts/explore";
+import Hashtag from "./posts/Hashtag";
 const App = () => (
   <div>
     <header>
@@ -23,6 +24,7 @@ const App = () => (
         <ProtectedRoute exact path="/newpost" component={NewPostContainer} />
         <ProtectedRoute exact path="/users/:id" component={UserProfile} />
         <ProtectedRoute exact path="/explore" component={Explore} />
+        <ProtectedRoute exact path="/hashtags/:id" component={Hashtag} />
       </Switch>
     </section>
   </div>

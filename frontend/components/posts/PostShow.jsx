@@ -1,17 +1,21 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { likePost, unlikePost } from '../../actions/post_actions'
+import { likePost, unlikePost, fetchPost } from '../../actions/post_actions'
 import { Link } from 'react-router-dom'
 import Comment from '../comment/Comment'
 const PostIndexItem = ({
   post: { id, photoUrl, hashtags, caption, author_id, username, profilePic, comments, hasLiked },
   unlikePost,
   likePost,
+  fetchPost,
+  postId,
   sessionId
 }) => {
-
+  useEffect(() => {
+    fetchPost(postId)
+  }, [fetchPost])
   const commentSection = comments.map(comment => {
     return (
       <div className="commentCaption">
@@ -22,13 +26,13 @@ const PostIndexItem = ({
       </div>
     );
   });
-  const hashtagIdByContent = function(string) {
+  const hashtagIdByContent = function (string) {
     return hashtags.filter(tag => tag.content == string)[0].id
   }
-  const listcombiner = function(list1, list2){
+  const listcombiner = function (list1, list2) {
     let i = 0
     let output = []
-    while(i + 1 <= list2.length){
+    while (i + 1 <= list2.length) {
       output.push(list1[i])
       output.push(list2[i])
       i++
@@ -36,24 +40,21 @@ const PostIndexItem = ({
     output.push(list1[i])
     return output
   }
-    let base = caption
-    let tags = base.match(/#[\p{L}]+/ugi)
-    let withoutTags = base.replace(/\#\S+/g, '˧').split('˧')
-    let combined = listcombiner(withoutTags, tags)
+  let base = caption
+  let tags = base.match(/#[\p{L}]+/ugi)
+  let withoutTags = base.replace(/\#\S+/g, '˧').split('˧')
+  let combined = listcombiner(withoutTags, tags)
 
-    let parsedCaption = combined.map(word => {
-        if(word[0] !== "#"){
-          return <p>{word}</p>
-        }else{
-          return <Link className="hashtag" to={`/hashtags/${hashtagIdByContent(word)}`}>{` ${word} `}</Link>
-        }
-      })
-
-
-  debugger
+  let parsedCaption = combined.map(word => {
+    if (word[0] !== "#") {
+      return <p>{word}</p>
+    } else {
+      return <Link className="hashtag" to={`/hashtags/${hashtagIdByContent(word)}`}>{` ${word} `}</Link>
+    }
+  })
   return (
     <Fragment>
-      {id && hashtags? (
+      {id && hashtags ? (
         <IndexItem>
           <NameBar>
             <ProfilePhoto
@@ -81,12 +82,12 @@ const PostIndexItem = ({
                 onClick={e => unlikePost(id)}
               ></i>
             ) : (
-              <i
-                style={{ color: "black", fontSize: "30px" }}
-                className="far fa-heart"
-                onClick={e => likePost(id)}
-              ></i>
-            )}
+                <i
+                  style={{ color: "black", fontSize: "30px" }}
+                  className="far fa-heart"
+                  onClick={e => likePost(id)}
+                ></i>
+              )}
             <div className="commentCaption">
               <Link
                 className="extraDetailName"
@@ -103,11 +104,11 @@ const PostIndexItem = ({
           </LowerSection>
         </IndexItem>
       ) : (
-        <Fragment></Fragment>
-      )}
+          <Fragment></Fragment>
+        )}
     </Fragment>
   );
-};
+}
 export const LowerSection = styled.div`
 min-height: 80px;
 padding-left: 30px;
@@ -133,7 +134,7 @@ export const NameBar = styled.header`
   justify-content: center;
 
 `
-export const PostImage= styled.img`
+export const PostImage = styled.img`
   width: 614px;
 `
 
@@ -143,13 +144,13 @@ PostIndexItem.propTypes = {
   post: PropTypes.object.isRequired,
   likePost: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,
+  fetchPost: PropTypes.func.isRequired,
 
 }
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
   return {
-    post: props.post,
+    post: props.posts.post,
     sessionId: state.session.id
   }
 }
-export default connect(mapStateToProps, {likePost, unlikePost})(PostIndexItem);
-
+export default connect(mapStateToProps, { likePost, unlikePost, fetchPost })(PostIndexItem);

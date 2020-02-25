@@ -34,4 +34,16 @@ class ApplicationController < ActionController::Base
     feed = following + [current_user.id]
     Post.where(author_id: feed)
   end
+  def generate_hashtags(post_id, hashtags)
+    hashtags.each do |hashtag|
+      if Hashtag.exists?(content: hashtag)
+        newHash = Hashtag.find_by(content: hashtag)
+      else
+        newHash = Hashtag.new(content: hashtag)
+        newHash.save
+      end
+      post_hashtag = PostHashtag.new(hashtag_id: newHash.id, post_id: post_id)
+      post_hashtag.save
+    end
+  end
 end

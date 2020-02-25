@@ -8,7 +8,7 @@ export const RECEIVE_EXPLORE = "RECEIVE_FEED";
 export const RECEIVE_POST = "RECEIVE_POST";
 export const CREATE_POST = "CREATE_POST";
 export const DELETE_POST = "DELETE_POST";
-
+export const RECEIVE_POSTS_BY_HASHTAG = "RECEIVE_POSTS_BY_HASHTAG";
 export const LIKE_POST = "LIKE_POST";
 export const UNLIKE_POST = "UNLIKE_POST";
 
@@ -26,6 +26,9 @@ export const fetchFeed = () => dispatch =>
     PostApiUtil.fetchFeed().then(posts => dispatch(receiveFeed(posts)));
 export const fetchExplore = () => dispatch =>
   PostApiUtil.fetchExplore().then(posts => dispatch(receiveExplore(posts)));
+
+export const fetchPostsByHashtag = (id) => dispatch =>
+  PostApiUtil.fetchPostsByHashtag(id).then(posts => dispatch(receivePostsByHashtag(posts)));
 
 export const createPost = post => dispatch =>
   PostApiUtil.createPost(post).then(post => dispatch(receivePost(post)));
@@ -50,6 +53,10 @@ const receiveFeed = posts => ({
 });
 const receiveExplore = posts => ({
   type: RECEIVE_EXPLORE,
+  payload: posts
+});
+const receivePostsByHashtag = posts => ({
+  type: RECEIVE_POSTS_BY_HASHTAG,
   payload: posts
 });
 const receiveAllPosts = posts => ({

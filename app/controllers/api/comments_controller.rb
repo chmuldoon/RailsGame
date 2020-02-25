@@ -4,7 +4,7 @@ class Api::CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.author_id = current_user.id
     if @comment.save
-      @posts = Post.all
+      @posts = feed
       render "api/posts/index"
     else
       render json: @comment.errors.full_messages, status: 422
@@ -15,7 +15,7 @@ class Api::CommentsController < ApplicationController
   def destroy
     @comment = Comment.find_by(author_id: current_user, post_id: params[:id])
     if @comment.destroy
-      @posts = Post.all
+      @posts = feed
       render "api/posts/index"
     else
       render :json, @comment.errors.full_messages, status: 404

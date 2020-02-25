@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { fetchExplore } from '../../actions/post_actions'
-const Explore = ({explore, fetchExplore}) => {
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { fetchPostsByHashtag } from "../../actions/post_actions";
+const Hashtag = ({ match, hashtagId, explore, fetchPostsByHashtag }) => {
   useEffect(() => {
-    fetchExplore();
-  }, [fetchExplore]);
+    fetchPostsByHashtag(parseInt(match.params.id));
+  }, [fetchPostsByHashtag]);
   let displayGallery = Object.values(explore)
     .reverse()
     .map(post => (
@@ -46,14 +46,14 @@ const Explore = ({explore, fetchExplore}) => {
       </div>
     </div>
   );
-}
+};
 
-Explore.propTypes = {
+Hashtag.propTypes = {
   explore: PropTypes.object.isRequired,
-  fetchExplore: PropTypes.func.isRequired,
-}
+  fetchPostsByHashtag: PropTypes.func.isRequired
+};
 const mapStateToProps = state => ({
   explore: state.entities.posts.posts
 });
 
-export default connect(mapStateToProps, { fetchExplore })(Explore)
+export default connect(mapStateToProps, { fetchPostsByHashtag })(Hashtag);
