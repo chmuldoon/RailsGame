@@ -58,16 +58,17 @@ export const deletePost = id =>
     method: "DELETE"
   });
 
-export const likePost = id =>
+export const likePost = (id, kind) =>
   $.ajax({
     url: `api/likes`,
     method: "POST",
-    data: { post_id: id }
+    data: { post_id: id, kind: kind }
   });
-export const unlikePost = id =>
+export const unlikePost = (id, kind) =>
   $.ajax({
     url: `api/likes/${id}`,
-    method: "DELETE"
+    method: "DELETE",
+    data: { kind: kind }
   });
 
 export const createComment = comment =>
