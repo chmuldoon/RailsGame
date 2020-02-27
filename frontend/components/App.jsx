@@ -12,10 +12,10 @@ import UserProfile from "./user/UserProfile";
 import Explore from "./posts/explore";
 import Hashtag from "./posts/Hashtag";
 import Modal from "./modal/modal";
-
+import EditUser from "./user/EditUser";
 const App = () => (
   <div>
-    <Modal/>
+    <Modal />
     <header>
       <NavBarContainer />
     </header>
@@ -28,6 +28,7 @@ const App = () => (
         <ProtectedRoute exact path="/users/:id" component={UserProfile} />
         <ProtectedRoute exact path="/explore" component={Explore} />
         <ProtectedRoute exact path="/hashtags/:id" component={Hashtag} />
+        <ProtectedRoute exact path="/edit" component={EditUser} />
       </Switch>
     </section>
   </div>

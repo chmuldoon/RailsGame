@@ -6,6 +6,7 @@ import Loader from '../Loader'
 import { fetchUserPosts } from '../../actions/post_actions'
 import UserProfilePic from './UserProfilePic'
 import { openShowModal } from '../../actions/modal_actions'
+import { Link } from 'react-router-dom'
 const UserProfile = ({fetchUser, openShowModal, followUser, unfollowUser, fetchUserPosts, users: {currentUser, profile, loading}, match, posts:{posts} }) => {
   //
   useEffect(() => {
@@ -61,19 +62,27 @@ const UserProfile = ({fetchUser, openShowModal, followUser, unfollowUser, fetchU
                   {currentUser.id !== profile.id ? (
                     <Fragment>
                       {profile.hasFollowed ? (
-                        <button onClick={e => unfollowUser(profile.id)} className="btn profile-edit-btn">
+                        <button
+                          onClick={e => unfollowUser(profile.id)}
+                          className="btn profile-edit-btn"
+                        >
                           Unfollow
                         </button>
                       ) : (
-                        <button onClick={e => followUser(profile.id)} className="btn profile-edit-btn">
+                        <button
+                          onClick={e => followUser(profile.id)}
+                          className="btn profile-edit-btn"
+                        >
                           Follow
                         </button>
                       )}
                     </Fragment>
                   ) : (
-                    <button className="btn profile-edit-btn">
-                      Edit Profile
-                    </button>
+                    <Link to="/edit">
+                      <button className="btn profile-edit-btn">
+                        Edit Profile
+                      </button>
+                    </Link>
                   )}
 
                   <button
@@ -106,12 +115,9 @@ const UserProfile = ({fetchUser, openShowModal, followUser, unfollowUser, fetchU
                 </div>
 
                 <div className="profile-bio">
-                  <span className="profile-real-name">Jane Doe</span>
+                  <span className="profile-real-name">{profile.name}</span>
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit
-                    📷✈️🏕️ Lorem ipsum dolor sit, amet consectetur adipisicing
-                    elit 📷✈️🏕️ Lorem ipsum dolor sit, amet consectetur
-                    adipisicing elit 📷✈️🏕️
+                    {profile.bio}
                   </p>
                 </div>
               </div>
@@ -120,7 +126,7 @@ const UserProfile = ({fetchUser, openShowModal, followUser, unfollowUser, fetchU
               <div className="gallery">
                 {displayGallery}
                 {extras}
-                </div>
+              </div>
             </div>
           </div>
         </Fragment>

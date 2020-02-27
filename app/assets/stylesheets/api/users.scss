@@ -291,6 +291,158 @@
         transform: rotate(360deg);
     }
 }
+.EditUserForm {
+  width: 400px;
+  height: 550px;
+  background-color: white;
+  border: 1px solid #efefee;
+  border-radius: 5%;
+  justify-content: center;
+  /* display: flex; */
+}
+.EditUserFormForm {
+  /* background-color: greenyellow; */
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.EditUserFormPhoto{
+  height: 200px;
+  /* margin-left: auto;
+  margin-right: auto; */
+  margin-bottom: 10px;
+  justify-content: center;
+  display: flex;
+
+}
+.EditUserFormPhotoButton {
+  /* background-color: red; */
+  width: 230px;
+  height: 200px;
+  display: fleX;
+  position: relative;
+  justify-content: center;;
+}
+
+.editPhotoPhoto {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; 
+  margin-top: 30px;
+  margin-left: auto; 
+  margin-right:auto;
+}
+.editPhotoPhotoOverlay {
+  background-color: black;
+  opacity: 0;
+  justify-content: center;
+
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;  
+  position: absolute;
+  display: flex;
+  margin-top: 30px;
+  /* margin-left: 60px; */
+
+  margin-right:auto;
+  z-index: 4;
+}
+.editPhotoPhotoOverlay:hover {
+  opacity: .4;
+}
+.editPhotoPhotoOverlay input {
+  width: 100px;
+  height: 100px;
+  z-index: 6;
+  cursor: pointer;
+
+  opacity: 0;
+  border-radius: 50%;  
+}
+.editPhotoPhotoOverlay p {
+  z-index: 5;
+  position: absolute;
+  top: 30px;
+  left:20px
+}
+.editPhotoPhotoOverlay:hover p {
+  color: white;
+  opacity: 1;
+}
+.EditSection {
+  /* margin-top: 30px; */
+  min-height: 32px;
+  margin-bottom:  15px;
+}
+.EditUserFormLabel{
+  color: #262626;
+  font-size: 20px;
+  margin-bottom: -10px;
+  margin-left: 5px;
+  font-weight: 600;
+  line-height: 18px;
+  min-width: 79px;
+}
+.EditUserFormTitle {
+  display: flex;
+  justify-content: center;
+  color: #262626;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 18px;
+  margin-bottom: 20px;
+
+}
+.EditUserFormFormInput{
+
+  cursor: text;
+  margin: 0em;
+  font: 400 11px system-ui;
+  padding: 1px;
+  border-width: 2px;
+  letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    -webkit-appearance: textfield;
+    background-color: white;
+    color: #262626;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 1 355px;
+    -ms-flex: 0 1 355px;
+    flex: 0 1 355px;
+    font-size: 16px;
+    height: 32px;
+    padding: 0 10px;
+    float:right;
+}
+
+
+.EditSubmit {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+.EditSubmit input {
+  width: 100px;
+  height: 30px;
+  font-weight: 600;
+  font-size: 16px;
+  color: white;
+background-color: #3897f0;
+  border-radius: 4px;
+  outline: none;
+  opacity: .4;
+  cursor: pointer;
+}
+.EditSubmit:hover input {
+  opacity: 1;
+
+}
 
 /*
 
