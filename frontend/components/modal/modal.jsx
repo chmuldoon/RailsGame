@@ -1,7 +1,8 @@
 import React from "react";
 import { closeModal } from "../../actions/modal_actions";
 import { connect } from "react-redux";
-import PostShow from "../posts/PostShow";
+import PostIndexItem  from "../splash/PostIndexItem";
+import PostShow from "../splash/PostShow";
 // import PostShowContainer from "../post/post_show_container";
 // import ProfilePicContainer from "../profile/profile_pic_container";
 
@@ -29,6 +30,7 @@ function Modal({ modal, closeModal }) {
     default:
       return null;
   }
+  debugger
   return (
     <div className="modal-background" onClick={closeModal}>
       <div className="modal-child" onClick={e => e.stopPropagation()}>
@@ -42,8 +44,6 @@ const mapStateToProps = state => {
   return {
     modal: state.ui.modal,
     post: state.ui.post,
-    // list: state.ui.list,
-    // king: state.ui.kind
   };
 };
 

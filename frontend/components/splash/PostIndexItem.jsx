@@ -26,6 +26,7 @@ const PostIndexItem = ({
     return hashtags.filter(tag => tag.content == string)[0].id
   }
   const listcombiner = function(list1, list2){
+    if(!list2){ return caption }
     let i = 0
     let output = []
     while(i + 1 <= list2.length){
@@ -41,7 +42,8 @@ const PostIndexItem = ({
     let withoutTags = base.replace(/\#\S+/g, '˧').split('˧')
     let combined = listcombiner(withoutTags, tags)
 
-    let parsedCaption = combined.map(word => {
+    let parsedCaption = hashtags.length === 0 ? caption :
+        combined.map(word => {
         if(word[0] !== "#"){
           return <p>{word}</p>
         }else{
@@ -53,7 +55,7 @@ const PostIndexItem = ({
   debugger
   return (
     <Fragment>
-      {id && hashtags? (
+      {id ? (
         <IndexItem>
           <NameBar>
             <ProfilePhoto

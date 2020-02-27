@@ -11,8 +11,11 @@ import NewPostContainer from "./posts/NewPostContainer";
 import UserProfile from "./user/UserProfile";
 import Explore from "./posts/explore";
 import Hashtag from "./posts/Hashtag";
+import Modal from "./modal/modal";
+
 const App = () => (
   <div>
+    <Modal/>
     <header>
       <NavBarContainer />
     </header>

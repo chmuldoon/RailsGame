@@ -23,7 +23,7 @@ export const fetchExplore = (id) => {
 //   });
 // };
 export const fetchPostsByHashtag = id => {
-  debugger
+  // debugger
   return $.ajax({
     method: "GET",
     url: `/api/hashtags/${id}`
