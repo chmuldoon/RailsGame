@@ -52,7 +52,6 @@ const PostIndexItem = ({
       })
 
 
-  debugger
   return (
     <Fragment>
       {id ? (
@@ -80,13 +79,13 @@ const PostIndexItem = ({
               <i
                 style={{ color: "red", fontSize: "30px" }}
                 className="fas fa-heart"
-                onClick={e => unlikePost(id)}
+                onClick={e => unlikePost(id, "indexitem")}
               ></i>
             ) : (
               <i
                 style={{ color: "black", fontSize: "30px" }}
                 className="far fa-heart"
-                onClick={e => likePost(id)}
+                onClick={e => likePost(id, "indexitem")}
               ></i>
             )}
             <div className="commentCaption">

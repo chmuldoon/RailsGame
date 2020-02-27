@@ -36,12 +36,13 @@ export const createPost = post => dispatch =>
 export const createComment = comment => dispatch =>
     PostApiUtil.createComment(comment).then(posts => dispatch(receiveAllPosts(posts)));
 
-export const likePost = id => dispatch =>
-  PostApiUtil.likePost(id).then(posts => dispatch(receiveFeed(posts)))
+export const likePost = (id, kind) => dispatch =>
+  PostApiUtil.likePost(id, kind).then(posts => dispatch(receiveFeed(posts)))
 
 
-export const unlikePost = id => dispatch =>
-  PostApiUtil.unlikePost(id).then(posts => dispatch(receiveFeed(posts)));
+export const unlikePost = (id, kind) => dispatch =>
+  PostApiUtil.unlikePost(id, kind).then(posts => dispatch(receiveFeed(posts)));
+
 
 const receiveUserPosts = posts => ({
   type: RECEIVE_USER_POSTS,

@@ -2,9 +2,10 @@ import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { likePost, unlikePost, fetchPost } from '../../actions/post_actions'
+import { likePost, unlikePost, fetchPost, likeModalPost, unlikeModalPost } from '../../actions/post_actions'
 import { Link } from 'react-router-dom'
 import Comment from '../comment/Comment'
+unlikeModalPost
 const PostShow = ({
   post: { id, photoUrl, hashtags, caption, author_id, username, profilePic, comments, hasLiked },
   unlikePost,
@@ -13,7 +14,7 @@ const PostShow = ({
   postId,
   sessionId
 }) => {
-  debugger
+  // debugger
   // useEffect(() => {
   //   fetchPost(postId)
   // }, [fetchPost])
@@ -101,13 +102,13 @@ const PostShow = ({
                 <i
                   style={{ color: "red", fontSize: "30px" }}
                   className="fas fa-heart"
-                  onClick={e => unlikePost(id)}
+                  onClick={e => unlikePost(id, author_id)}
                 ></i>
               ) : (
                 <i
                   style={{ color: "black", fontSize: "30px" }}
                   className="far fa-heart"
-                  onClick={e => likePost(id)}
+                  onClick={e => likePost(id, author_id)}
                 ></i>
               )}
               <Comment postId={id} style={{bottom: "0"}} />
@@ -161,15 +162,14 @@ const PostImage = styled.img`
 
 
 PostShow.propTypes = {
-  post: PropTypes.object.isRequired,
+  // post: PropTypes.object.isRequired,
   likePost: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,
-  fetchPost: PropTypes.func.isRequired,
-
-}
+  fetchPost: PropTypes.func.isRequired
+};
 const mapStateToProps = (state) => {
   return {
-    // post: props.posts.post,
+    // postId: props.post,
     sessionId: state.session.id
   }
 }
