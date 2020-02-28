@@ -24,6 +24,10 @@ export const unfollowUser = id => dispatch =>
 // export const updateUser = user => dispatch => {
 //   return UserApiUtil.updateUser(user).then(user => dispatch(receiveUser(user)));
 // };
+export const updateUser = user => dispatch => {
+  debugger
+  return UserApiUtil.updateUser(user).then(user => dispatch(receiveUser(user)));
+};
 
 const receiveCurrentUser = user => ({
   type: RECEIVE_CURRENT_USER_DATA,

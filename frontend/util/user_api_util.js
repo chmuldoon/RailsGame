@@ -22,3 +22,13 @@ export const unfollowUser = id =>
     url: `api/follows/${id}`,
     method: "DELETE"
   });
+export const updateUser = user => {
+  debugger
+  return $.ajax({
+    method: "PATCH",
+    url: `/api/users/${user.id}`,
+    data: user.formData,
+    contentType: false,
+    processData: false
+  });
+};
