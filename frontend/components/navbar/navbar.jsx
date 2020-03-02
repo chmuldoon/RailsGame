@@ -4,7 +4,7 @@ import React, { Component, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { logout } from "../../actions/session_actions";
 import { fetchCurrentUser } from "../../actions/user_actions";
-
+import SearchContainer from "./search_container";
 const NavBar = ({currentUserId, logout, fetchCurrentUser, history}) => {
   useEffect(() => {
     fetchCurrentUser(currentUserId);
@@ -23,7 +23,7 @@ const NavBar = ({currentUserId, logout, fetchCurrentUser, history}) => {
                 <p>Clonestagram</p>
               </Link>
             </div>
-            {/* <SearchContainer /> */}
+            <SearchContainer/>
             <div className="navbar-right">
               <div
                 className="daLink2"

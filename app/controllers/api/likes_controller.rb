@@ -7,6 +7,7 @@ class Api::LikesController < ApplicationController
         @posts = feed
         render "api/posts/index"
       elsif params[:kind] == "postshow"
+
         @post = Post.find_by(post_id: params[:post_id])
         render "api/posts/show"
       else
@@ -24,7 +25,6 @@ class Api::LikesController < ApplicationController
     @like = Like.find_by(user_id: current_user.id, post_id: params[:id])
 
     # @like = Like.where(user_id: current_user.id).where(post_id: params[:id])[0]
-    # debugger
     if @like.destroy
       if params[:kind] == "indexitem"
         following = current_user.active_follows.map {|follow| follow.target_id }

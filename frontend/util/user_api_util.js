@@ -4,6 +4,12 @@ export const fetchUsers = () => {
     url: "/api/users/"
   });
 };
+export const fetchHashtags = () => {
+  return $.ajax({
+    method: "GET",
+    url: "/api/hashtags"
+  })
+}
 
 export const fetchUser = id => {
   return $.ajax({
