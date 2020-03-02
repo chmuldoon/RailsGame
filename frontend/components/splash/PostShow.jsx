@@ -2,7 +2,14 @@ import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { likePost, unlikePost, fetchPost, likeModalPost, unlikeModalPost } from '../../actions/post_actions'
+import {
+  likePost,
+  unlikePost,
+  fetchPost,
+  fetchUserPosts,
+  likeModalPost,
+  unlikeModalPost
+} from "../../actions/post_actions";
 import { Link } from 'react-router-dom'
 import Comment from '../comment/Comment'
 unlikeModalPost
@@ -14,10 +21,11 @@ const PostShow = ({
   postId,
   sessionId
 }) => {
-  // debugger
-  // useEffect(() => {
-  //   fetchPost(postId)
-  // }, [fetchPost])
+  debugger
+  useEffect(() => {
+    fetchUserPosts(author_id)
+  }, [fetchUserPosts])
+  
   const commentSection = comments.map(comment => {
     return (
       <div className="commentCaption">
@@ -165,12 +173,14 @@ PostShow.propTypes = {
   // post: PropTypes.object.isRequired,
   likePost: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,
-  fetchPost: PropTypes.func.isRequired
+  fetchPost: PropTypes.func.isRequired,
+  fetchUserPosts: PropTypes.func.isRequired,
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   return {
-    // postId: props.post,
+    // postId: props.postId,
+    // post: state.entities.posts.post,
     sessionId: state.session.id
   }
 }
-export default connect(mapStateToProps, { likePost, unlikePost, fetchPost })(PostShow);
+export default connect(mapStateToProps, { likePost, unlikePost, fetchPost, fetchUserPosts })(PostShow);

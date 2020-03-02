@@ -43,6 +43,16 @@ export const likePost = (id, kind) => dispatch =>
 export const unlikePost = (id, kind) => dispatch =>
   PostApiUtil.unlikePost(id, kind).then(posts => dispatch(receiveFeed(posts)));
 
+export const likeModalPost = (id, kind) => dispatch =>
+    PostApiUtil.likePost(id, kind).then(posts => 
+      dispatch(receiveFeed(posts))
+);
+
+export const unlikeModalPost = (id, kind) => dispatch =>
+    PostApiUtil.unlikePost(id, kind).then(posts =>
+      dispatch(receiveFeed(posts))
+    );
+
 
 const receiveUserPosts = posts => ({
   type: RECEIVE_USER_POSTS,

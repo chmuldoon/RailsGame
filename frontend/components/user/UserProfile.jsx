@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { fetchUser, followUser, unfollowUser } from '../../actions/user_actions'
 import { connect } from 'react-redux'
@@ -13,11 +13,13 @@ const UserProfile = ({fetchUser, openShowModal, followUser, unfollowUser, fetchU
     fetchUserPosts(parseInt(match.params.id))
     fetchUser(parseInt(match.params.id))
   }, [fetchUser, fetchUserPosts])
+  const [displayModal, toggleModal] = useState(false);
+
   let displayGallery = Object.values(posts)
     .reverse()
     .map(post => (
-      // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length}/>
-      <div className="gallery-item" tabindex="0" onClick={e => openShowModal("postShow", post)}>
+      // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length} t/>
+      <div className="gallery-item" tabindex="0" onClick={() => openShowModal("postShow", post)}>
         <img src={post.photoUrl} className="gallery-image" alt="" />
 
         <div className="gallery-item-info">

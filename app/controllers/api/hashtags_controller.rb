@@ -4,4 +4,8 @@ class Api::HashtagsController < ApplicationController
     @posts = tag.posts
     render "api/posts/index"
   end
+  def index
+    @hashtags = Hashtag.all
+    render :index
+  end
 end
