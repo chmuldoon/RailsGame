@@ -33,7 +33,7 @@ export class Search extends Component {
       if (e.target.value === "") {
         searched = [];
       }
-      this.setState({ [field]: e.target.value, users: searched });
+      this.setState({ [field]: e.target.value, results: searched });
     };
   }
 
@@ -60,7 +60,7 @@ export class Search extends Component {
 
                     <div className="search-info'">
                       <div className="search-username">{user.username}</div>
-                      <div className="search-fullname">{user.full_name}</div>
+                      <div className="search-fullname">{user.name}</div>
                     </div>
                   </div>
                 </li>

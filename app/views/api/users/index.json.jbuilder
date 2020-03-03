@@ -2,6 +2,7 @@
   json.set! user.id do
     json.extract! user, :id, :username, :name
     json.photoUrl url_for(user.photo)
+    json.type "user"
 
     
   end

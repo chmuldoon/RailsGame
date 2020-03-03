@@ -3,12 +3,17 @@ import PropTypes from "prop-types";
 import React, { Component, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { logout } from "../../actions/session_actions";
-import { fetchCurrentUser } from "../../actions/user_actions";
-import SearchContainer from "./search_container";
-const NavBar = ({currentUserId, logout, fetchCurrentUser, history}) => {
+import { fetchCurrentUser, fetchUsers, fetchHashtags } from "../../actions/user_actions";
+// import SearchContainer from "./search_container";
+import Search2 from "./Search2";
+// Search2
+const NavBar = ({currentUserId, logout, fetchUsers, fetchHashtags, fetchCurrentUser, history}) => {
   useEffect(() => {
     fetchCurrentUser(currentUserId);
-  }, [fetchCurrentUser]);
+    fetchUsers();
+    fetchHashtags();
+
+  }, [fetchCurrentUser, fetchUsers, fetchHashtags]);
 
   return (
     <Fragment>
@@ -23,7 +28,7 @@ const NavBar = ({currentUserId, logout, fetchCurrentUser, history}) => {
                 <p>Clonestagram</p>
               </Link>
             </div>
-            <SearchContainer/>
+            <Search2/>
             <div className="navbar-right">
               <div
                 className="daLink2"
@@ -62,10 +67,12 @@ NavBar.propTypes = {
   logout: PropTypes.func.isRequired,
   currentUserId: PropTypes.number.isRequired,
   fetchCurrentUser: PropTypes.func.isRequired,
+  fetchUsers: PropTypes.func.isRequired,
+  fetchHashtags: PropTypes.func.isRequired
 };
 const mapStateToProps = ({ session }) => {
   return {
     currentUserId: session.id
   }
 }
-export default connect(mapStateToProps, {logout, fetchCurrentUser})(NavBar);
+export default connect(mapStateToProps, {logout,fetchUsers, fetchHashtags, fetchCurrentUser})(NavBar);
