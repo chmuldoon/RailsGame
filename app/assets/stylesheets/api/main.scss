@@ -87,7 +87,104 @@ table {
 	// margin: auto;
   transform: translate(-50%, -50%);
 }
+.nav-search-input{
+  box-sizing: border-box;
+  height: 28px;
+  display: flex;
+  text-align: center;
+  margin: auto;
+  width: 245px;
+  height: 33px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 10px 3px auto;
+  background-color: #fafafa;
+  border: 1px solid #e6e6e6;
+  border-radius: 3px;
+  color: #262626;
+  outline: 0;
+  z-index: 2;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size: 14px;
+}
+.nav-search{
+  width: 900px;
+  display: flex;
+  justify-content: center;
+}
+.nav-search-input:placeholder-shown {
+  font-size: 16px;
+}
+.nav-search input:focus{
+  background: #fff;
+}
+.nav-search ul{
+  margin: 0;
+  z-index: 18;
+  margin-top: 42px;
+  margin-left: -135px;
+  position:absolute;
+  background: #fff;
+  border-radius: 3px;
+  max-height: 362px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  box-shadow: 0px 0px 10px rgba(0,0,0,.0975);
+}
 
+.nav-search a:link{
+    text-decoration: none;
+    color: none;
+}
+
+.nav-search li:hover{
+    background: #fafafa;
+    cursor: pointer;
+}
+
+.nav-search li{
+    padding: 8px 14px 8px 14px;
+    border-color: #efefef;
+    border-style: solid;
+    border-width: 0px 1px 1px 1px;
+    overflow-x: hidden;
+
+}
+
+.nav-search-item{
+    display: flex; 
+}
+
+.search-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.search-photo{
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.search-photo img{
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}
+.search-fullname{
+    font-weight: 300;
+    line-height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #999 !important;
+}
+
+.search-username{
+  min-width: 200px;
+    font-weight: 600;
+    color: #262626;
+}
 @media (max-width: 700px) {
 	.container {
     margin-top: rem;
