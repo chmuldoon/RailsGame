@@ -7,14 +7,21 @@ import { fetchUserPosts } from '../../actions/post_actions'
 import UserProfilePic from './UserProfilePic'
 import { openShowModal } from '../../actions/modal_actions'
 import { Link } from 'react-router-dom'
-const UserProfile = ({fetchUser, openShowModal, followUser, unfollowUser, fetchUserPosts, users: {currentUser, profile, loading}, match, posts:{posts} }) => {
-  //
+const UserProfile = ({userId, fetchUser, openShowModal, followUser, unfollowUser, fetchUserPosts, currentUser, profile, loading, match, posts:{posts} }) => {
+  
   useEffect(() => {
-    fetchUserPosts(parseInt(match.params.id))
-    fetchUser(parseInt(match.params.id))
+    if(userId){
+      debugger
+      fetchUser(userId)
+      fetchUserPosts(userId)
+    }else{
+      debugger
+      fetchUserPosts(parseInt(match.params.id))
+      fetchUser(parseInt(match.params.id))
+    }
   }, [fetchUser, fetchUserPosts])
   const [displayModal, toggleModal] = useState(false);
-
+  // debugger
   let displayGallery = Object.values(posts)
     .reverse()
     .map(post => (
@@ -149,7 +156,10 @@ UserProfile.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    users: state.entities.users,
+    currentUser: state.entities.users.currentUser,
+    loading: state.entities.users.loading,
+    profile: state.entities.users.profile,
+
     posts: state.entities.posts
   };
 }

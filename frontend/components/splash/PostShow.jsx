@@ -21,7 +21,7 @@ const PostShow = ({
   postId,
   sessionId
 }) => {
-  debugger
+  // debugger
   useEffect(() => {
     fetchUserPosts(author_id)
   }, [fetchUserPosts])

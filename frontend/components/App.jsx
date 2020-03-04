@@ -14,6 +14,7 @@ import Hashtag from "./posts/Hashtag";
 import Modal from "./modal/modal";
 import EditUser from "./user/EditUser";
 import Search2 from "./navbar/Search2";
+import CurrentUser from "./user/CurrentUser";
 const App = () => (
   <div>
     <Modal />
@@ -27,10 +28,11 @@ const App = () => (
         <AuthRoute exact path="/signup" component={SignupFormContainer} />
         <ProtectedRoute exact path="/newpost" component={NewPostContainer} />
         <ProtectedRoute exact path="/users/:id" component={UserProfile} />
+        <ProtectedRoute exact path="/me" component={CurrentUser} />
+
         <ProtectedRoute exact path="/explore" component={Explore} />
         <ProtectedRoute exact path="/hashtags/:id" component={Hashtag} />
         <ProtectedRoute exact path="/edit" component={EditUser} />
-        <ProtectedRoute exact path="/surch" component={Search2} />
       </Switch>
     </section>
   </div>

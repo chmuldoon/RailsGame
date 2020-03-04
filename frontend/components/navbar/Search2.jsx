@@ -25,7 +25,7 @@ const Search2 = (props) => {
     : total.filter(person =>
         person.username.toLowerCase().includes(searchTerm.toLocaleLowerCase())
     );
-  debugger
+  // debugger
   return (
     <Fragment>
       {props.users.length ? (
@@ -41,7 +41,7 @@ const Search2 = (props) => {
             <ul>
               {results.map(item =>
                 item.type === "user" ? (
-                  <Link to={`/users/${item.id}`}>
+                  <Link to={`/users/${item.id}`} onClick={e => setSearchTerm("")}>
                     <li key={item.id}>
                       <div className="nav-search-item">
                         <div className="search-photo">
@@ -56,7 +56,7 @@ const Search2 = (props) => {
                     </li>
                   </Link>
                 ) : (
-                  <Link to={`/hashtags/${item.id}`}>
+                  <Link to={`/hashtags/${item.id}`} onClick={e => setSearchTerm("")}>
                     <li key={item.id}>
                       <div className="nav-search-item">
                         <div className="search-photo">

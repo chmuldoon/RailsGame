@@ -17,7 +17,7 @@ export default function modalReducer(state = [], action) {
     case CLOSE_MODAL:
       return null;
     case OPEN_SHOW_MODAL:
-      debugger
+      // debugger
       return { modal: action.modal, post: action.post };
 
     default:

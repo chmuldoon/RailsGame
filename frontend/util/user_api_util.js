@@ -29,7 +29,7 @@ export const unfollowUser = id =>
     method: "DELETE"
   });
 export const updateUser = user => {
-  debugger
+  // debugger
   return $.ajax({
     method: "PATCH",
     url: `/api/users/${user.id}`,
