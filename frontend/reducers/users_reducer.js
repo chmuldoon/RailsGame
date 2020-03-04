@@ -25,7 +25,7 @@ export default function(state = initialState, action) {
         loading: false
       };
     case RECEIVE_ALL_USERS:
-      debugger
+      // debugger
       return {
         ...state,
         users: payload,

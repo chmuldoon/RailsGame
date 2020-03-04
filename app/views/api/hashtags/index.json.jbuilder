@@ -3,5 +3,6 @@
     json.extract! hashtag, :id, :content
     json.username hashtag.content[1..-1]
     json.type "hashtag"
+    json.postCount hashtag.posts.length
   end
 end

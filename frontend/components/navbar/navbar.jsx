@@ -44,7 +44,7 @@ const NavBar = ({currentUserId, logout, fetchUsers, fetchHashtags, fetchCurrentU
 
               <Link
                 className="navbar-right-link"
-                to={`/users/${currentUserId}`}
+                to={`/me`}
               >
                 <i className="far fa-user"></i>
               </Link>

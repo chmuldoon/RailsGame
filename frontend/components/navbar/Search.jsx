@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export class Search extends Component {
   constructor(props) {
     super(props);
-    debugger
+    // debugger
     this.state = {
       search: "",
       results: [],
@@ -24,7 +24,7 @@ export class Search extends Component {
   }
   update(field) {
     return e => {
-      debugger
+      // debugger
       let searched = this.props.users.filter(
         user =>
           user.username.includes(e.target.value) ||

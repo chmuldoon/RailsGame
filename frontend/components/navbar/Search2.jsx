@@ -24,8 +24,8 @@ const Search2 = (props) => {
     ? []
     : total.filter(person =>
         person.username.toLowerCase().includes(searchTerm.toLocaleLowerCase())
-      );
-  debugger
+    );
+  // debugger
   return (
     <Fragment>
       {props.users.length ? (
@@ -37,21 +37,48 @@ const Search2 = (props) => {
             value={searchTerm}
             onChange={handleChange}
           />
-          {results.length > 0 ?
+          {results.length > 0 ? (
             <ul>
               {results.map(item =>
                 item.type === "user" ? (
-                  <li>
-                    <Link to={`/users/${item.id}`}>{item.username}</Link>
-                  </li>
+                  <Link to={`/users/${item.id}`} onClick={e => setSearchTerm("")}>
+                    <li key={item.id}>
+                      <div className="nav-search-item">
+                        <div className="search-photo">
+                          <img src={item.photoUrl} />
+                        </div>
+
+                        <div className="search-info'">
+                          <div className="search-username">{item.username}</div>
+                          <div className="search-fullname">{item.name}</div>
+                        </div>
+                      </div>
+                    </li>
+                  </Link>
                 ) : (
-                  <li>
-                    <Link to={`/hashtags/${item.id}`}>{item.content}</Link>
-                  </li>
+                  <Link to={`/hashtags/${item.id}`} onClick={e => setSearchTerm("")}>
+                    <li key={item.id}>
+                      <div className="nav-search-item">
+                        <div className="search-photo">
+                          <img src="https://kazcm.com/wp-content/uploads/2018/02/Hashtag.jpg" />
+                          
+                        </div>
+
+                        <div className="search-info'">
+                          <div className="search-username">{item.content}</div>
+                          <div className="search-fullname">
+                            {item.postCount === 1 ? "1 post" : `${item.postCount} posts`}
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </Link>
                 )
               )}
-            </ul> : <Fragment></Fragment>
-          }
+            </ul>
+          ) : (
+            <Fragment></Fragment>
+          )}
         </div>
       ) : (
         <Fragment></Fragment>
