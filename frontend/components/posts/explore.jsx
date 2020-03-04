@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { fetchExplore } from '../../actions/post_actions'
-const Explore = ({explore, fetchExplore}) => {
+import { ProfilePhoto } from '../splash/PostIndexItem'
+import { followUser, unfollowUser } from '../../actions/user_actions'
+import { Link } from 'react-router-dom'
+const Explore = ({explore, exploreProfiles, fetchExplore, unfollowUser, followUser}) => {
   useEffect(() => {
     fetchExplore();
   }, [fetchExplore]);
@@ -38,6 +41,35 @@ const Explore = ({explore, fetchExplore}) => {
   ));
   return (
     <div className="user-page">
+      <p>Explore Users</p>
+      <div className="suggestedUsers">
+        {exploreProfiles.length ? (
+          exploreProfiles.map(user => (
+            <div className="suggestedUser">
+              <Link to={`/users/${user.id}`}>
+                <ProfilePhoto
+                  style={{ width: "64px", height: "64px" }}
+                  src={user.photoUrl}
+                />
+              </Link>
+              <Link to={`/users/${user.id}`}>{user.username}</Link>
+              {user.hasFollowed ?
+              <div className="EditSubmit">
+                <button style={{ color: "black", backgroundColor: "white"}} onClick={e => unfollowUser(user.id)}>Following</button>
+              </div>
+              :
+              <div className="EditSubmit">
+                <button onClick={e => followUser(user.id)}>Follow</button>
+              </div>
+              }
+            </div>
+          ))
+        ) : (
+          <Fragment></Fragment>
+        )}
+      </div>
+      <p>Explore Posts</p>
+
       <div className="posts-section">
         <div className="gallery">
           {displayGallery}
@@ -51,9 +83,12 @@ const Explore = ({explore, fetchExplore}) => {
 Explore.propTypes = {
   explore: PropTypes.object.isRequired,
   fetchExplore: PropTypes.func.isRequired,
-}
+  followUser: PropTypes.func.isRequired,
+  unfollowUser: PropTypes.func.isRequired
+};
 const mapStateToProps = state => ({
-  explore: state.entities.posts.posts
+  explore: state.entities.posts.posts,
+  exploreProfiles: Object.values(state.entities.users.users).filter(user => !user.hasFollowed && user.id !== state.session.id) 
 });
 
-export default connect(mapStateToProps, { fetchExplore })(Explore)
+export default connect(mapStateToProps, { fetchExplore, followUser, unfollowUser })(Explore)
