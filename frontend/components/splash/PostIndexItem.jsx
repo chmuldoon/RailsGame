@@ -11,7 +11,6 @@ const PostIndexItem = ({
   likePost,
   sessionId
 }) => {
-
   const commentSection = comments.map(comment => {
     return (
       <div className="commentCaption">
@@ -76,27 +75,74 @@ const PostIndexItem = ({
           <PostImage src={photoUrl} />
           <LowerSection>
             {hasLiked ? (
-              <i
-                style={{ color: "red", fontSize: "30px" }}
-                className="fas fa-heart"
-                onClick={e => unlikePost(id, "indexitem")}
-              ></i>
+              <Fragment>
+                <i
+                  style={{ color: "red", fontSize: "30px" }}
+                  className="fas fa-heart"
+                  onClick={e => unlikePost(id, "indexitem")}
+                ></i>
+                <Link
+                  to={{
+                    pathname: `/posts/${id}`,
+                    state: {
+                      post: {
+                        id,
+                        photoUrl,
+                        hashtags,
+                        caption,
+                        author_id,
+                        username,
+                        profilePic,
+                        comments,
+                        hasLiked
+                      }
+                    }
+                  }}
+                >
+                  <i
+                    class="far fa-comment"
+                    style={{ fontSize: "30px", marginLeft: "5px" }}
+                  ></i>
+                </Link>
+              </Fragment>
             ) : (
-              <i
-                style={{ color: "black", fontSize: "30px" }}
-                className="far fa-heart"
-                onClick={e => likePost(id, "indexitem")}
-              ></i>
+              <Fragment>
+                <i
+                  style={{ color: "black", fontSize: "30px" }}
+                  className="far fa-heart"
+                  onClick={e => likePost(id, "indexitem")}
+                ></i>
+
+                <Link
+                  to={{
+                    pathname: `/posts/${id}`,
+                    state: {
+                      post: {
+                        id,
+                        photoUrl,
+                        hashtags,
+                        caption,
+                        author_id,
+                        username,
+                        profilePic,
+                        comments,
+                        hasLiked
+                      }
+                    }
+                  }}
+                >
+                  <i
+                    class="far fa-comment"
+                    style={{ fontSize: "30px", marginLeft: "5px" }}
+                  ></i>
+                </Link>
+              </Fragment>
             )}
             <div className="commentCaption">
-              <Link
-                className="extraDetailName"
-                to={`/users/${author_id}`}
-              >
+              <Link className="extraDetailName" to={`/users/${author_id}`}>
                 {`${username} `}
               </Link>
               {parsedCaption}
-
             </div>
 
             {commentSection}

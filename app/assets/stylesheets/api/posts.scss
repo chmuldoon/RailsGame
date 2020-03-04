@@ -82,3 +82,41 @@
   display:inline-block;
   // margin-left: 5px;
 }
+.suggestedUsers {
+  height: 230px;
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+  overflow-y: scroll;
+}
+.suggestedUser {
+  height: 90%;
+  width: 18%;
+  background-color: white;
+  border-radius: 12px;
+  margin: 5px;
+  text-align: center;
+  border: 1px lightgray solid;
+
+}
+.suggestedUser > * {
+  display: block;
+  justify-content: center;
+  margin: 0 auto 0 auto;
+  margin-top: 20px;
+
+
+}
+
+.EditSubmit button {
+  width: 100px;
+  height: 30px;
+  font-weight: 600;
+  font-size: 16px;
+  color: white;
+  background-color: #3897f0;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}

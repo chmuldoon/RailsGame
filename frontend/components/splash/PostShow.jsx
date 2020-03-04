@@ -21,7 +21,7 @@ const PostShow = ({
   postId,
   sessionId
 }) => {
-  // debugger
+  debugger
   useEffect(() => {
     fetchUserPosts(author_id)
   }, [fetchUserPosts])
@@ -73,6 +73,7 @@ const PostShow = ({
             );
           }
         });
+        debugger
   return (
     <Fragment>
       {id && hashtags ? (
@@ -177,9 +178,10 @@ PostShow.propTypes = {
   fetchUserPosts: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state, props) => {
+  debugger
   return {
     // postId: props.postId,
-    // post: state.entities.posts.post,
+    post: props.location.state.post,
     sessionId: state.session.id
   }
 }
