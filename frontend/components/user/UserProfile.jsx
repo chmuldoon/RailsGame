@@ -10,54 +10,24 @@ import { Link } from 'react-router-dom'
 const UserProfile = ({userId, fetchUser, openShowModal, followUser, unfollowUser, fetchUserPosts, currentUser, profile, loading, match, posts:{posts} }) => {
   
   useEffect(() => {
-    if(userId){
-      debugger
-      fetchUser(userId)
-      fetchUserPosts(userId)
-    }else{
-      debugger
-      fetchUserPosts(parseInt(match.params.id))
-      fetchUser(parseInt(match.params.id))
-    }
+    // fetchUserPosts(parseInt(match.params.id))
+    fetchUser(parseInt(match.params.id))
   }, [fetchUser, fetchUserPosts])
-  const [displayModal, toggleModal] = useState(false);
-  // debugger
-  let displayGallery = Object.values(posts)
-    .reverse()
-    .map(post => (
-      // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length} t/>
-      <div className="gallery-item" tabindex="0" onClick={() => openShowModal("postShow", post)}>
-        <img src={post.photoUrl} className="gallery-image" alt="" />
 
-        <div className="gallery-item-info">
-          <ul>
-            <li className="gallery-item-likes">
-              <span className="visually-hidden">Likes:</span>
-              <i className="fas fa-heart" aria-hidden="true"></i>{" "}
-              {post.likes.length}
-            </li>
-            <li className="gallery-item-comments">
-              <span className="visually-hidden">Comments:</span>
-              <i className="fas fa-comment" aria-hidden="true"></i> {post.comments.length}
-            </li>
-          </ul>
-        </div>
-      </div>
-    ));
-    let postCount = Object.keys(posts).length
-    let space = [];
-    if(postCount < 3) {
-      space = new Array(3 - postCount).fill(0)
-    }
-    let extras = space.map(spot => 
-      <div className="gallery-item" tabindex="0">
-      </div>
-    )
+
+  let postCount = Object.keys(posts).length
+  let space = [];
+  if(postCount < 3) {
+    space = new Array(3 - postCount).fill(0)
+  }
+  let extras = space.map(spot => 
+    <div className="gallery-item" tabindex="0"></div>
+  )
 
   
   return (
     <Fragment>
-      {currentUser && posts && profile && !loading ? (
+      {currentUser && profile && !loading ? (
         <Fragment>
           <div className="user-page">
             <div className="UserProfile">
@@ -133,7 +103,27 @@ const UserProfile = ({userId, fetchUser, openShowModal, followUser, unfollowUser
             </div>
             <div className="posts-section">
               <div className="gallery">
-                {displayGallery}
+                {profile.posts.reverse()
+                  .map(post => (
+                    // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length} t/>
+                    <div className="gallery-item" tabindex="0" onClick={() => openShowModal("postShow", post)}>
+                      <img src={post.photo} className="gallery-image" alt="" />
+
+                      <div className="gallery-item-info">
+                        <ul>
+                          <li className="gallery-item-likes">
+                            <span className="visually-hidden">Likes:</span>
+                            <i className="fas fa-heart" aria-hidden="true"></i>{" "}
+                            {post.likesCount}
+                          </li>
+                          <li className="gallery-item-comments">
+                            <span className="visually-hidden">Comments:</span>
+                            <i className="fas fa-comment" aria-hidden="true"></i> {post.commentCount}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  ))}
                 {extras}
               </div>
             </div>
@@ -160,7 +150,7 @@ const mapStateToProps = state => {
     loading: state.entities.users.loading,
     profile: state.entities.users.profile,
 
-    posts: state.entities.posts
+    // posts: state.entities.posts
   };
 }
 

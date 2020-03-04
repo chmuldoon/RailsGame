@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { Component, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
@@ -44,8 +44,7 @@ const NavBar = ({currentUserId, logout, fetchUsers, fetchHashtags, fetchCurrentU
 
               <Link
                 className="navbar-right-link"
-                to={`/me`}
-              >
+                to={`/users/${currentUserId}`}>
                 <i className="far fa-user"></i>
               </Link>
               <button onClick={e => logout()}></button>
@@ -72,7 +71,7 @@ NavBar.propTypes = {
 };
 const mapStateToProps = ({ session }) => {
   return {
-    currentUserId: session.id
+    currentUserId: session.id,
   }
 }
 export default connect(mapStateToProps, {logout,fetchUsers, fetchHashtags, fetchCurrentUser})(NavBar);

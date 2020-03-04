@@ -1,3 +1,157 @@
 // Place all the styles related to the api::sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.notiphone{
+  z-index: 1;
+  padding-right: 65px;
+}
+.sessionbox{
+  display: flex;
+   border: 1px solid #e6e6e6;
+   background-color: #ffffff;
+   align-items: stretch;
+   flex-direction: column;
+   text-align: center;
+   justify-content: center;
+   align-content: center;
+   flex-wrap: wrap;
+   margin-left: auto;
+   margin-right: auto;
+   margin-bottom: 10px;
+   max-width: 500px;
+   padding: 10px 0;
+   width: 350px;
+}
+.logo{
+  display: flex;
+  justify-content: center;
+  color: #262626;
+  margin: auto;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  font-size: 56px;
+  font-family: 'Cookie', cursive;
+  
+
+}
+
+.signup-message{
+  font-weight: 600;
+  line-height: 20px;
+  font-size: 17px;
+  margin: 0 40px 10px;
+  color: #999;
+  text-align: center;
+  
+}
+
+.demo-div {
+  display: flex;
+  align-content: center;
+}
+.demo-div button{
+  background-color: #3897f0;
+  border: 1px solid #3897f0;
+  border-radius: 4px;
+  margin: auto;
+  margin-top: 15px;
+  color: #fff;
+  font-weight: 600;
+  font: 400 11px;
+  height: 30px;
+  width: 270px;
+}
+.or{
+  color: #999;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 15px;
+  margin: 0 18px;
+  margin-top: 10px;
+  text-transform: uppercase;
+  text-align: center;
+
+}
+.signupbox{
+  
+}
+.signupbox-info{
+}
+
+
+
+.session-inputs input{
+    display: flex;
+    align-content: center;
+    background: #fafafa;
+    border: solid #efefef 1px;
+    border-radius: 3px;
+    height: 36px;
+    width: 258px;
+    margin: 7px auto 7px;
+    font-size: 10px;
+    font-weight: 100;
+    padding: 1px 5px;
+}
+
+.session-submit{
+  display: flex;
+  align-content: center;
+}
+.session-submit input{
+
+  background-color: #3897f0;
+  border: 1px solid #3897f0;
+  border-radius: 4px;
+  margin: auto;
+  margin-top: 15px;
+  color: #fff;
+  font-weight: 600;
+  font: 400 11px;
+  height: 30px;
+  width: 270px;
+  
+
+}
+
+.session-type-switcher-container{
+    display: flex;
+    border: 1px solid #e6e6e6;
+    background-color: #ffffff;
+    align-items: stretch;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-left: auto;
+    font-size: 14px;
+    margin-right: auto;
+    max-width: 500px;
+    padding: 10px 0;
+    width: 350px;
+}
+
+.info-links{
+  color: #999;
+  margin: 10px 60px;
+  font-size: 14px;
+}
+.info-links a{
+  font-weight: 600;
+  line-height: 18px;
+  text-decoration:  none;
+  color: #999;
+
+}
+.app-versions{
+  border: 1px solid black;
+  height: 102px;
+  width: 350px;
+}
+
+.switchLink{
+  color: #3897f0;;
+  text-decoration: none;
+}

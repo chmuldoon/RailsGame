@@ -13,7 +13,7 @@ const CurrentUser = ({userId}) => {
   })
   return (
     <Fragment>
-      <UserProfile userId={userId}/>
+      <UserProfile key={userId} userId={userId}/>
     </Fragment>
   )
 }
