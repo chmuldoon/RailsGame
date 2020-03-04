@@ -15,6 +15,7 @@ import Modal from "./modal/modal";
 import EditUser from "./user/EditUser";
 import Search2 from "./navbar/Search2";
 import CurrentUser from "./user/CurrentUser";
+import OtherUser from "./user/OtherUser";
 const App = () => (
   <div>
     <Modal />
@@ -22,18 +23,18 @@ const App = () => (
       <NavBarContainer />
     </header>
     <section className="container">
-      <Switch>
+      {/* <Switch> */}
         <Route exact path="/" component={SplashContainer} />
         <AuthRoute exact path="/login" component={LoginFormContainer} />
         <AuthRoute exact path="/signup" component={SignupFormContainer} />
         <ProtectedRoute exact path="/newpost" component={NewPostContainer} />
-        <ProtectedRoute exact path="/users/:id" component={UserProfile} />
+        <ProtectedRoute exact path="/users/:id" component={OtherUser} />
         <ProtectedRoute exact path="/me" component={CurrentUser} />
 
         <ProtectedRoute exact path="/explore" component={Explore} />
         <ProtectedRoute exact path="/hashtags/:id" component={Hashtag} />
         <ProtectedRoute exact path="/edit" component={EditUser} />
-      </Switch>
+      {/* </Switch> */}
     </section>
   </div>
 );

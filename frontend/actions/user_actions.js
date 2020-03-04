@@ -21,15 +21,15 @@ export const fetchHashtags = () => dispatch =>
     UserApiUtil.fetchHashtags().then(hashtags => dispatch(receiveHashtags(hashtags)));
 
 export const followUser = id => dispatch =>
-  UserApiUtil.followUser(id).then(user => dispatch(receiveUser(user)));
+  UserApiUtil.followUser(id).then(users => dispatch(receiveAllUsers(users)));
 
 export const unfollowUser = id => dispatch =>
-  UserApiUtil.unfollowUser(id).then(user => dispatch(receiveUser(user)));
+  UserApiUtil.unfollowUser(id).then(users => dispatch(receiveAllUsers(users)));
 // export const updateUser = user => dispatch => {
 //   return UserApiUtil.updateUser(user).then(user => dispatch(receiveUser(user)));
 // };
 export const updateUser = user => dispatch => {
-  return UserApiUtil.updateUser(user).then(user => dispatch(receiveUser(user)));
+  return UserApiUtil.updateUser(user).then(users => dispatch(receiveAllUsers(users)));
 };
 
 const receiveCurrentUser = user => ({
