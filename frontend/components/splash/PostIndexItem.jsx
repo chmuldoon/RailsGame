@@ -1,16 +1,19 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { likePost, unlikePost } from '../../actions/post_actions'
 import { Link } from 'react-router-dom'
 import Comment from '../comment/Comment'
+import PostShow from './PostShow'
 const PostIndexItem = ({
   post: { id, photoUrl, hashtags, caption, author_id, username, profilePic, comments, hasLiked },
   unlikePost,
   likePost,
-  sessionId
+  sessionId,
 }) => {
+  const [displayModal, toggleModal] = useState(false);
+
   const commentSection = comments.map(comment => {
     return (
       <div className="commentCaption">
@@ -81,7 +84,7 @@ const PostIndexItem = ({
                   className="fas fa-heart"
                   onClick={e => unlikePost(id, "indexitem")}
                 ></i>
-                <Link
+                {/* <Link
                   to={{
                     pathname: `/posts/${id}`,
                     state: {
@@ -98,12 +101,13 @@ const PostIndexItem = ({
                       }
                     }
                   }}
-                >
-                  <i
-                    class="far fa-comment"
-                    style={{ fontSize: "30px", marginLeft: "5px" }}
-                  ></i>
-                </Link>
+                > */}
+                <i
+                  onClick={() => toggleModal(!displayModal)}
+                  class="far fa-comment"
+                  style={{ fontSize: "30px", marginLeft: "5px" }}
+                ></i>
+                {/* </Link> */}
               </Fragment>
             ) : (
               <Fragment>
@@ -113,7 +117,7 @@ const PostIndexItem = ({
                   onClick={e => likePost(id, "indexitem")}
                 ></i>
 
-                <Link
+                {/* <Link
                   to={{
                     pathname: `/posts/${id}`,
                     state: {
@@ -130,12 +134,13 @@ const PostIndexItem = ({
                       }
                     }
                   }}
-                >
-                  <i
-                    class="far fa-comment"
-                    style={{ fontSize: "30px", marginLeft: "5px" }}
-                  ></i>
-                </Link>
+                > */}
+                <i
+                  onClick={() => toggleModal(!displayModal)}
+                  class="far fa-comment"
+                  style={{ fontSize: "30px", marginLeft: "5px" }}
+                ></i>
+                {/* </Link> */}
               </Fragment>
             )}
             <div className="commentCaption">
@@ -151,6 +156,17 @@ const PostIndexItem = ({
         </IndexItem>
       ) : (
         <Fragment></Fragment>
+      )}
+      {displayModal && (
+        <div
+          className="modal-background"
+          onClick={() => toggleModal(!displayModal)}
+        >
+          <div className="modal-child" onClick={e => e.stopPropagation()}>
+
+              <PostShow kind={"indexitem"} post={ { id, photoUrl, hashtags, caption, author_id, username, profilePic, comments, hasLiked }}/>
+          </div>
+        </div>
       )}
     </Fragment>
   );
@@ -195,6 +211,7 @@ PostIndexItem.propTypes = {
 const mapStateToProps = (state, props) => {
   return {
     post: props.post,
+
     sessionId: state.session.id
   }
 }

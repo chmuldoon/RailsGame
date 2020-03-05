@@ -3,12 +3,11 @@ import { connect } from "react-redux";
 import UserProfile from "./UserProfile";
 import { fetchUserPosts } from "../../actions/post_actions";
 import { fetchUser, unfollowUser, followUser } from "../../actions/user_actions";
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, useState } from 'react'
 import { Link } from 'react-router-dom';
 import Loader from "../Loader";
-
+import PostShow from "../splash/PostShow";
 // import PostShowContainer from '../posts/post_show_container';
-
 class OtherUser extends Component {
   constructor(props) {
     super(props);
@@ -16,9 +15,12 @@ class OtherUser extends Component {
     this.fetchUser = this.props.fetchUser.bind(this);
     this.followUser = this.props.followUser.bind(this);
     this.unfollowUser = this.props.unfollowUser.bind(this);
+    this.fetchUserPosts = this.props.fetchUserPosts.bind(this);
 
+    this.state = { displayModal: false, CurrentPost: null}
 
   }
+  
   update(field) {
     return e => {
       this.setState({ [field]: e.target.value });
@@ -28,13 +30,15 @@ class OtherUser extends Component {
 
   componentDidMount() {
     this.fetchUser(parseInt(this.props.match.params.id));
-    // this.props.fetchUserPosts(parseInt(this.props.match.params.id));
+    this.fetchUserPosts(parseInt(this.props.match.params.id));
   }
 
   render() {
     const { profile, currentUser, loading } = this.props;
-
+    
     if (!profile) return null;
+    let postObj = {}
+    profile.posts.forEach(post => postObj[post.id] = post)
     let postCount = profile.posts.length;
     let space = [];
     if (postCount < 3) {
@@ -60,18 +64,14 @@ class OtherUser extends Component {
                       <Fragment>
                         {profile.hasFollowed ? (
                           <button
-                            onClick={e =>
-                              this.unfollowUser(profile.id)
-                            }
+                            onClick={e => this.unfollowUser(profile.id)}
                             className="btn profile-edit-btn"
                           >
                             Unfollow
                           </button>
                         ) : (
                           <button
-                            onClick={e =>
-                              this.followUser(profile.id)
-                            }
+                            onClick={e => this.followUser(profile.id)}
                             className="btn profile-edit-btn"
                           >
                             Follow
@@ -127,7 +127,7 @@ class OtherUser extends Component {
                     <div className="gallery-item" tabindex="0">
                       <img src={post.photo} className="gallery-image" alt="" />
 
-                      <div className="gallery-item-info">
+                      <div className="gallery-item-info" onClick={() => this.setState({CurrentPost: post.id, displayModal: true})}>
                         <ul>
                           <li className="gallery-item-likes">
                             <span className="visually-hidden">Likes:</span>
@@ -157,6 +157,16 @@ class OtherUser extends Component {
         ) : (
           <Loader />
         )}
+        {this.state.displayModal && (
+          <div
+            className="modal-background"
+            onClick={() => this.setState({CurrentPost: null, displayModal: false  })}
+          >
+            <div className="modal-child" onClick={e => e.stopPropagation()}>
+              <PostShow kind={"explore"} post={postObj[this.state.CurrentPost]} />
+            </div>
+          </div>
+        )}
       </Fragment>
     );
   }
@@ -166,7 +176,7 @@ class OtherUser extends Component {
 const msp = (state, ownProps) => {
   return {
     profile: state.entities.users.users[parseInt(ownProps.match.params.id)],
-    // posts: state.entities.posts.posts,
+    posts: state.entities.posts.posts,
     currentUser: state.entities.users.currentUser
   };
 };
@@ -174,8 +184,8 @@ const msp = (state, ownProps) => {
 const mdp = dispatch => ({
   fetchUser: id => dispatch(fetchUser(id)),
   followUser: id => dispatch(followUser(id)),
-  unfollowUser: id => dispatch(unfollowUser(id))
-  // fetchUserPosts: (id) => dispatch(fetchUserPosts(id))
+  unfollowUser: id => dispatch(unfollowUser(id)),
+  fetchUserPosts: (id) => dispatch(fetchUserPosts(id))
 });
 
 export default connect(msp, mdp)(OtherUser);

@@ -17,6 +17,7 @@ const PostShow = ({
   post: { id, photoUrl, hashtags, caption, author_id, username, profilePic, comments, hasLiked },
   unlikePost,
   likePost,
+  kind,
   fetchPost,
   postId,
   sessionId
@@ -73,7 +74,7 @@ const PostShow = ({
             );
           }
         });
-        debugger
+  debugger
   return (
     <Fragment>
       {id && hashtags ? (
@@ -111,13 +112,13 @@ const PostShow = ({
                 <i
                   style={{ color: "red", fontSize: "30px" }}
                   className="fas fa-heart"
-                  onClick={e => unlikePost(id, author_id)}
+                  onClick={e => unlikePost(id, kind)}
                 ></i>
               ) : (
                 <i
                   style={{ color: "black", fontSize: "30px" }}
                   className="far fa-heart"
-                  onClick={e => likePost(id, author_id)}
+                  onClick={e => likePost(id, kind)}
                 ></i>
               )}
               <Comment postId={id} style={{bottom: "0"}} />
@@ -181,7 +182,7 @@ const mapStateToProps = (state, props) => {
   debugger
   return {
     // postId: props.postId,
-    post: props.location.state.post,
+    // post: props.location.state.post,
     sessionId: state.session.id
   }
 }

@@ -6,10 +6,9 @@ class Api::LikesController < ApplicationController
       if params[:kind] == "indexitem"
         @posts = feed
         render "api/posts/index"
-      elsif params[:kind] == "postshow"
-
-        @post = Post.find_by(post_id: params[:post_id])
-        render "api/posts/show"
+      elsif params[:kind] == "explore"
+        @posts = explore
+        render "api/posts/index"
       else
         @posts = Post.where(author_id: params[:kind].to_i)
         render "api/posts/index"
@@ -27,13 +26,11 @@ class Api::LikesController < ApplicationController
     # @like = Like.where(user_id: current_user.id).where(post_id: params[:id])[0]
     if @like.destroy
       if params[:kind] == "indexitem"
-        following = current_user.active_follows.map {|follow| follow.target_id }
-        feed = following + [current_user.id]
-        @posts = Post.where(author_id: feed)
+        @posts = feed
         render "api/posts/index"
-      elsif params[:kind] == "postshow"
-        @post = Post.find_by(post_id: params[:post_id])
-        render "api/posts/show"
+      elsif params[:kind] == "explore"
+        @posts = explore
+        render "api/posts/index"
       else
         @posts = Post.where(author_id: params[:kind].to_i)
         render "api/posts/index"
