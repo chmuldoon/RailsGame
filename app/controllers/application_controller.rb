@@ -34,6 +34,11 @@ class ApplicationController < ActionController::Base
     feed = following + [current_user.id]
     Post.where(author_id: feed)
   end
+  def explore
+    following = current_user.active_follows.map {|follow| follow.target_id }
+    feed = following + [current_user.id]
+    Post.where("author_id NOT IN (?)", feed)
+  end
   def generate_hashtags(post_id, hashtags)
     hashtags.each do |hashtag|
       if Hashtag.exists?(content: hashtag)

@@ -4,8 +4,16 @@ class Api::CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.author_id = current_user.id
     if @comment.save
-      @posts = feed
-      render "api/posts/index"
+      if params[:kind] == "indexitem"
+        @posts = feed
+        render "api/posts/index"
+      elsif params[:kind] == "explore"
+        @posts = explore
+        render "api/posts/index"
+      else
+        @posts = Post.where(author_id: params[:kind].to_i)
+        render "api/posts/index"
+      end
     else
       render json: @comment.errors.full_messages, status: 422
     end
@@ -15,8 +23,16 @@ class Api::CommentsController < ApplicationController
   def destroy
     @comment = Comment.find_by(author_id: current_user, post_id: params[:id])
     if @comment.destroy
-      @posts = feed
-      render "api/posts/index"
+      if params[:kind] == "indexitem"
+        @posts = feed
+        render "api/posts/index"
+      elsif params[:kind] == "explore"
+        @posts = explore
+        render "api/posts/index"
+      else
+        @posts = Post.where(author_id: params[:kind].to_i)
+        render "api/posts/index"
+      end
     else
       render :json, @comment.errors.full_messages, status: 404
     end

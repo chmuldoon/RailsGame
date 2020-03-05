@@ -13,6 +13,8 @@ const UserProfile = ({userId, fetchUser, openShowModal, followUser, unfollowUser
     // fetchUserPosts(parseInt(match.params.id))
     fetchUser(parseInt(match.params.id))
   }, [fetchUser, fetchUserPosts])
+  const [displayModal, toggleModal] = useState(false);
+  const [CurrentPost, setCurrentPost] = useState(null);
 
 
   let postCount = Object.keys(posts).length
@@ -132,6 +134,7 @@ const UserProfile = ({userId, fetchUser, openShowModal, followUser, unfollowUser
       ) : (
         <Loader />
       )}
+      
     </Fragment>
   );
 }
