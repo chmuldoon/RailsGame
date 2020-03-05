@@ -1,10 +1,11 @@
-@posts.each do |post|
+@posts.reverse().each do |post|
   json.set! post.id do
     json.extract! post, :id, :author_id, :caption, :likes
     json.extract! post.author, :username
     json.profilePic  url_for(post.author.photo)
     json.photoUrl url_for(post.photo)
     json.hasLiked post.likes.exists?(user_id: current_user.id)
+    json.postedAt post.created_at
     json.comments post.comments do |comment|
       json.id comment, :id
       json.extract! comment, :content

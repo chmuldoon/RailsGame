@@ -15,7 +15,6 @@ const Explore = ({explore, exploreProfiles, fetchExplore, unfollowUser, followUs
   const [CurrentPost, setCurrentPost] = useState(null);
 
   let displayGallery = Object.values(explore)
-    .reverse()
     .map(post => (
       // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length}/>
       <div className="gallery-item" tabindex="0">
@@ -49,7 +48,9 @@ const Explore = ({explore, exploreProfiles, fetchExplore, unfollowUser, followUs
     space = new Array(3 - postCount).fill(0);
   }
   let extras = space.map(spot => (
-    <div className="gallery-item" tabindex="0"></div>
+    <div className="gallery-item" tabindex="0">
+      <img src="https://www.colorhexa.com/ececec.png" className="gallery-image" alt="" />
+    </div>
   ));
   return (
     <Fragment>

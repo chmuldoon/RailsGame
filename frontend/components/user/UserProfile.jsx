@@ -105,7 +105,7 @@ const UserProfile = ({userId, fetchUser, openShowModal, followUser, unfollowUser
             </div>
             <div className="posts-section">
               <div className="gallery">
-                {profile.posts.reverse()
+                {profile.posts
                   .map(post => (
                     // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length} t/>
                     <div className="gallery-item" tabindex="0" onClick={() => openShowModal("postShow", post)}>
