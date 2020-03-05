@@ -34,12 +34,11 @@ class OtherUser extends Component {
   }
 
   render() {
-    const { profile, currentUser, loading } = this.props;
+    const { profile, currentUser, loading, posts } = this.props;
     
     if (!profile) return null;
-    let postObj = {}
-    profile.posts.forEach(post => postObj[post.id] = post)
-    let postCount = profile.posts.length;
+    let postCount = Object.values(posts).length;
+
     let space = [];
     if (postCount < 3) {
       space = new Array(3 - postCount).fill(0);
@@ -47,6 +46,7 @@ class OtherUser extends Component {
     let extras = space.map(spot => (
       <div className="gallery-item" tabindex="0"></div>
     ));
+    debugger
     return (
       <Fragment>
         {currentUser && profile && !loading ? (
@@ -123,9 +123,9 @@ class OtherUser extends Component {
               </div>
               <div className="posts-section">
                 <div className="gallery">
-                  {profile.posts.reverse().map(post => (
+                  {Object.values(posts).reverse().map(post => (
                     <div className="gallery-item" tabindex="0">
-                      <img src={post.photo} className="gallery-image" alt="" />
+                      <img src={post.photoUrl} className="gallery-image" alt="" />
 
                       <div className="gallery-item-info" onClick={() => this.setState({CurrentPost: post.id, displayModal: true})}>
                         <ul>
@@ -135,7 +135,7 @@ class OtherUser extends Component {
                               className="fas fa-heart"
                               aria-hidden="true"
                             ></i>{" "}
-                            {post.likeCount}
+                            {post.likes.length}
                           </li>
                           <li className="gallery-item-comments">
                             <span className="visually-hidden">Comments:</span>
@@ -143,7 +143,7 @@ class OtherUser extends Component {
                               className="fas fa-comment"
                               aria-hidden="true"
                             ></i>{" "}
-                            {post.commentCount}
+                            {post.comments.length}
                           </li>
                         </ul>
                       </div>
@@ -163,7 +163,7 @@ class OtherUser extends Component {
             onClick={() => this.setState({CurrentPost: null, displayModal: false  })}
           >
             <div className="modal-child" onClick={e => e.stopPropagation()}>
-              <PostShow kind={"explore"} post={postObj[this.state.CurrentPost]} />
+              <PostShow kind={profile.id} post={posts[this.state.CurrentPost]} />
             </div>
           </div>
         )}
