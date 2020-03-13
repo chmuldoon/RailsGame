@@ -20,7 +20,27 @@ class OtherUser extends Component {
     this.state = { displayModal: false, CurrentPost: null}
 
   }
-  
+//   
+// 
+// 
+// 
+// 
+// 
+// TO DO
+// REFRESH USER POSTS
+// AND USER on post like
+//  has the gallery be profile.posts
+//  modal is from state. 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+//   
   update(field) {
     return e => {
       this.setState({ [field]: e.target.value });
@@ -37,6 +57,7 @@ class OtherUser extends Component {
     const { profile, currentUser, loading, posts } = this.props;
     
     if (!profile) return null;
+    let thePosts = profile.posts.reverse()
     let postCount = Object.values(posts).length;
 
     let space = [];
@@ -46,7 +67,7 @@ class OtherUser extends Component {
     let extras = space.map(spot => (
       <div className="gallery-item" tabindex="0"></div>
     ));
-    debugger
+    // debugger
     return (
       <Fragment>
         {currentUser && profile && !loading ? (
@@ -79,19 +100,13 @@ class OtherUser extends Component {
                         )}
                       </Fragment>
                     ) : (
-                      <Link to="/edit">
-                        <button className="btn profile-edit-btn">
+                      <Link style={{decoration: "none", color: "black", cursor: "pointer"}} to="/edit">
+                        <button className="btn profile-edit-btn" style={{cursor: "pointer"}}>
                           Edit Profile
                         </button>
                       </Link>
                     )}
 
-                    <button
-                      className="btn profile-settings-btn"
-                      aria-label="profile settings"
-                    >
-                      <i className="fas fa-cog" aria-hidden="true"></i>
-                    </button>
                   </div>
 
                   <div className="profile-stats">
@@ -123,9 +138,9 @@ class OtherUser extends Component {
               </div>
               <div className="posts-section">
                 <div className="gallery">
-                  {Object.values(posts).reverse().map(post => (
+                  {profile.posts.map(post => (
                     <div className="gallery-item" tabindex="0">
-                      <img src={post.photoUrl} className="gallery-image" alt="" />
+                      <img src={post.photo} className="gallery-image" alt="" />
 
                       <div className="gallery-item-info" onClick={() => this.setState({CurrentPost: post.id, displayModal: true})}>
                         <ul>
@@ -135,7 +150,7 @@ class OtherUser extends Component {
                               className="fas fa-heart"
                               aria-hidden="true"
                             ></i>{" "}
-                            {post.likes.length}
+                            {post.likeCount}
                           </li>
                           <li className="gallery-item-comments">
                             <span className="visually-hidden">Comments:</span>
@@ -143,7 +158,7 @@ class OtherUser extends Component {
                               className="fas fa-comment"
                               aria-hidden="true"
                             ></i>{" "}
-                            {post.comments.length}
+                            {post.commentCount}
                           </li>
                         </ul>
                       </div>
@@ -162,7 +177,11 @@ class OtherUser extends Component {
             className="modal-background"
             onClick={() => this.setState({CurrentPost: null, displayModal: false  })}
           >
-            <div className="modal-child" onClick={e => e.stopPropagation()}>
+            <div className="modal-child" 
+              onClick={e => {
+                e.stopPropagation()
+                this.fetchUserPosts(profile.id)
+                }}>
               <PostShow kind={profile.id} post={posts[this.state.CurrentPost]} />
             </div>
           </div>

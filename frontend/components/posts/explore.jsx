@@ -8,14 +8,13 @@ import { Link } from 'react-router-dom'
 import CurrentUser from '../user/CurrentUser'
 import PostShow from '../splash/PostShow'
 const Explore = ({explore, exploreProfiles, fetchExplore, unfollowUser, followUser}) => {
-  useEffect(() => {
-    fetchExplore();
-  }, [fetchExplore]);
+  // useEffect(() => {
+  //   fetchExplore();
+  // }, [fetchExplore]);
   const [displayModal, toggleModal] = useState(false);
   const [CurrentPost, setCurrentPost] = useState(null);
 
-  let displayGallery = Object.values(explore)
-    .reverse()
+  let displayGallery = explore
     .map(post => (
       // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length}/>
       <div className="gallery-item" tabindex="0">
@@ -49,7 +48,9 @@ const Explore = ({explore, exploreProfiles, fetchExplore, unfollowUser, followUs
     space = new Array(3 - postCount).fill(0);
   }
   let extras = space.map(spot => (
-    <div className="gallery-item" tabindex="0"></div>
+    <div className="gallery-item" tabindex="0">
+      <img src="https://www.colorhexa.com/ececec.png" className="gallery-image" alt="" />
+    </div>
   ));
   return (
     <Fragment>
@@ -118,7 +119,7 @@ Explore.propTypes = {
   unfollowUser: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  explore: state.entities.posts.posts,
+  explore: Object.values(state.entities.posts.posts).filter(post => post.author_id !== state.session.id && !post.followedPost),
   exploreProfiles: Object.values(state.entities.users.users).filter(user => !user.hasFollowed && user.id !== state.session.id) 
 });
 

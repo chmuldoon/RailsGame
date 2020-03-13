@@ -22,19 +22,24 @@ const PostShow = ({
   postId,
   sessionId
 }) => {
-  debugger
   useEffect(() => {
     fetchUserPosts(author_id)
   }, [fetchUserPosts])
   
   const commentSection = comments.map(comment => {
     return (
-      <div className="commentCaption">
+      <CommentMain>
+        <Link to={`/users/${comment.author_id}`}>
+          <ProfilePhoto
+            style={{ width: "32px", height: "32px" }}
+            src={comment.photo}
+          />
+        </Link>
         <Link className="extraDetailName" to={`/users/${comment.author_id}`}>
           {comment.username}
         </Link>
         <p>{comment.content}</p>
-      </div>
+      </CommentMain>
     );
   });
   const hashtagIdByContent = function(string) {
@@ -74,7 +79,6 @@ const PostShow = ({
             );
           }
         });
-  debugger
   return (
     <Fragment>
       {id && hashtags ? (
@@ -86,7 +90,7 @@ const PostShow = ({
                 style={{ width: "32px", height: "32px" }}
                 src={profilePic}
               />
-              <Link to={`users/${author_id}`}>
+              <Link className="extraDetailName" to={`users/${author_id}`}>
                 <p
                   style={{
                     marginTop: "auto",
@@ -98,15 +102,21 @@ const PostShow = ({
                 </p>
               </Link>
             </NameBar>
-              <Comments>
-                <div className="commentCaption">
-                  <Link className="extraDetailName" to={`/users/${author_id}`}>
-                    {`${username} `}
-                  </Link>
-                  {parsedCaption}
-                </div>
-                {commentSection}
-              </Comments>
+            <Comments>
+              <CommentMain className="commentCaption">
+                <Link to={`/users/${author_id}`}>
+                  <ProfilePhoto
+                    style={{ width: "32px", height: "32px" }}
+                    src={profilePic}
+                  />
+                </Link>
+                <Link className="extraDetailName" to={`/users/${author_id}`}>
+                  {`${username} `}
+                </Link>
+                {parsedCaption}
+              </CommentMain>
+              {commentSection}
+            </Comments>
             <LowerSection>
               {hasLiked ? (
                 <i
@@ -121,7 +131,7 @@ const PostShow = ({
                   onClick={e => likePost(id, kind)}
                 ></i>
               )}
-              <Comment postId={id} style={{bottom: "0"}} />
+              <Comment postId={id} style={{ bottom: "0" }} />
             </LowerSection>
           </SideBox>
         </IndexItem>
@@ -131,6 +141,11 @@ const PostShow = ({
     </Fragment>
   );
 }
+const CommentMain = styled.div`
+  padding: 18px;
+  min-height: 59px;
+  margin-top: 12px;
+`
 const LowerSection = styled.div`
   min-height: 80px;
   padding-left: 30px;
@@ -139,7 +154,11 @@ const LowerSection = styled.div`
   bottom: 46px;
 `;
 const Comments = styled.div`
-height:62%;`
+  height: 65%;
+  overflow-y: scroll;
+
+  width: 375px;
+`;
 const IndexItem = styled.div`
   width: 975px;
   background-color: white;
@@ -148,8 +167,9 @@ const IndexItem = styled.div`
   display: flex;
 `
 const SideBox = styled.div`
-height: 100%
-position: relative
+  height: 100%
+  width: 375px;
+  position: relative
 `;
 const ProfilePhoto = styled.img`
   object-fit: cover;
@@ -157,12 +177,13 @@ const ProfilePhoto = styled.img`
 `
 const NameBar = styled.header`
   padding: 18px;
-  width: 100%
+  width: 375px;
+
   height: 72px
   background-color: white;
   justify-content: center;
 
-`
+`;
 const PostImage = styled.img`
   width: 600px;
   max-height: 600px;
@@ -179,7 +200,6 @@ PostShow.propTypes = {
   fetchUserPosts: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state, props) => {
-  debugger
   return {
     // postId: props.postId,
     // post: props.location.state.post,

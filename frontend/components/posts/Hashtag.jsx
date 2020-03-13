@@ -7,7 +7,6 @@ const Hashtag = ({ match, hashtagId, explore, fetchPostsByHashtag }) => {
     fetchPostsByHashtag(parseInt(match.params.id));
   }, [fetchPostsByHashtag]);
   let displayGallery = Object.values(explore)
-    .reverse()
     .map(post => (
       // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length}/>
       <div className="gallery-item" tabindex="0">

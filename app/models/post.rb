@@ -16,7 +16,7 @@ class Post < ApplicationRecord
 
   has_many :post_hashtags
   has_many :hashtags, through: :post_hashtags
-
+  
   # has_many :likers,
   #   through: :likes,
   #   source: :user
