@@ -14,7 +14,7 @@ const PostIndexItem = ({
 }) => {
   const [displayModal, toggleModal] = useState(false);
 
-  const commentSection = comments.map(comment => {
+  const commentSection = comments.length < 3 ? comments.map(comment => {
     return (
       <div className="commentCaption">
         <Link className="extraDetailName" to={`/users/${comment.author_id}`}>
@@ -23,55 +23,32 @@ const PostIndexItem = ({
         <p>{comment.content}</p>
       </div>
     );
-  });
+  }) :  [0, null, comments.length - 1].map(comment => {
+    if(comment === null){
+    return (
+      <p
+        style={{cursor: "pointer"}}
+        onClick={() => toggleModal(!displayModal)}
+      >{`View all ${comments.length} comments`}</p>
+    );
+    } else {
+      return (
+        <div className="commentCaption">
+          <Link className="extraDetailName" to={`/users/${comments[comment].author_id}`}>
+            {comments[comment].username}
+          </Link>
+          <p>{comments[comment].content}</p>
+        </div>
+      );
+    }
+  })
   const hashtagIdByContent = function(string) {
     return hashtags.filter(tag => tag.content == string)[0].id
   }
   const parseTimeSince = function(date) {
     // const datePosted; 
-    let dayPosted = {
-      year: parseInt(date.slice(0, 4)),
-      month: parseInt(date.slice(5, 7)),
-      day: parseInt(date.slice(8, 10)),
-      hour: parseInt(date.slice(11, 13)),
-      minute: parseInt(date.slice(14, 16))
-    };
-    let current_datetime = new Date()
-    let today = {
-      year: current_datetime.getFullYear(),
-      month: current_datetime.getMonth() + 1,
-      day: current_datetime.getDate(),
-      hour: current_datetime.getHours(),
-      minute: current_datetime.getMinutes()
-    };
-    let difference = {
-      year: today["year"] - dayPosted["year"],
-      month: today["month"] - dayPosted["month"],
-      day: today["day"] - dayPosted["day"],
-      hour: today["hour"] - dayPosted["hour"],
-      minute: today["minute"] - dayPosted["minute"]
-    };
-    if(difference["year"]){
-      return difference["year"] === 1 ? "1 year ago" : `${difference["year"]} years ago`;
-    }
-    if(difference["month"]){
-      if(difference["month"] === 1 && difference["day"] < 0) {
-        return `${30 + difference["day"]} days ago`
-      }
-      return `${difference["month"]} months ago`
-    }
-    if(difference["day"]){
-      if (difference["day"] === 1 && difference["hour"] < 0) {
-        return `${24 + difference["hour"]} hours ago`;
-      }
-      return difference["day"] === 1 ? "1 day ago" : `${difference["day"]} days ago`;
-    }
-    if(difference["hour"]){
-      return difference["hour"] === 1 ? "1 hour ago" : `${difference["hour"]} hours ago`;
-    }
-    if(difference["minute"]){
-      return difference["minute"] === 1 ? "1 minute ago" : `${difference["minute"]} minutes ago`;
-    }
+    let formattedTime = new Date(date)
+    return `${formattedTime}`.slice(4, 10) +", " +  `${formattedTime}`.slice(11, 16)
   }
   const listcombiner = function(list1, list2){
     if(!list2){ return caption }
@@ -106,19 +83,22 @@ const PostIndexItem = ({
         <IndexItem>
           <NameBar>
             <ProfilePhoto
-              style={{ width: "32px", height: "32px" }}
+              style={{ width: "45px", height: "45px" }}
               src={profilePic}
             />
-            <Link to={`users/${author_id}`}>
-              <p
-                style={{
-                  marginTop: "auto",
-                  marginBottom: "auto",
-                  display: "inline"
-                }}
-              >
-                {username}
-              </p>
+            <Link
+              style={{
+                display: "inline",
+                color: "black",
+                fontWeight: "500",
+                marginLeft: "10px",
+                marginTop: "15px",
+                fontSize: "18px",
+                height: "100%"
+              }}
+              to={`users/${author_id}`}
+            >
+              <p>{username}</p>
             </Link>
           </NameBar>
           <PostImage src={photoUrl} />
@@ -151,14 +131,22 @@ const PostIndexItem = ({
                 <i
                   onClick={() => toggleModal(!displayModal)}
                   class="far fa-comment"
-                  style={{ fontSize: "30px", marginLeft: "5px" }}
+                  style={{
+                    fontSize: "30px",
+                    marginLeft: "5px",
+                    cursor: "hand"
+                  }}
                 ></i>
                 {/* </Link> */}
               </Fragment>
             ) : (
               <Fragment>
                 <i
-                  style={{ color: "black", fontSize: "30px" }}
+                  style={{
+                    color: "black",
+                    fontSize: "30px",
+                    cursor: "hand"
+                  }}
                   className="far fa-heart"
                   onClick={e => likePost(id, "indexitem")}
                 ></i>
@@ -209,8 +197,20 @@ const PostIndexItem = ({
           onClick={() => toggleModal(!displayModal)}
         >
           <div className="modal-child" onClick={e => e.stopPropagation()}>
-
-              <PostShow kind={"indexitem"} post={ { id, photoUrl, hashtags, caption, author_id, username, profilePic, comments, hasLiked }}/>
+            <PostShow
+              kind={"indexitem"}
+              post={{
+                id,
+                photoUrl,
+                hashtags,
+                caption,
+                author_id,
+                username,
+                profilePic,
+                comments,
+                hasLiked
+              }}
+            />
           </div>
         </div>
       )}
@@ -223,6 +223,7 @@ padding-left: 30px;
 padding-right: 60px;
 
 `
+
 export const IndexItem = styled.div`
   width: 614px;
   background-color: white;
@@ -239,7 +240,7 @@ export const NameBar = styled.header`
   width: 100%
   height: 60px
   background-color: white;
-  justify-content: center;
+  display: flex;
 
 `
 export const PostImage= styled.img`

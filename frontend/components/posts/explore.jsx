@@ -8,13 +8,13 @@ import { Link } from 'react-router-dom'
 import CurrentUser from '../user/CurrentUser'
 import PostShow from '../splash/PostShow'
 const Explore = ({explore, exploreProfiles, fetchExplore, unfollowUser, followUser}) => {
-  useEffect(() => {
-    fetchExplore();
-  }, [fetchExplore]);
+  // useEffect(() => {
+  //   fetchExplore();
+  // }, [fetchExplore]);
   const [displayModal, toggleModal] = useState(false);
   const [CurrentPost, setCurrentPost] = useState(null);
 
-  let displayGallery = Object.values(explore)
+  let displayGallery = explore
     .map(post => (
       // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length}/>
       <div className="gallery-item" tabindex="0">
@@ -119,7 +119,7 @@ Explore.propTypes = {
   unfollowUser: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  explore: state.entities.posts.posts,
+  explore: Object.values(state.entities.posts.posts).filter(post => post.author_id !== state.session.id && !post.followedPost),
   exploreProfiles: Object.values(state.entities.users.users).filter(user => !user.hasFollowed && user.id !== state.session.id) 
 });
 

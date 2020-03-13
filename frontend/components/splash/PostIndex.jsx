@@ -7,11 +7,11 @@ import { connect } from "react-redux";
 import { fetchAllPosts, fetchFeed } from "../../actions/post_actions";
 const PostIndex = ({index, fetchFeed, fetchAllPosts}) => {
   useEffect(() => {
-    fetchFeed()
+    fetchAllPosts()
   },[fetchFeed])
-  let posts = Object.keys(index).reverse().map(key =>
+  let posts = index.reverse().map(key =>
 
-      <PostIndexItem key={key} post={index[key]}/>
+      <PostIndexItem key={key} post={key}/>
     )
   return(
     <Fragment>
@@ -25,6 +25,6 @@ PostIndex.propTypes = {
   index: PropTypes.object.isRequired,
 };
 const mapStateToProps = state => ({
-  index: state.entities.posts.posts
+  index: Object.values(state.entities.posts.posts).filter(post => post.author_id === state.session.id || post.followedPost)
 });
 export default connect( mapStateToProps, {fetchAllPosts, fetchFeed} )(PostIndex);

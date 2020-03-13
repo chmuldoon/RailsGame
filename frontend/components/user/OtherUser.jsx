@@ -67,7 +67,7 @@ class OtherUser extends Component {
     let extras = space.map(spot => (
       <div className="gallery-item" tabindex="0"></div>
     ));
-    debugger
+    // debugger
     return (
       <Fragment>
         {currentUser && profile && !loading ? (
@@ -100,19 +100,13 @@ class OtherUser extends Component {
                         )}
                       </Fragment>
                     ) : (
-                      <Link to="/edit">
-                        <button className="btn profile-edit-btn">
+                      <Link style={{decoration: "none", color: "black", cursor: "pointer"}} to="/edit">
+                        <button className="btn profile-edit-btn" style={{cursor: "pointer"}}>
                           Edit Profile
                         </button>
                       </Link>
                     )}
 
-                    <button
-                      className="btn profile-settings-btn"
-                      aria-label="profile settings"
-                    >
-                      <i className="fas fa-cog" aria-hidden="true"></i>
-                    </button>
                   </div>
 
                   <div className="profile-stats">
