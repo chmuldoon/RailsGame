@@ -22,9 +22,7 @@ const PostShow = ({
   postId,
   sessionId
 }) => {
-  // useEffect(() => {
-  //   fetchUserPosts(author_id)
-  // }, [fetchUserPosts])
+ 
   debugger
   const commentSection = comments.map(comment => {
     return (
