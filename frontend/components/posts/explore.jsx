@@ -7,14 +7,13 @@ import { followUser, unfollowUser } from '../../actions/user_actions'
 import { Link } from 'react-router-dom'
 import CurrentUser from '../user/CurrentUser'
 import PostShow from '../splash/PostShow'
-const Explore = ({explore, exploreProfiles, fetchExplore, unfollowUser, followUser}) => {
-  // useEffect(() => {
-  //   fetchExplore();
-  // }, [fetchExplore]);
+const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUser, followUser}) => {
+  useEffect(() => {
+    fetchExplore();
+  }, [fetchExplore]);
   const [displayModal, toggleModal] = useState(false);
   const [CurrentPost, setCurrentPost] = useState(null);
-
-  let displayGallery = explore
+  let displayGallery = Object.values(explore)
     .map(post => (
       // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length}/>
       <div className="gallery-item" tabindex="0">
@@ -101,10 +100,41 @@ const Explore = ({explore, exploreProfiles, fetchExplore, unfollowUser, followUs
           className="modal-background"
           onClick={() => toggleModal(!displayModal)}
         >
-          <div className="modal-child" onClick={e => e.stopPropagation()}>
-            <PostShow
-              kind={"explore"} post={explore[CurrentPost]}
-            />
+          <div
+            style={{ display: "flex" }}
+            className="modal-child"
+            onClick={e => e.stopPropagation()}
+          >
+            {exploreIdx.indexOf(CurrentPost) !== 0 && (
+              <i
+                onClick={() => setCurrentPost(exploreIdx[exploreIdx.indexOf(CurrentPost) - 1])}
+                style={{
+                  margin: "10px",
+                  cursor: "pointer",
+                  height: "15px",
+                  color: "darkGrey",
+                  fontSize: "30px",
+                  marginTop: "25%"
+                }}
+                class="fas fa-arrow-left"
+              ></i>
+            )}
+            <PostShow kind={"explore"} post={explore[CurrentPost]} />
+            {exploreIdx.indexOf(CurrentPost) !== exploreIdx.length - 1 && (
+              <i
+                onClick={() => setCurrentPost(exploreIdx[exploreIdx.indexOf(CurrentPost) + 1])}
+                style={{
+                  margin: "10px",
+                  cursor: "pointer",
+                  height: "15px",
+                  color: "darkGrey",
+                  fontSize: "30px",
+                  marginTop: "25%",
+                  zIndex: "10"
+                }}
+                class="fas fa-arrow-right"
+              ></i>
+            )}
           </div>
         </div>
       )}
@@ -118,9 +148,17 @@ Explore.propTypes = {
   followUser: PropTypes.func.isRequired,
   unfollowUser: PropTypes.func.isRequired
 };
-const mapStateToProps = state => ({
-  explore: Object.values(state.entities.posts.posts).filter(post => post.author_id !== state.session.id && !post.followedPost),
+const mapStateToProps = state => {
+  let explorePosts = Object.values(state.entities.posts.posts).filter(
+    post => post.author_id !== state.session.id && !post.followedPost
+  );
+  let explore = {}
+  explorePosts.forEach(post => explore[post.id] = post)
+  return {
+  explore,
+  exploreIdx: explorePosts.map(post => post.id),
   exploreProfiles: Object.values(state.entities.users.users).filter(user => !user.hasFollowed && user.id !== state.session.id) 
-});
+}
+};
 
 export default connect(mapStateToProps, { fetchExplore, followUser, unfollowUser })(Explore)

@@ -71,9 +71,9 @@ export const unlikePost = (id, kind) =>
     data: { kind: kind }
   });
 
-export const createComment = comment =>
+export const createComment = (comment, kind) =>
   $.ajax({
     method: "POST",
     url: `/api/comments`,
-    data: { comment }
+    data: { comment: comment, kind: kind }
   });

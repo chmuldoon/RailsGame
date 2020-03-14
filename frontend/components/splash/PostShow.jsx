@@ -22,10 +22,10 @@ const PostShow = ({
   postId,
   sessionId
 }) => {
-  useEffect(() => {
-    fetchUserPosts(author_id)
-  }, [fetchUserPosts])
-  
+  // useEffect(() => {
+  //   fetchUserPosts(author_id)
+  // }, [fetchUserPosts])
+  debugger
   const commentSection = comments.map(comment => {
     return (
       <CommentMain>
@@ -131,7 +131,7 @@ const PostShow = ({
                   onClick={e => likePost(id, kind)}
                 ></i>
               )}
-              <Comment postId={id} style={{ bottom: "0" }} />
+              <Comment kind={kind} postId={id} style={{ bottom: "0" }} />
             </LowerSection>
           </SideBox>
         </IndexItem>
@@ -156,13 +156,13 @@ const LowerSection = styled.div`
 const Comments = styled.div`
   height: 65%;
   overflow-y: scroll;
-
+  margin: none;
   width: 375px;
 `;
 const IndexItem = styled.div`
   width: 975px;
   background-color: white;
-
+  max-height: 600px;
   margin-bottom: 50px;
   display: flex;
 `

@@ -54,10 +54,10 @@ class OtherUser extends Component {
   }
 
   render() {
-    const { profile, currentUser, loading, posts } = this.props;
+    const { profile, currentUser, loading, posts, postsIdx } = this.props;
     
     if (!profile) return null;
-    let thePosts = profile.posts.reverse()
+    let thePosts = profile.posts
     let postCount = Object.values(posts).length;
 
     let space = [];
@@ -100,13 +100,22 @@ class OtherUser extends Component {
                         )}
                       </Fragment>
                     ) : (
-                      <Link style={{decoration: "none", color: "black", cursor: "pointer"}} to="/edit">
-                        <button className="btn profile-edit-btn" style={{cursor: "pointer"}}>
+                      <Link
+                        style={{
+                          decoration: "none",
+                          color: "black",
+                          cursor: "pointer"
+                        }}
+                        to="/edit"
+                      >
+                        <button
+                          className="btn profile-edit-btn"
+                          style={{ cursor: "pointer" }}
+                        >
                           Edit Profile
                         </button>
                       </Link>
                     )}
-
                   </div>
 
                   <div className="profile-stats">
@@ -138,11 +147,19 @@ class OtherUser extends Component {
               </div>
               <div className="posts-section">
                 <div className="gallery">
-                  {profile.posts.map(post => (
+                  {profile.posts.reverse().map(post => (
                     <div className="gallery-item" tabindex="0">
                       <img src={post.photo} className="gallery-image" alt="" />
 
-                      <div className="gallery-item-info" onClick={() => this.setState({CurrentPost: post.id, displayModal: true})}>
+                      <div
+                        className="gallery-item-info"
+                        onClick={() =>
+                          this.setState({
+                            CurrentPost: post.id,
+                            displayModal: true
+                          })
+                        }
+                      >
                         <ul>
                           <li className="gallery-item-likes">
                             <span className="visually-hidden">Likes:</span>
@@ -150,7 +167,7 @@ class OtherUser extends Component {
                               className="fas fa-heart"
                               aria-hidden="true"
                             ></i>{" "}
-                            {post.likeCount}
+                            {post.commentCount}
                           </li>
                           <li className="gallery-item-comments">
                             <span className="visually-hidden">Comments:</span>
@@ -158,7 +175,7 @@ class OtherUser extends Component {
                               className="fas fa-comment"
                               aria-hidden="true"
                             ></i>{" "}
-                            {post.commentCount}
+                            {post.likeCount}
                           </li>
                         </ul>
                       </div>
@@ -175,14 +192,64 @@ class OtherUser extends Component {
         {this.state.displayModal && (
           <div
             className="modal-background"
-            onClick={() => this.setState({CurrentPost: null, displayModal: false  })}
+            onClick={() =>
+              this.setState({ CurrentPost: null, displayModal: false })
+            }
           >
-            <div className="modal-child" 
+            <div
+              className="modal-child"
+              style={{ display: "flex" }}
               onClick={e => {
-                e.stopPropagation()
-                this.fetchUserPosts(profile.id)
-                }}>
-              <PostShow kind={profile.id} post={posts[this.state.CurrentPost]} />
+                e.stopPropagation();
+                this.fetchUserPosts(profile.id);
+              }}
+            >
+              {postsIdx.indexOf(this.state.CurrentPost) !== 0 && (
+                <i
+                  onClick={() =>
+                    this.setState({
+                      CurrentPost:
+                        postsIdx[postsIdx.indexOf(this.state.CurrentPost) - 1],
+                      displayModal: true
+                    })
+                  }
+                  style={{
+                    margin: "10px",
+                    cursor: "pointer",
+                    height: "15px",
+                    color: "darkGrey",
+                    fontSize: "30px",
+                    marginTop: "25%"
+                  }}
+                  class="fas fa-arrow-left"
+                ></i>
+              )}
+              <PostShow
+                kind={profile.id}
+                post={posts[this.state.CurrentPost]}
+              />
+              {postsIdx.indexOf(this.state.CurrentPost) !==
+                postsIdx.length - 1 && (
+                <i
+                  onClick={() =>
+                    this.setState({
+                      CurrentPost:
+                        postsIdx[postsIdx.indexOf(this.state.CurrentPost) + 1],
+                      displayModal: true
+                    })
+                  }
+                  style={{
+                    margin: "10px",
+                    cursor: "pointer",
+                    height: "15px",
+                    color: "darkGrey",
+                    fontSize: "30px",
+                    marginTop: "25%",
+                    zIndex: "10"
+                  }}
+                  class="fas fa-arrow-right"
+                ></i>
+              )}
             </div>
           </div>
         )}
@@ -193,9 +260,14 @@ class OtherUser extends Component {
 
 // export default OtherUser;
 const msp = (state, ownProps) => {
+  let ogPosts = state.entities.posts.posts;
+  let postsIdx = Object.values(state.entities.posts.posts).map(post => post.id).reverse()
+  let posts = {};
+  postsIdx.forEach(postId => posts[postId] = ogPosts[postId])
   return {
     profile: state.entities.users.users[parseInt(ownProps.match.params.id)],
-    posts: state.entities.posts.posts,
+    posts,
+    postsIdx,
     currentUser: state.entities.users.currentUser
   };
 };

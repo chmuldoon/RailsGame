@@ -3,4 +3,7 @@ class Hashtag < ApplicationRecord
   has_many :post_hashtags
   has_many :posts, through: :post_hashtags
 
+  def post_ids
+    self.posts.map { |post| post.id }
+  end
 end
