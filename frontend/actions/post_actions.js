@@ -33,10 +33,10 @@ export const fetchPostsByHashtag = (id) => dispatch =>
 export const createPost = post => dispatch =>
   PostApiUtil.createPost(post).then(post => dispatch(receivePost(post)));
 
-export const createComment = comment => dispatch =>
-    PostApiUtil.createComment(comment).then(posts => dispatch(receiveAllPosts(posts)));
+export const createComment = (comment, kind) => dispatch => 
+    PostApiUtil.createComment(comment, kind).then(posts => dispatch(receiveAllPosts(posts)));
 
-export const likePost = (id, kind) => dispatch =>
+export const likePost = (id, kind) => dispatch => 
   PostApiUtil.likePost(id, kind).then(posts => dispatch(receiveFeed(posts)))
 
 

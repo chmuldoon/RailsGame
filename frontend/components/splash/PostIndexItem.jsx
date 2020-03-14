@@ -185,7 +185,7 @@ const PostIndexItem = ({
             </div>
             {parseTimeSince(postedAt)}
             {commentSection}
-            <Comment postId={id} />
+            <Comment kind="indexitem" postId={id} />
           </LowerSection>
         </IndexItem>
       ) : (
