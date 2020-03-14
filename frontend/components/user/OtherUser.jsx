@@ -4,7 +4,7 @@ import UserProfile from "./UserProfile";
 import { fetchUserPosts } from "../../actions/post_actions";
 import { fetchUser, unfollowUser, followUser } from "../../actions/user_actions";
 import React, { Component, Fragment, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Loader from "../Loader";
 import PostShow from "../splash/PostShow";
 // import PostShowContainer from '../posts/post_show_container';
@@ -49,8 +49,16 @@ class OtherUser extends Component {
   }
 
   componentDidMount() {
+    
     this.fetchUser(parseInt(this.props.match.params.id));
     this.fetchUserPosts(parseInt(this.props.match.params.id));
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(parseInt(this.props.match.params.id) !== parseInt(prevProps.match.params.id)){
+      this.fetchUser(parseInt(this.props.match.params.id));
+      this.fetchUserPosts(parseInt(this.props.match.params.id));
+    }
   }
 
   render() {
@@ -278,7 +286,6 @@ const mdp = dispatch => ({
   unfollowUser: id => dispatch(unfollowUser(id)),
   fetchUserPosts: (id) => dispatch(fetchUserPosts(id))
 });
-
-export default connect(msp, mdp)(OtherUser);
+export default withRouter(connect(msp, mdp)(OtherUser));
 
 
