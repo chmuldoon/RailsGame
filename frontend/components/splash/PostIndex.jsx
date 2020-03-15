@@ -14,7 +14,7 @@ const PostIndex = ({index, fetchFeed, fetchAllPosts}) => {
       <PostIndexItem key={key} post={key}/>
     )
   return(
-    <Fragment>
+    <Fragment >
       {posts}
     </Fragment>
   )

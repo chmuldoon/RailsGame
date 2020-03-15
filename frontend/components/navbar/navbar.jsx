@@ -28,7 +28,7 @@ const NavBar = ({currentUserId, logout, fetchUsers, fetchHashtags, fetchCurrentU
                 <p>Clonestagram</p>
               </Link>
             </div>
-            <Search2/>
+            <Search2 />
             <div className="navbar-right">
               <div
                 className="daLink2"
@@ -44,10 +44,13 @@ const NavBar = ({currentUserId, logout, fetchUsers, fetchHashtags, fetchCurrentU
 
               <Link
                 className="navbar-right-link"
-                to={`/users/${currentUserId}`}>
+                to={`/users/${currentUserId}`}
+              >
                 <i className="far fa-user"></i>
               </Link>
-              <button onClick={e => logout()}></button>
+              <a className="navbar-right-link">
+                <i class="fas fa-sign-out-alt" onClick={e => logout()}></i>
+              </a>
             </div>
           </div>
         </nav>

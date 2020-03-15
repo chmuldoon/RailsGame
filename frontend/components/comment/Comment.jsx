@@ -7,19 +7,25 @@ const Comment = ({postId, createComment, kind}) => {
 
   return (
     <div className="commentAdd">
-      <form onSubmit={e => {
+      <form
+        onSubmit={e => {
           e.preventDefault();
           createComment({ post_id: postId, content: content }, kind);
-          setContent("")
-          }}
-        >
+          setContent("");
+        }}
+      >
         <input
           type="text"
           placeholder="Add a comment"
           value={content}
           onChange={e => setContent(e.target.value)}
         ></input>
-        <input type="submit" value="Send"/>
+        <input
+          style={{ float: "right" }}
+          className="commentAddButton"
+          type="submit"
+          value="Send"
+        />
       </form>
     </div>
   );

@@ -10,7 +10,7 @@
 .unused{
 }
 .navbar{
-  height: 52px;
+  height: 78px;
   background-color: white;
   border: 1px solid #e6e6e6;
   position: fixed;
@@ -100,6 +100,7 @@
   float: right; */
   /* justify-content: right; */
   display: flex;
+  padding-top: 15px;
   margin-right: 10px;
 }
 
