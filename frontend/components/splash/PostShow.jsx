@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom'
 import Comment from '../comment/Comment'
 unlikeModalPost
 const PostShow = ({
-  post: { id, photoUrl, hashtags, caption, author_id, username, profilePic, comments, hasLiked },
+  post: { id, photoUrl, likeCount, postedAt, hashtags, caption, author_id, username, profilePic, comments, hasLiked },
   unlikePost,
   likePost,
   kind,
@@ -23,7 +23,6 @@ const PostShow = ({
   sessionId
 }) => {
  
-  debugger
   const commentSection = comments.map(comment => {
     return (
       <CommentMain>
@@ -40,6 +39,24 @@ const PostShow = ({
       </CommentMain>
     );
   });
+  const parseTimeSince = function(date) {
+    // const datePosted;
+    let formattedTime = new Date(date);
+    let days = `${formattedTime}`.slice(4, 10);
+    let year = `${formattedTime}`.slice(11, 16);
+    return (
+      <p
+        style={{
+          color: "gray",
+          fontSize: "12px",
+          marginTop: "5px",
+          marginBottom: "10px"
+        }}
+      >
+        {days + ", " + year}
+      </p>
+    );
+  };
   const hashtagIdByContent = function(string) {
     return hashtags.filter(tag => tag.content == string)[0].id;
   };
@@ -129,8 +146,19 @@ const PostShow = ({
                   onClick={e => likePost(id, kind)}
                 ></i>
               )}
-              <Comment kind={kind} postId={id} style={{ bottom: "0" }} />
+              <p
+                className="extraDetailName"
+                style={{ marginTop: "10px", marginBottom: "10px" }}
+              >
+                {likeCount === 0
+                  ? "Be the first to like this"
+                  : likeCount === 1
+                  ? "1 like"
+                  : `${likeCount} likes`}
+              </p>
+              {parseTimeSince(postedAt)}
             </LowerSection>
+              <Comment kind={kind} postId={id} style={{ bottom: "0" }} />
           </SideBox>
         </IndexItem>
       ) : (
@@ -146,16 +174,17 @@ const CommentMain = styled.div`
 `
 const LowerSection = styled.div`
   min-height: 80px;
-  padding-left: 30px;
-  padding-right: 60px;
-  position: absolute;
+  padding-left: 5px;
+  border-top: 1px lightgray solid;
+  // position: absolute;
   bottom: 46px;
 `;
 const Comments = styled.div`
   height: 65%;
   overflow-y: scroll;
-  margin: none;
-  width: 375px;
+  margin-left: 0;
+  // margin: none;
+  width: 340px;
 `;
 const IndexItem = styled.div`
   width: 975px;
@@ -166,7 +195,7 @@ const IndexItem = styled.div`
 `
 const SideBox = styled.div`
   height: 100%
-  width: 375px;
+  max-width: 340px;
   position: relative
 `;
 const ProfilePhoto = styled.img`
@@ -175,7 +204,7 @@ const ProfilePhoto = styled.img`
 `
 const NameBar = styled.header`
   padding: 18px;
-  width: 375px;
+  width: 340px;
 
   height: 72px
   background-color: white;

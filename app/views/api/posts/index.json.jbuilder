@@ -4,6 +4,7 @@
     json.extract! post.author, :username
     json.profilePic  url_for(post.author.photo)
     json.photoUrl url_for(post.photo)
+    json.likeCount post.likes.length
     json.hasLiked post.likes.exists?(user_id: current_user.id)
     json.postedAt post.created_at
     json.followedPost post.author.passive_follows.exists?(follower_id: current_user.id) 

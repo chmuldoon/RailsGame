@@ -8,8 +8,11 @@ import { Link } from 'react-router-dom'
 import CurrentUser from '../user/CurrentUser'
 import PostShow from '../splash/PostShow'
 const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUser, followUser}) => {
+  const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
     fetchExplore();
+    setTimeout(() => setIsLoading(true), 2500);
+
   }, [fetchExplore]);
   const [displayModal, toggleModal] = useState(false);
   const [CurrentPost, setCurrentPost] = useState(null);
@@ -53,6 +56,28 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
   ));
   return (
     <Fragment>
+      {!isLoading && (
+        <div
+          style={{
+            zIndex: "3",
+            position: "fixed",
+            backgroundColor: "#ececec",
+            width: "100%",
+            height: "120%",
+            justifyContent: "center"
+          }}
+        >
+          <i
+            className="fab fa-instagram"
+            style={{
+              color: "gray",
+              fontSize: "80px",
+              marginLeft: "48%",
+              marginTop: "150px"
+            }}
+          ></i>
+        </div>
+      )}
       <div className="user-page">
         <p>Explore Users</p>
         <div className="suggestedUsers">
@@ -107,7 +132,11 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
           >
             {exploreIdx.indexOf(CurrentPost) !== 0 && (
               <i
-                onClick={() => setCurrentPost(exploreIdx[exploreIdx.indexOf(CurrentPost) - 1])}
+                onClick={() =>
+                  setCurrentPost(
+                    exploreIdx[exploreIdx.indexOf(CurrentPost) - 1]
+                  )
+                }
                 style={{
                   margin: "10px",
                   cursor: "pointer",
@@ -122,7 +151,11 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
             <PostShow kind={"explore"} post={explore[CurrentPost]} />
             {exploreIdx.indexOf(CurrentPost) !== exploreIdx.length - 1 && (
               <i
-                onClick={() => setCurrentPost(exploreIdx[exploreIdx.indexOf(CurrentPost) + 1])}
+                onClick={() =>
+                  setCurrentPost(
+                    exploreIdx[exploreIdx.indexOf(CurrentPost) + 1]
+                  )
+                }
                 style={{
                   margin: "10px",
                   cursor: "pointer",

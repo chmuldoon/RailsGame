@@ -17,7 +17,11 @@ class OtherUser extends Component {
     this.unfollowUser = this.props.unfollowUser.bind(this);
     this.fetchUserPosts = this.props.fetchUserPosts.bind(this);
 
-    this.state = { displayModal: false, CurrentPost: null}
+    this.state = { 
+      displayModal: false, 
+      CurrentPost: null,
+      isLoading: false
+    }
 
   }
 //   
@@ -52,12 +56,15 @@ class OtherUser extends Component {
     
     this.fetchUser(parseInt(this.props.match.params.id));
     this.fetchUserPosts(parseInt(this.props.match.params.id));
+    setTimeout(() => this.setState({...this.state, isLoading: true}), 1000);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if(parseInt(this.props.match.params.id) !== parseInt(prevProps.match.params.id)){
       this.fetchUser(parseInt(this.props.match.params.id));
       this.fetchUserPosts(parseInt(this.props.match.params.id));
+      setTimeout(() => this.setState({ ...this.state, isLoading: true }), 1000);
+
     }
   }
 
@@ -78,6 +85,23 @@ class OtherUser extends Component {
     // debugger
     return (
       <Fragment>
+        {!this.state.isLoading && (
+          <div
+            style={{
+              zIndex: "3",
+              position: "absolute",
+              backgroundColor: "#ececec",
+              width: "100%",
+              height: "100%",
+              justifyContent: "center"
+            }}
+          >
+            <i
+              className="fab fa-instagram"
+              style={{ color: "gray", fontSize: "80px", marginLeft: "48%", marginTop: "150px" }}
+            ></i>
+          </div>
+        )}
         {currentUser && profile && !loading ? (
           <Fragment>
             <div className="user-page">

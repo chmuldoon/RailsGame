@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import Comment from '../comment/Comment'
 import PostShow from './PostShow'
 const PostIndexItem = ({
-  post: { id, photoUrl, hashtags, caption, postedAt, author_id, username, profilePic, comments, hasLiked },
+  post: { id, photoUrl, hashtags, likeCount, caption, postedAt, author_id, username, profilePic, comments, hasLiked },
   unlikePost,
   likePost,
   sessionId,
@@ -27,7 +27,7 @@ const PostIndexItem = ({
     if(comment === null){
     return (
       <p
-        style={{cursor: "pointer"}}
+        style={{cursor: "pointer", color: "gray", marginTop: "5px", marginBottom: "5px"}}
         onClick={() => toggleModal(!displayModal)}
       >{`View all ${comments.length} comments`}</p>
     );
@@ -48,7 +48,13 @@ const PostIndexItem = ({
   const parseTimeSince = function(date) {
     // const datePosted; 
     let formattedTime = new Date(date)
-    return `${formattedTime}`.slice(4, 10) +", " +  `${formattedTime}`.slice(11, 16)
+    let days = `${formattedTime}`.slice(4, 10);
+    let year = `${formattedTime}`.slice(11, 16);
+    return (
+      <p style={{color: "gray", fontSize: "12px", marginTop: "5px", marginBottom: "10px"}}>
+        {days + ", " + year}
+      </p>
+    )
   }
   const listcombiner = function(list1, list2){
     if(!list2){ return caption }
@@ -106,7 +112,7 @@ const PostIndexItem = ({
             {hasLiked ? (
               <Fragment>
                 <i
-                  style={{ color: "red", fontSize: "30px" }}
+                  style={{ color: "red", fontSize: "30px", marginTop: "5px" }}
                   className="fas fa-heart"
                   onClick={e => unlikePost(id, "indexitem")}
                 ></i>
@@ -134,7 +140,9 @@ const PostIndexItem = ({
                   style={{
                     fontSize: "30px",
                     marginLeft: "5px",
-                    cursor: "hand"
+                    cursor: "hand",
+                    marginTop: "5px",
+                    marginLeft: "15px"
                   }}
                 ></i>
                 {/* </Link> */}
@@ -145,7 +153,8 @@ const PostIndexItem = ({
                   style={{
                     color: "black",
                     fontSize: "30px",
-                    cursor: "hand"
+                    cursor: "hand",
+                    marginTop: "5px"
                   }}
                   className="far fa-heart"
                   onClick={e => likePost(id, "indexitem")}
@@ -172,21 +181,35 @@ const PostIndexItem = ({
                 <i
                   onClick={() => toggleModal(!displayModal)}
                   class="far fa-comment"
-                  style={{ fontSize: "30px", marginLeft: "5px" }}
+                  style={{
+                    fontSize: "30px",
+                    marginLeft: "5px",
+                    marginTop: "5px",
+                    marginLeft: "15px"
+                  }}
                 ></i>
                 {/* </Link> */}
               </Fragment>
             )}
+            <p className="extraDetailName"
+              style={{marginTop: "10px",
+              marginBottom: "10px"}}>
+              {likeCount === 0
+                ? "Be the first to like this"
+                : likeCount === 1
+                ? "1 like"
+                : `${likeCount} likes`}
+            </p>
             <div className="commentCaption">
               <Link className="extraDetailName" to={`/users/${author_id}`}>
                 {`${username} `}
               </Link>
               {parsedCaption}
             </div>
-            {parseTimeSince(postedAt)}
             {commentSection}
-            <Comment kind="indexitem" postId={id} />
+            {parseTimeSince(postedAt)}
           </LowerSection>
+          <Comment kind="indexitem" postId={id} />
         </IndexItem>
       ) : (
         <Fragment></Fragment>
@@ -208,6 +231,8 @@ const PostIndexItem = ({
                 username,
                 profilePic,
                 comments,
+                postedAt,
+                likeCount,
                 hasLiked
               }}
             />
@@ -230,6 +255,7 @@ export const IndexItem = styled.div`
   border: 1px solid lightgray;
   border-radius: 15px;
   margin-bottom: 50px;
+  margin-top: 10px
 `
 export const ProfilePhoto = styled.img`
   object-fit: cover;
