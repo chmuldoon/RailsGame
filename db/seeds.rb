@@ -8,12 +8,12 @@
 # User.destroy_all
 Like.destroy_all
 PostHashtag.destroy_all
-Score.destroy_all
 Post.destroy_all
 Hashtag.destroy_all
-
-
-
+User.destroy_all
+demouser = User.create({username: "DemoUser", name: "Demo User", password: "DemoUser", email: "demo@user.com", bio: "I'm just a demo user"})
+demophoto = open("#{Rails.root}/app/assets/images/icon.jpg")
+demouser.photo.attach(io: demophoto, filename: 'icon.jpg')
 
 
 
