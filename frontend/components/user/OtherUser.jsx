@@ -11,7 +11,6 @@ import PostShow from "../splash/PostShow";
 class OtherUser extends Component {
   constructor(props) {
     super(props);
-    // debugger
     this.fetchUser = this.props.fetchUser.bind(this);
     this.followUser = this.props.followUser.bind(this);
     this.unfollowUser = this.props.unfollowUser.bind(this);
@@ -67,7 +66,6 @@ class OtherUser extends Component {
 
     }
   }
-
   render() {
     const { profile, currentUser, loading, posts, postsIdx } = this.props;
     
@@ -82,7 +80,7 @@ class OtherUser extends Component {
     let extras = space.map(spot => (
       <div className="gallery-item" tabindex="0"></div>
     ));
-    // debugger
+    debugger
     return (
       <Fragment>
         {!this.state.isLoading && (
@@ -102,6 +100,7 @@ class OtherUser extends Component {
             ></i>
           </div>
         )}
+        
         {currentUser && profile && !loading ? (
           <Fragment>
             <div className="user-page">
@@ -179,15 +178,15 @@ class OtherUser extends Component {
               </div>
               <div className="posts-section">
                 <div className="gallery">
-                  {profile.posts.reverse().map(post => (
+                  {postsIdx.map(postIdx => (
                     <div className="gallery-item" tabindex="0">
-                      <img src={post.photo} className="gallery-image" alt="" />
+                      <img src={posts[postIdx].photoUrl} className="gallery-image" alt="" />
 
                       <div
                         className="gallery-item-info"
                         onClick={() =>
                           this.setState({
-                            CurrentPost: post.id,
+                            CurrentPost: postIdx,
                             displayModal: true
                           })
                         }
@@ -199,7 +198,7 @@ class OtherUser extends Component {
                               className="fas fa-heart"
                               aria-hidden="true"
                             ></i>{" "}
-                            {post.commentCount}
+                            {posts[postIdx].comments.length}
                           </li>
                           <li className="gallery-item-comments">
                             <span className="visually-hidden">Comments:</span>
@@ -207,7 +206,7 @@ class OtherUser extends Component {
                               className="fas fa-comment"
                               aria-hidden="true"
                             ></i>{" "}
-                            {post.likeCount}
+                            {posts[postIdx].likeCount}
                           </li>
                         </ul>
                       </div>

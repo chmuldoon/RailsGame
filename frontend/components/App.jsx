@@ -1,8 +1,6 @@
-import React from "react";
-
-import { Route, Redirect, Switch, Link, HashRouter } from "react-router-dom";
+import React, { Component } from "react";
+import { Route, Redirect, Switch, Link, HashRouter, withRouter } from "react-router-dom";
 import NavBarContainer from "./navbar/navbar_container";
-
 import LoginFormContainer from "./session/login_form_container";
 import SignupFormContainer from "./session/signup_form_container";
 import SplashContainer from "./splash/splash_container";
@@ -17,6 +15,18 @@ import Search2 from "./navbar/Search2";
 import CurrentUser from "./user/CurrentUser";
 import OtherUser from "./user/OtherUser";
 import PostShow from "./splash/PostShow";
+class ScrollToTop extends Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  render() {
+    return this.props.children;
+  }
+}
+const Scroll = withRouter(ScrollToTop);
 const App = () => (
   <div>
     <Modal />
@@ -24,20 +34,22 @@ const App = () => (
       <NavBarContainer />
     </header>
     <section className="container">
-      {/* <Switch> */}
-      <Route exact path="/" component={SplashContainer} />
-      <AuthRoute exact path="/login" component={LoginFormContainer} />
-      <AuthRoute exact path="/signup" component={SignupFormContainer} />
-      <ProtectedRoute exact path="/newpost" component={NewPostContainer} />
-      <ProtectedRoute exact path="/users/:id" component={OtherUser} />
-      <ProtectedRoute exact path="/posts/:id" component={PostShow} />
+      <Scroll>
+        <Switch>
+          <Route exact path="/" component={SplashContainer} />
+          <AuthRoute exact path="/login" component={LoginFormContainer} />
+          <AuthRoute exact path="/signup" component={SignupFormContainer} />
+          <ProtectedRoute exact path="/newpost" component={NewPostContainer} />
+          <ProtectedRoute exact path="/users/:id" component={OtherUser} />
+          <ProtectedRoute exact path="/posts/:id" component={PostShow} />
 
-      <ProtectedRoute exact path="/me" component={CurrentUser} />
+          <ProtectedRoute exact path="/me" component={CurrentUser} />
 
-      <ProtectedRoute exact path="/explore" component={Explore} />
-      <ProtectedRoute exact path="/hashtags/:id" component={Hashtag} />
-      <ProtectedRoute exact path="/edit" component={EditUser} />
-      {/* </Switch> */}
+          <ProtectedRoute exact path="/explore" component={Explore} />
+          <ProtectedRoute exact path="/hashtags/:id" component={Hashtag} />
+          <ProtectedRoute exact path="/edit" component={EditUser} />
+        </Switch>
+      </Scroll>
     </section>
   </div>
 );

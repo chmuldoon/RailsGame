@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import PostIndexItem from "./PostIndexItem";
 import { connect } from "react-redux";
 import { fetchAllPosts, fetchFeed } from "../../actions/post_actions";
+import NewPostContainer from "../posts/NewPostContainer";
 const PostIndex = ({index, fetchFeed, fetchAllPosts}) => {
   useEffect(() => {
     fetchAllPosts()
@@ -13,11 +14,17 @@ const PostIndex = ({index, fetchFeed, fetchAllPosts}) => {
 
       <PostIndexItem key={key} post={key}/>
     )
-  return(
-    <Fragment >
-      {posts}
-    </Fragment>
-  )
+  return (
+    <div style={{ display: "flex" }}>
+      {index.length === 0 ? <NewPostContainer margin={-110} /> :
+      <Fragment>
+        <div>{posts}</div>
+        <div style={{ width: "250px" }}></div>
+        <NewPostContainer margin={640}/>
+      </Fragment>
+      }
+    </div>
+  );
 }
 PostIndex.propTypes = {
   fetchAllPosts: PropTypes.func.isRequired,

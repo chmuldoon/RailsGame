@@ -45,50 +45,72 @@ export class NewPost extends Component {
     formData.append("post[caption]", this.state.caption);
     formData.append("post[photo]", this.state.photoFile);
     this.state.uploading = true
+    this.uploading = true
     this.props.createPost(formData)
-      .then(() => { this.props.history.push("/") })
+      .then(() => {
+          this.uploading = false;
+          this.setState({ caption: "",
+        photoFile: null, 
+        photoUrl: "",
+        status: "Upload",
+        uploading: false })}
+      ) 
+      .then(() => { this.props.history.push("/")
+    })
   }
   render(){
     return (
-      <NewPostModule>
-        {this.state.uploading ? (
-          <Uploading />
-         ) : ( 
-          <Fragment>
-            <NewPostH1>Create Post</NewPostH1>
-            <NewPostForm onSubmit={this.handleSubmit}>
-              <div className="previewBox">
-                <img src={this.state.photoUrl} alt="" />
-              </div>
-              <UploadLabel style={{ cursor: "pointer" }} htmlFor="files">
-                {" "}
-                {this.state.status}{" "}
-              </UploadLabel>
-              <Upload
-                type="file"
-                id="files"
-                placeholder="Upload"
-                onChange={this.handleFile.bind(this)}
-              />
-              <input
-                type="text"
-                placeholder="Write a caption..."
-                onChange={this.update("caption")}
-              />
-              <input type="submit" value="Share" />
-            </NewPostForm>
-          </Fragment>
-        )}
-      </NewPostModule>
+      <Fragment>
+        <NewPostModule passedMargin={this.props.margin}>
+          {this.uploading ? (
+            <img
+              style={{ height: "100px", width: "100px", marginLeft: "30%", marginTop: "45%" }}
+              src="https://i.ya-webdesign.com/images/ajax-loading-png-9.gif"
+            />
+          ) : (
+            <Fragment>
+              <NewPostH1>Create Post</NewPostH1>
+              <NewPostForm onSubmit={this.handleSubmit}>
+                {this.state.photoUrl.length ? 
+                <div className="previewBox">
+                  <img src={this.state.photoUrl} alt="" />
+                </div> : <Fragment></Fragment>}
+                <UploadLabel style={{ cursor: "pointer" }} htmlFor="files">
+                  {" "}
+                  {this.state.status}{" "}
+                </UploadLabel>
+                <Upload
+                  type="file"
+                  id="files"
+                  placeholder="Upload"
+                  onChange={this.handleFile.bind(this)}
+                />
+                <input
+                  type="text"
+                  placeholder="Write a caption..."
+                  onChange={this.update("caption")}
+                  style={{marginBottom: "10px"}}
+                />
+                <input type="submit" value="Share" />
+              </NewPostForm>
+            </Fragment>
+          )}
+        </NewPostModule>
+      </Fragment>
     );
   }
 }
 const NewPostModule = styled.div`
-  height: 350px;
+  max-height: 360px;
   width: 250px;
+  margin-top: 10px;
   background-color: white;
-  border: solid 1px #efefef;
-  border-radius: 2%;
+  border: 1px solid lightgray;
+  margin-left: ${props => props.passedMargin}px;
+  border-radius: 15px;
+  position: fixed;
+  
+
   align-content: center;
 `;
 const Uploading = styled.div`

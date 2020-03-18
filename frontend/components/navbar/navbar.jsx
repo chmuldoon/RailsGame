@@ -1,20 +1,22 @@
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import React, { Component, Fragment, useEffect } from "react";
+import React, { Component, Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { logout } from "../../actions/session_actions";
 import { fetchCurrentUser, fetchUsers, fetchHashtags } from "../../actions/user_actions";
 // import SearchContainer from "./search_container";
 import Search2 from "./Search2";
+import NewPostContainer from "../posts/NewPostContainer";
 // Search2
-const NavBar = ({currentUserId, logout, fetchUsers, fetchHashtags, fetchCurrentUser, history}) => {
+const NavBar = ({currentUserId,  logout, fetchUsers, fetchHashtags, fetchCurrentUser, history}) => {
   useEffect(() => {
     fetchCurrentUser(currentUserId);
     fetchUsers();
     fetchHashtags();
 
   }, [fetchCurrentUser, fetchUsers, fetchHashtags]);
-
+  const [displayModal, toggleModal] = useState(false);
+  debugger
   return (
     <Fragment>
       {currentUserId ? (
@@ -30,14 +32,14 @@ const NavBar = ({currentUserId, logout, fetchUsers, fetchHashtags, fetchCurrentU
             </div>
             <Search2 />
             <div className="navbar-right">
-              <div
+              {/* <div
                 className="daLink2"
                 // onClick={() => openModal("upload")}
               >
-                <Link to={`/newpost`} style={{ color: "#262626" }}>
+                <Link onClick={() => toggleModal(!displayModal)} style={{ color: "#262626" }}>
                   <i className="far fa-plus-square"></i>
                 </Link>
-              </div>
+              </div> */}
               <Link className="navbar-right-link" to={`/explore`}>
                 <i className="far fa-compass"></i>
               </Link>
@@ -61,6 +63,7 @@ const NavBar = ({currentUserId, logout, fetchUsers, fetchHashtags, fetchCurrentU
           <br />
         </nav>
       )}
+      
     </Fragment>
   );
 }

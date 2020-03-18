@@ -16,16 +16,16 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
   }, [fetchExplore]);
   const [displayModal, toggleModal] = useState(false);
   const [CurrentPost, setCurrentPost] = useState(null);
-  let displayGallery = Object.values(explore)
-    .map(post => (
+  let displayGallery = exploreIdx
+    .map(idx => (
       // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length}/>
       <div className="gallery-item" tabindex="0">
-        <img src={post.photoUrl} className="gallery-image" alt="" />
+        <img src={explore[idx].photoUrl} className="gallery-image" alt="" />
 
         <div
           className="gallery-item-info"
           onClick={() => {
-            setCurrentPost(post.id)
+            setCurrentPost(explore[idx].id)
             toggleModal(!displayModal);
           }}
         >
@@ -33,12 +33,12 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
             <li className="gallery-item-likes">
               <span className="visually-hidden">Likes:</span>
               <i className="fas fa-heart" aria-hidden="true"></i>{" "}
-              {post.likes.length}
+              {explore[idx].likes.length}
             </li>
             <li className="gallery-item-comments">
               <span className="visually-hidden">Comments:</span>
               <i className="fas fa-comment" aria-hidden="true"></i>{" "}
-              {post.comments.length}
+              {explore[idx].comments.length}
             </li>
           </ul>
         </div>
@@ -90,7 +90,8 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
                     src={user.photoUrl}
                   />
                 </Link>
-                <Link to={`/users/${user.id}`}>{user.username}</Link>
+                <Link to={`/users/${user.id}`} style={{fontWeight: "500", color: "black", cursor: "pointer"}}>{user.username}</Link>
+                {/* <p>{user.followers.length}</p> */}
                 {user.hasFollowed ? (
                   <div className="EditSubmit">
                     <button
@@ -101,7 +102,7 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
                     </button>
                   </div>
                 ) : (
-                  <div className="EditSubmit">
+                  <div>
                     <button onClick={e => followUser(user.id)}>Follow</button>
                   </div>
                 )}
@@ -182,14 +183,16 @@ Explore.propTypes = {
   unfollowUser: PropTypes.func.isRequired
 };
 const mapStateToProps = state => {
-  let explorePosts = Object.values(state.entities.posts.posts).filter(
-    post => post.author_id !== state.session.id && !post.followedPost
-  );
+  // let explorePosts = Object.values(state.entities.posts.posts).filter(
+  //   post => post.author_id !== state.session.id && !post.followedPost
+  // );
+  let explorePosts = Object.values(state.entities.posts.posts);
+  let exploreIdx = explorePosts.map(post => post.id).reverse()
   let explore = {}
   explorePosts.forEach(post => explore[post.id] = post)
   return {
   explore,
-  exploreIdx: explorePosts.map(post => post.id),
+  exploreIdx,
   exploreProfiles: Object.values(state.entities.users.users).filter(user => !user.hasFollowed && user.id !== state.session.id) 
 }
 };

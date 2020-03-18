@@ -31,7 +31,9 @@ export const fetchPostsByHashtag = (id) => dispatch =>
   PostApiUtil.fetchPostsByHashtag(id).then(posts => dispatch(receivePostsByHashtag(posts)));
 
 export const createPost = post => dispatch =>
-  PostApiUtil.createPost(post).then(post => dispatch(receivePost(post)));
+         PostApiUtil.createPost(post).then(posts =>
+           dispatch(receiveFeed(posts))
+         );
 
 export const createComment = (comment, kind) => dispatch => 
     PostApiUtil.createComment(comment, kind).then(posts => dispatch(receiveAllPosts(posts)));
