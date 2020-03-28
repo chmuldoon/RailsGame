@@ -16,34 +16,49 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
   }, [fetchExplore]);
   const [displayModal, toggleModal] = useState(false);
   const [CurrentPost, setCurrentPost] = useState(null);
-  let displayGallery = exploreIdx
-    .map(idx => (
-      // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length}/>
-      <div className="gallery-item" tabindex="0">
-        <img src={explore[idx].photoUrl} className="gallery-image" alt="" />
-
-        <div
-          className="gallery-item-info"
-          onClick={() => {
-            setCurrentPost(explore[idx].id)
-            toggleModal(!displayModal);
-          }}
-        >
-          <ul>
-            <li className="gallery-item-likes">
-              <span className="visually-hidden">Likes:</span>
-              <i className="fas fa-heart" aria-hidden="true"></i>{" "}
-              {explore[idx].likes.length}
-            </li>
-            <li className="gallery-item-comments">
-              <span className="visually-hidden">Comments:</span>
-              <i className="fas fa-comment" aria-hidden="true"></i>{" "}
-              {explore[idx].comments.length}
-            </li>
-          </ul>
-        </div>
+  let displayGallery = exploreIdx.map(idx => (
+    <div
+      className="Explore-Post"
+      onClick={() =>
+        this.setState({ displayModal: true, CurrentPost: explore[idx].id })
+      }
+    >
+      <div className="Overlay" id="profile">
+        <p style={{ zIndex: 8 }}>
+          {`${explore[idx].likeCount}`} <i className="fas fa-heart" /> 
+          {` ${explore[idx].comments.length}`}
+          {"  "} <i className="fas fa-comment"></i>
+        </p>
       </div>
-    ));
+      <img width="292px" height="292x" src={explore[idx].photoUrl} />
+      {/* <img src={post.photoUrl} /> */}
+    </div>
+    // <UserProfile photoUrl={post.photoUrl} likes={post.likes.length}/>
+    // <div className="gallery-item" style={{width: "30%", margin:"5px"}} tabindex="0">
+    //   <img src={explore[idx].photoUrl} className="gallery-image" alt="" />
+
+    //   <div
+    //     className="gallery-item-info"
+    //     onClick={() => {
+    //       setCurrentPost(explore[idx].id);
+    //       toggleModal(!displayModal);
+    //     }}
+    //   >
+    //     <ul>
+    //       <li className="gallery-item-likes">
+    //         <span className="visually-hidden">Likes:</span>
+    //         <i className="fas fa-heart" aria-hidden="true"></i>{" "}
+    //         {explore[idx].likes.length}
+    //       </li>
+    //       <li className="gallery-item-comments">
+    //         <span className="visually-hidden">Comments:</span>
+    //         <i className="fas fa-comment" aria-hidden="true"></i>{" "}
+    //         {explore[idx].comments.length}
+    //       </li>
+    //     </ul>
+    //   </div>
+    // </div>
+  ));
   let postCount = Object.keys(explore).length;
   let space = [];
   if (postCount < 3) {
@@ -79,10 +94,14 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
         </div>
       )}
       <div className="user-page">
-        <p>Explore Users</p>
+        <p style={{ fontWeight: "500", fontSize: "48px", marginTop: "30px" }}>
+          Explore Users
+        </p>
         <div className="suggestedUsers">
           {exploreProfiles.length ? (
             exploreProfiles.map(user => (
+
+
               <div className="suggestedUser">
                 <Link to={`/users/${user.id}`}>
                   <ProfilePhoto
@@ -90,7 +109,16 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
                     src={user.photoUrl}
                   />
                 </Link>
-                <Link to={`/users/${user.id}`} style={{fontWeight: "500", color: "black", cursor: "pointer"}}>{user.username}</Link>
+                <Link
+                  to={`/users/${user.id}`}
+                  style={{
+                    fontWeight: "500",
+                    color: "black",
+                    cursor: "pointer"
+                  }}
+                >
+                  {user.username}
+                </Link>
                 {/* <p>{user.followers.length}</p> */}
                 {user.hasFollowed ? (
                   <div className="EditSubmit">
@@ -112,12 +140,21 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
             <Fragment></Fragment>
           )}
         </div>
-        <p>Explore Posts</p>
-
-        <div className="posts-section">
-          <div className="gallery">
+        <p
+          style={{
+            fontWeight: "500",
+            fontSize: "48px",
+            marginTop: "30px",
+            marginBottom: "30px"
+          }}
+        >
+          Explore Posts
+        </p>
+        {/* className="posts-section" */}
+        <div>
+          {/* className="gallery" */}
+          <div className="Explore-Whole">
             {displayGallery}
-            {extras}
           </div>
         </div>
       </div>

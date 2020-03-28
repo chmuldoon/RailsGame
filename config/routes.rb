@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       resources :follows, only: [:create, :destroy]
       resources :comments, only: [:create, :destroy]
       resources :hashtags, only: [:show, :index]
+      resources :fetchhashtag, only: [:show]
+
       resources :scores, only: [:create, :index, :show]
       resources :likes, only: [:create, :destroy]
       resources :modalikes, only: [:create, :destroy]

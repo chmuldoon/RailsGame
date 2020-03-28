@@ -15,6 +15,7 @@ import Search2 from "./navbar/Search2";
 import CurrentUser from "./user/CurrentUser";
 import OtherUser from "./user/OtherUser";
 import PostShow from "./splash/PostShow";
+import HashtagPage from "./posts/HashtagPage";
 class ScrollToTop extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
@@ -46,7 +47,7 @@ const App = () => (
           <ProtectedRoute exact path="/me" component={CurrentUser} />
 
           <ProtectedRoute exact path="/explore" component={Explore} />
-          <ProtectedRoute exact path="/hashtags/:id" component={Hashtag} />
+          <ProtectedRoute exact path="/hashtags/:id" component={HashtagPage} />
           <ProtectedRoute exact path="/edit" component={EditUser} />
         </Switch>
       </Scroll>

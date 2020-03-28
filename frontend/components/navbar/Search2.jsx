@@ -56,7 +56,7 @@ const Search2 = (props) => {
                     </li>
                   </Link>
                 ) : (
-                  <Link to={`/hashtags/${item.id}`} onClick={e => setSearchTerm("")}>
+                  <Link to={{pathname:`/hashtags/${item.id}`, hashtag: item.content}} onClick={e => setSearchTerm("")}>
                     <li key={item.id}>
                       <div className="nav-search-item">
                         <div className="search-photo">

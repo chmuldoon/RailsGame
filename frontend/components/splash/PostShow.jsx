@@ -22,19 +22,34 @@ const PostShow = ({
   postId,
   sessionId
 }) => {
- 
+  debugger
   const commentSection = comments.map(comment => {
     return (
       <CommentMain>
-        <Link to={`/users/${comment.author_id}`}>
-          <ProfilePhoto
-            style={{ width: "32px", height: "32px" }}
-            src={comment.photo}
-          />
-        </Link>
-        <Link className="extraDetailName" to={`/users/${comment.author_id}`}>
-          {comment.username}
-        </Link>
+        {typeof kind === "number" ? (
+          <Fragment>
+            <ProfilePhoto
+              style={{ width: "32px", height: "32px" }}
+              src={comment.photo}
+            />
+            <div className="extraDetailName" style={{curosr: "none"}}>{comment.username}</div>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <Link to={`/users/${comment.author_id}`}>
+              <ProfilePhoto
+                style={{ width: "32px", height: "32px" }}
+                src={comment.photo}
+              />
+            </Link>
+            <Link
+              className="extraDetailName"
+              to={`/users/${comment.author_id}`}
+            >
+              {comment.username}
+            </Link>
+          </Fragment>
+        )}
         <p>{comment.content}</p>
       </CommentMain>
     );
@@ -105,7 +120,7 @@ const PostShow = ({
                 style={{ width: "32px", height: "32px" }}
                 src={profilePic}
               />
-              <Link className="extraDetailName" to={`users/${author_id}`}>
+              <Link className="extraDetailName" to={`/users/${author_id}`}>
                 <p
                   style={{
                     marginTop: "auto",

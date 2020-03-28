@@ -2,6 +2,8 @@ import * as UserApiUtil from "../util/user_api_util";
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const RECEIVE_CURRENT_USER_DATA = "RECEIVE_CURRENT_USER_DATA";
 export const RECEIVE_HASHTAGS = "RECEIVE_HASHTAGS";
+export const RECEIVE_HASHTAG = "RECEIVE_HASHTAG";
+
 
 
 
@@ -12,11 +14,17 @@ export const RECEIVE_USER = "RECEIVE_USER";
 export const fetchUser = id => dispatch =>
   UserApiUtil.fetchUser(id).then(user => dispatch(receiveUser(user)));
 
+export const fetchHashtag = id => dispatch => {
+  return UserApiUtil.fetchHashtag(id).then(hashtag => dispatch(receiveHashtag(hashtag)))};
+
 export const fetchCurrentUser = id => dispatch =>
   UserApiUtil.fetchUser(id).then(user => dispatch(receiveCurrentUser(user)));
 
-export const fetchUsers = () => dispatch =>
-  UserApiUtil.fetchUsers().then(users => dispatch(receiveAllUsers(users)));
+export const fetchUsers = () => dispatch =>{
+
+  return UserApiUtil.fetchUsers().then(users => dispatch(receiveAllUsers(users)));
+}
+
 export const fetchHashtags = () => dispatch =>
     UserApiUtil.fetchHashtags().then(hashtags => dispatch(receiveHashtags(hashtags)));
 
@@ -47,4 +55,8 @@ const receiveHashtags = hashtags => ({
 const receiveUser = user => ({
   type: RECEIVE_USER,
   payload: user
+});
+const receiveHashtag = hashtag => ({
+  type: RECEIVE_HASHTAG,
+  payload: hashtag
 });

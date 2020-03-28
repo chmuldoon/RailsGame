@@ -15,7 +15,6 @@ const NavBar = ({currentUserId,  logout, fetchUsers, fetchHashtags, fetchCurrent
     fetchHashtags();
 
   }, [fetchCurrentUser, fetchUsers, fetchHashtags]);
-  const [displayModal, toggleModal] = useState(false);
   debugger
   return (
     <Fragment>

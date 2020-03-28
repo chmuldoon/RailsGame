@@ -5,12 +5,14 @@ import {
   RECEIVE_ALL_USERS,
   RECEIVE_CURRENT_USER_DATA,
   RECEIVE_HASHTAGS,
+  RECEIVE_HASHTAG
 } from "../actions/user_actions";
 const initialState = {
   currentUser: null,
   profile: null,
   users: [],
   hashtags: [],
+  hashtag: null,
   loading: true,
   error: {}
 };
@@ -31,6 +33,12 @@ export default function(state = initialState, action) {
         users: payload,
         loading: false
       };
+    case RECEIVE_HASHTAG:
+      return {
+        ...state,
+        hashtag: payload,
+        loading: false,
+      }
     case RECEIVE_HASHTAGS:
       // debugger
       return {

@@ -24,9 +24,10 @@ export const fetchUserPosts = (id) => dispatch =>
     
 export const fetchFeed = () => dispatch =>
     PostApiUtil.fetchFeed().then(posts => dispatch(receiveFeed(posts)));
+
 export const fetchExplore = () => dispatch =>
   PostApiUtil.fetchExplore().then(posts => dispatch(receiveExplore(posts)));
-
+  
 export const fetchPostsByHashtag = (id) => dispatch =>
   PostApiUtil.fetchPostsByHashtag(id).then(posts => dispatch(receivePostsByHashtag(posts)));
 

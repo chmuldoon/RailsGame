@@ -10,6 +10,12 @@ export const fetchHashtags = () => {
     url: "/api/hashtags"
   })
 }
+export const fetchHashtag = (id) => {
+  return $.ajax({
+    method: "GET",
+    url: `/api/fetchhashtag/${id}`
+  });
+};
 
 export const fetchUser = id => {
   return $.ajax({

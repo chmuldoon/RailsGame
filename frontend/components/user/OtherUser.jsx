@@ -11,6 +11,7 @@ import PostShow from "../splash/PostShow";
 class OtherUser extends Component {
   constructor(props) {
     super(props);
+    this._isMounted
     this.fetchUser = this.props.fetchUser.bind(this);
     this.followUser = this.props.followUser.bind(this);
     this.unfollowUser = this.props.unfollowUser.bind(this);
@@ -23,36 +24,14 @@ class OtherUser extends Component {
     }
 
   }
-//   
-// 
-// 
-// 
-// 
-// 
-// TO DO
-// REFRESH USER POSTS
-// AND USER on post like
-//  has the gallery be profile.posts
-//  modal is from state. 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-//   
-  update(field) {
-    return e => {
-      this.setState({ [field]: e.target.value });
-      // this.fetchPost(this.props.post.id)
-    };
+  update(form) {
+    if(this._isMounted){
+      this.setState(form)
+    }
   }
 
   componentDidMount() {
-    
+    this._isMounted = true;
     this.fetchUser(parseInt(this.props.match.params.id));
     this.fetchUserPosts(parseInt(this.props.match.params.id));
     setTimeout(() => this.setState({...this.state, isLoading: true}), 1000);
@@ -62,9 +41,12 @@ class OtherUser extends Component {
     if(parseInt(this.props.match.params.id) !== parseInt(prevProps.match.params.id)){
       this.fetchUser(parseInt(this.props.match.params.id));
       this.fetchUserPosts(parseInt(this.props.match.params.id));
-      setTimeout(() => this.setState({ ...this.state, isLoading: true }), 1000);
+      // setTimeout(() => this.setState({ ...this.state, isLoading: true }), 1000);
 
     }
+  }
+  componentWillUnmount(){
+    this._isMounted = false;
   }
   render() {
     const { profile, currentUser, loading, posts, postsIdx } = this.props;
@@ -80,7 +62,6 @@ class OtherUser extends Component {
     let extras = space.map(spot => (
       <div className="gallery-item" tabindex="0"></div>
     ));
-    debugger
     return (
       <Fragment>
         {!this.state.isLoading && (
@@ -96,11 +77,16 @@ class OtherUser extends Component {
           >
             <i
               className="fab fa-instagram"
-              style={{ color: "gray", fontSize: "80px", marginLeft: "48%", marginTop: "150px" }}
+              style={{
+                color: "gray",
+                fontSize: "80px",
+                marginLeft: "48%",
+                marginTop: "150px"
+              }}
             ></i>
           </div>
         )}
-        
+
         {currentUser && profile && !loading ? (
           <Fragment>
             <div className="user-page">
@@ -177,42 +163,66 @@ class OtherUser extends Component {
                 </div>
               </div>
               <div className="posts-section">
-                <div className="gallery">
+                <div className="Explore-Whole">
                   {postsIdx.map(postIdx => (
-                    <div className="gallery-item" tabindex="0">
-                      <img src={posts[postIdx].photoUrl} className="gallery-image" alt="" />
-
-                      <div
-                        className="gallery-item-info"
-                        onClick={() =>
-                          this.setState({
-                            CurrentPost: postIdx,
-                            displayModal: true
-                          })
-                        }
-                      >
-                        <ul>
-                          <li className="gallery-item-likes">
-                            <span className="visually-hidden">Likes:</span>
-                            <i
-                              className="fas fa-heart"
-                              aria-hidden="true"
-                            ></i>{" "}
-                            {posts[postIdx].comments.length}
-                          </li>
-                          <li className="gallery-item-comments">
-                            <span className="visually-hidden">Comments:</span>
-                            <i
-                              className="fas fa-comment"
-                              aria-hidden="true"
-                            ></i>{" "}
-                            {posts[postIdx].likeCount}
-                          </li>
-                        </ul>
+                    <div
+                      className="Explore-Post"
+                      onClick={() =>
+                        this.setState({
+                          displayModal: true,
+                          CurrentPost: posts[postIdx].id
+                        })
+                      }
+                    >
+                      <div className="Overlay" id="profile">
+                        <p style={{ zIndex: 8 }}>
+                          {posts[postIdx].likeCount}{" "}
+                          <i className="fas fa-heart" />
+                          {posts[postIdx].comments.length}
+                          {"  "} <i className="fas fa-comment"></i>
+                        </p>
                       </div>
+                      <img
+                        width="292px"
+                        height="292x"
+                        src={posts[postIdx].photoUrl}
+                      />
+                      {/* <img src={post.photoUrl} /> */}
                     </div>
+                    // <div className="gallery-item" tabindex="0">
+                    //   <img src={posts[postIdx].photoUrl} className="gallery-image" alt="" />
+
+                    //   <div
+                    //     className="gallery-item-info"
+                    //     onClick={() =>
+                    //       this.update({
+                    //         CurrentPost: postIdx,
+                    //         displayModal: true
+                    //       })
+                    //     }
+                    //   >
+                    //     <ul>
+                    //       <li className="gallery-item-likes">
+                    //         <span className="visually-hidden">Likes:</span>
+                    //         <i
+                    //           className="fas fa-heart"
+                    //           aria-hidden="true"
+                    //         ></i>{" "}
+                    //         {posts[postIdx].likeCount}
+
+                    //       </li>
+                    //       <li className="gallery-item-comments">
+                    //         <span className="visually-hidden">Comments:</span>
+                    //         <i
+                    //           className="fas fa-comment"
+                    //           aria-hidden="true"
+                    //         ></i>{" "}
+                    //         {posts[postIdx].comments.length}
+                    //       </li>
+                    //     </ul>
+                    //   </div>
+                    // </div>
                   ))}
-                  {extras}
                 </div>
               </div>
             </div>
@@ -224,7 +234,7 @@ class OtherUser extends Component {
           <div
             className="modal-background"
             onClick={() =>
-              this.setState({ CurrentPost: null, displayModal: false })
+              this.update({ CurrentPost: null, displayModal: false })
             }
           >
             <div
@@ -238,7 +248,7 @@ class OtherUser extends Component {
               {postsIdx.indexOf(this.state.CurrentPost) !== 0 && (
                 <i
                   onClick={() =>
-                    this.setState({
+                    this.update({
                       CurrentPost:
                         postsIdx[postsIdx.indexOf(this.state.CurrentPost) - 1],
                       displayModal: true
@@ -263,7 +273,7 @@ class OtherUser extends Component {
                 postsIdx.length - 1 && (
                 <i
                   onClick={() =>
-                    this.setState({
+                    this.update({
                       CurrentPost:
                         postsIdx[postsIdx.indexOf(this.state.CurrentPost) + 1],
                       displayModal: true
