@@ -111,6 +111,10 @@ const PostShow = ({
         });
   return (
     <Fragment>
+        <title>
+          {` (@${username}) • Clonestagram Profile`}{" "}
+        </title>
+  
       {id && hashtags ? (
         <IndexItem>
           <PostImage src={photoUrl} />
@@ -173,7 +177,7 @@ const PostShow = ({
               </p>
               {parseTimeSince(postedAt)}
             </LowerSection>
-              <Comment kind={kind} postId={id} style={{ bottom: "0" }} />
+            <Comment kind={kind} postId={id} style={{ bottom: "0" }} />
           </SideBox>
         </IndexItem>
       ) : (

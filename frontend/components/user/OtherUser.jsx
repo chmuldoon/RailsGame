@@ -64,6 +64,7 @@ class OtherUser extends Component {
     ));
     return (
       <Fragment>
+        <title>{`(@${profile.username}) • Clonestagram Profile`} </title>
         {!this.state.isLoading && (
           <div
             style={{
@@ -89,6 +90,9 @@ class OtherUser extends Component {
 
         {currentUser && profile && !loading ? (
           <Fragment>
+            <title>
+              <title>{`(@${profile.username}) • Clonestagram Profile`} </title>
+            </title>
             <div className="user-page">
               <div className="UserProfile">
                 <div className="profile">

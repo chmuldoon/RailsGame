@@ -21,6 +21,8 @@ const PostIndex = ({index, fetchUsers, fetchFeed, fetchAllPosts, posts}) => {
   )
   return (
     <Fragment>
+      <title>Clonestagram</title>
+
       {!isLoading && (
         <div
           style={{
@@ -46,10 +48,13 @@ const PostIndex = ({index, fetchUsers, fetchFeed, fetchAllPosts, posts}) => {
       <div style={{ display: "flex" }}>
         {index.length === 0 ? (
           <Fragment>
-            <h1>Your feed is empty 😭</h1>
-            <h2>Make a post or find some people to follow</h2>
-            <h2>using the explore tab or search bar</h2>
-            <NewPostContainer margin={0} />
+            <div className="NoPosts">
+              <div style={{ marginTop: "400px" }}>
+                Your feed is empty 😭 Make a post or find some people to follow
+                using the explore tab or search bar
+              </div>
+              <NewPostContainer margin={0} />
+            </div>
           </Fragment>
         ) : (
           <Fragment>

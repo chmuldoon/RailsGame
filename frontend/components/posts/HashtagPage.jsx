@@ -71,6 +71,7 @@ class HashtagPage extends Component {
     ));
     return (
       <Fragment>
+        <title>{`${hashtag.content} hashtag`}</title>
         {!this.state.isLoading && (
           <div
             style={{

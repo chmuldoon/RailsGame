@@ -54,6 +54,7 @@ const Hashtag = ({ match, explore, hashtag, loading, exploreIdx, fetchPostsByHas
   debugger
   return (
     <Fragment>
+      <title>`${hashtag.hashtag.content} hashtag`</title>
       {explore && hashtag ? (
         <Fragment>
           <div className="user-page">
@@ -67,7 +68,7 @@ const Hashtag = ({ match, explore, hashtag, loading, exploreIdx, fetchPostsByHas
             >
               {hashtag.hashtag.content}
             </p>
-            <div >
+            <div>
               {/* className="gallery" */}
               <div style={{ display: "flex", flexWrap: "wrap" }}>
                 <div>

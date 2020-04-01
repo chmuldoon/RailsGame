@@ -19,9 +19,10 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
   let displayGallery = exploreIdx.map(idx => (
     <div
       className="Explore-Post"
-      onClick={() =>
-        this.setState({ displayModal: true, CurrentPost: explore[idx].id })
-      }
+      onClick={() => {
+        toggleModal(!displayModal)
+        setCurrentPost(idx)
+      }}
     >
       <div className="Overlay" id="profile">
         <p style={{ zIndex: 8 }}>
@@ -71,6 +72,7 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
   ));
   return (
     <Fragment>
+      <title>Explore!</title>
       {!isLoading && (
         <div
           style={{
@@ -100,8 +102,6 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
         <div className="suggestedUsers">
           {exploreProfiles.length ? (
             exploreProfiles.map(user => (
-
-
               <div className="suggestedUser">
                 <Link to={`/users/${user.id}`}>
                   <ProfilePhoto
@@ -153,9 +153,7 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
         {/* className="posts-section" */}
         <div>
           {/* className="gallery" */}
-          <div className="Explore-Whole">
-            {displayGallery}
-          </div>
+          <div className="Explore-Whole">{displayGallery}</div>
         </div>
       </div>
       {displayModal && (

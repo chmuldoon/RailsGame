@@ -59,6 +59,7 @@ export class EditUser extends Component {
     // debugger
     return (
       <div className="EditUserForm">
+      <title>Edit Profile</title>
         <form className="EditUserFormForm" onSubmit={this.handleSubmit}>
           <div className="EditUserFormPhoto">
             <div className="EditUserFormPhotoButton">
