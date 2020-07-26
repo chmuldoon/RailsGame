@@ -2,14 +2,16 @@ import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import UserProfile from './UserProfile'
-import { fetchUserPosts } from '../../actions/post_actions'
+import { fetchUserPosts, clearPosts } from '../../actions/post_actions'
 import { fetchUser } from '../../actions/user_actions'
-const CurrentUser = ({userId}) => {
+const CurrentUser = ({userId, fetchUser, clearPosts, fetchUserPosts}) => {
   useEffect(() => {
     debugger
     fetchUser(userId)
     fetchUserPosts(userId)
-
+    return () => {
+      clearPosts()
+    }
   })
   return (
     <Fragment>
@@ -31,4 +33,4 @@ const mapStateToProps = state => {
 };
 
 
-export default connect(mapStateToProps, {fetchUser, fetchUserPosts})(CurrentUser)
+export default connect(mapStateToProps, {fetchUser, fetchUserPosts, clearPosts})(CurrentUser)

@@ -24,6 +24,12 @@ export const fetchUserPosts = (id) => dispatch =>
     
 export const fetchFeed = () => dispatch =>
     PostApiUtil.fetchFeed().then(posts => dispatch(receiveFeed(posts)));
+export const clearPosts = () => dispatch => {
+  return dispatch({
+    type: RECEIVE_ALL_POSTS,
+    payload: []
+  });
+}
 
 export const fetchExplore = () => dispatch =>
   PostApiUtil.fetchExplore().then(posts => dispatch(receiveExplore(posts)));

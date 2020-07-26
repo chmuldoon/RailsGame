@@ -1,18 +1,18 @@
 import React, { useEffect, Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetchExplore } from '../../actions/post_actions'
+import { fetchExplore, clearPosts } from '../../actions/post_actions'
 import { ProfilePhoto } from '../splash/PostIndexItem'
 import { followUser, unfollowUser } from '../../actions/user_actions'
 import { Link } from 'react-router-dom'
 import CurrentUser from '../user/CurrentUser'
 import PostShow from '../splash/PostShow'
-const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUser, followUser}) => {
-  const [isLoading, setIsLoading] = useState(false)
+const Explore = ({explore, exploreIdx, clearPosts, exploreProfiles, fetchExplore, unfollowUser, followUser}) => {
   useEffect(() => {
     fetchExplore();
-    setTimeout(() => setIsLoading(true), 2500);
-
+    return () => {
+      clearPosts()
+    }
   }, [fetchExplore]);
   const [displayModal, toggleModal] = useState(false);
   const [CurrentPost, setCurrentPost] = useState(null);
@@ -73,28 +73,7 @@ const Explore = ({explore, exploreIdx, exploreProfiles, fetchExplore, unfollowUs
   return (
     <Fragment>
       <title>Explore!</title>
-      {!isLoading && (
-        <div
-          style={{
-            zIndex: "3",
-            position: "fixed",
-            backgroundColor: "#ececec",
-            width: "100%",
-            height: "120%",
-            justifyContent: "center"
-          }}
-        >
-          <i
-            className="fab fa-instagram"
-            style={{
-              color: "gray",
-              fontSize: "80px",
-              marginLeft: "48%",
-              marginTop: "150px"
-            }}
-          ></i>
-        </div>
-      )}
+
       <div className="user-page">
         <p style={{ fontWeight: "500", fontSize: "48px", marginTop: "30px" }}>
           Explore Users
@@ -232,4 +211,9 @@ const mapStateToProps = state => {
 }
 };
 
-export default connect(mapStateToProps, { fetchExplore, followUser, unfollowUser })(Explore)
+export default connect(mapStateToProps, {
+  fetchExplore,
+  clearPosts,
+  followUser,
+  unfollowUser,
+})(Explore);

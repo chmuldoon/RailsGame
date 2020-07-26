@@ -4,16 +4,19 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PostIndexItem from "./PostIndexItem";
 import { connect } from "react-redux";
-import { fetchAllPosts, fetchFeed } from "../../actions/post_actions";
+import { fetchAllPosts, fetchFeed, clearPosts } from "../../actions/post_actions";
 import NewPostContainer from "../posts/NewPostContainer";
 import { fetchUsers } from "../../actions/user_actions";
-const PostIndex = ({index, fetchUsers, fetchFeed, fetchAllPosts, posts}) => {
+const PostIndex = ({index, fetchUsers, clearPosts, fetchFeed, fetchAllPosts, posts}) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchAllPosts()
     fetchUsers()
     setTimeout(() => setIsLoading(true), 700);
+    return () => {
+      clearPosts()
+    }
 
   },[fetchFeed])
   let thePosts = index.map(key =>
@@ -79,4 +82,4 @@ const mapStateToProps = state => ({
     .reverse(),
   posts: state.entities.posts.posts
 });
-export default connect( mapStateToProps, {fetchAllPosts, fetchUsers, fetchFeed} )(PostIndex);
+export default connect( mapStateToProps, {fetchAllPosts, fetchUsers, clearPosts, fetchFeed} )(PostIndex);

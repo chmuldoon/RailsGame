@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import UserProfile from "./UserProfile";
-import { fetchUserPosts } from "../../actions/post_actions";
+import { fetchUserPosts, clearPosts } from "../../actions/post_actions";
 import { fetchUser, unfollowUser, followUser } from "../../actions/user_actions";
 import React, { Component, Fragment, useState } from 'react'
 import { Link, withRouter } from 'react-router-dom';
@@ -13,6 +13,8 @@ class OtherUser extends Component {
     super(props);
     this._isMounted
     this.fetchUser = this.props.fetchUser.bind(this);
+    this.clearPosts = this.props.clearPosts.bind(this);
+
     this.followUser = this.props.followUser.bind(this);
     this.unfollowUser = this.props.unfollowUser.bind(this);
     this.fetchUserPosts = this.props.fetchUserPosts.bind(this);
@@ -46,6 +48,7 @@ class OtherUser extends Component {
     }
   }
   componentWillUnmount(){
+    this.clearPosts()
     this._isMounted = false;
   }
   render() {
@@ -193,39 +196,6 @@ class OtherUser extends Component {
                       />
                       {/* <img src={post.photoUrl} /> */}
                     </div>
-                    // <div className="gallery-item" tabindex="0">
-                    //   <img src={posts[postIdx].photoUrl} className="gallery-image" alt="" />
-
-                    //   <div
-                    //     className="gallery-item-info"
-                    //     onClick={() =>
-                    //       this.update({
-                    //         CurrentPost: postIdx,
-                    //         displayModal: true
-                    //       })
-                    //     }
-                    //   >
-                    //     <ul>
-                    //       <li className="gallery-item-likes">
-                    //         <span className="visually-hidden">Likes:</span>
-                    //         <i
-                    //           className="fas fa-heart"
-                    //           aria-hidden="true"
-                    //         ></i>{" "}
-                    //         {posts[postIdx].likeCount}
-
-                    //       </li>
-                    //       <li className="gallery-item-comments">
-                    //         <span className="visually-hidden">Comments:</span>
-                    //         <i
-                    //           className="fas fa-comment"
-                    //           aria-hidden="true"
-                    //         ></i>{" "}
-                    //         {posts[postIdx].comments.length}
-                    //       </li>
-                    //     </ul>
-                    //   </div>
-                    // </div>
                   ))}
                 </div>
               </div>
@@ -319,6 +289,7 @@ const msp = (state, ownProps) => {
 
 const mdp = dispatch => ({
   fetchUser: id => dispatch(fetchUser(id)),
+  clearPosts: () => dispatch(clearPosts()),
   followUser: id => dispatch(followUser(id)),
   unfollowUser: id => dispatch(unfollowUser(id)),
   fetchUserPosts: (id) => dispatch(fetchUserPosts(id))
